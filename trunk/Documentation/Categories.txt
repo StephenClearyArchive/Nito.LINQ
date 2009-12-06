@@ -1,0 +1,243 @@
+Operators for IEnumerable<T> lifted from List<T>/Array:
+  int IndexOf<T>(this IEnumerable<T> source, T value)
+  int IndexOf<T>(this IEnumerable<T> source, Func<T, bool> predicate) // List<T>.FindIndex
+  int LastIndexOf<T>(this IEnumerable<T> source, T value)
+  int LastIndexOf<T>(this IEnumerable<T> source, Func<T, bool> predicate) // List<T>.FindLastIndex
+
+Operators for IList<T> lifted from List<T>/Array:
+  IList<T> AsReadOnly<T>(this IList<T> list)
+  void CopyTo<T>(this IList<T> list, int index, IList<T> destination, int destinationIndex, int count)
+  void CopyTo<T>(this IList<T> list, IList<T> destination, int destinationIndex)
+  void CopyTo<T>(this IList<T> list, IList<T> destination)
+  int LastIndexOf<T>(this IList<T> list, T value)
+  int LastIndexOf<T>(this IList<T> list, Func<T, bool> predicate) // List<T>.FindLastIndex
+  // List<T>.Reverse is *not* included
+
+Operators optimized for IList<T> from Enumerable (.NET 3.5):
+  IList<T> AsList<T>(this IList<T> list)
+  IList<T> Empty<T>()
+  IList<TResult> Select<TSource, TResult>(this IList<TSource> list, Func<TSource, TResult> selector)
+  IList<TResult> Select<TSource, TResult>(this IList<TSource> list, Func<TSource, int, TResult> selector)
+  IList<T> Skip<T>(this IList<T> list, int offset)
+  IList<T> Take<T>(this IList<T> list, int count)
+  IList<T> Reverse<T>(this IList<T> list) // Enumerable.Reverse
+  T Last(this IList<T> list, Func<T, bool> selector)
+  T LastOrDefault(this IList<T> list, Func<T, bool> selector)
+ Unnecessary:
+  Cast - use Select instead
+  Count - already tests for ICollection<T> implementation
+  ElementAt - already tests for IList<T> implementation
+  T Last(this IList<T> list) - already tests for IList<T> implementation
+  T LastOrDefault(this IList<T> list) - already tests for IList<T> implementation
+  List<T> ToList(this IList<T> list) - already tests for IList<T> implementation
+  T[] ToArray(this IList<T> list) - already tests for IList<T> implementation
+
+Operators optimized for IList<T> from EnumerableEx (Rx):
+  IList<T> Repeat<T>(this IList<T> list, int count)
+  IList<TResult> Zip<TFirst, TSecond, TResult>(this IList<TFirst> first, IList<TSecond> second, Func<TFirst, TSecond, TResult> zipper)
+  IList<T> Memoize<T>(this IList<T> list)
+  IList<T> MemoizeAll<T>(this IList<T> list)
+
+Sources optimized for IList<T> from EnumerableEx (Rx):
+  IList<T> Return<T>(T source)
+  IList<T> Repeat<T>(T source, int count)
+  IList<T> Concat<T>(this IList<T> first, params IList<T>[] others)
+  IList<T> Concat<T>(this IList<IList<T>> lists)
+  IList<T> Generate<T>(int count, Func<T> generator)
+  IList<T> Generate<T>(int count, Func<int, T> generator)
+
+My own sequence/list operators:
+ Zip (3-argument version):
+  IEnumerable<TResult> Zip<TFirst, TSecond, TThird, TResult>(this IEnumerable<TFirst> first, IEnumerable<TSecond> second, IEnumerable<TThird> third, Func<TFirst, TSecond, TThird, TResult> zipper)
+  IList<TResult> Zip<TFirst, TSecond, TThird, TResult>(this IList<TFirst> first, IList<TSecond> second, IList<TThird> third, Func<TFirst, TSecond, TThird, TResult> zipper)
+ Flatten:
+  IEnumerable<T> Flatten<T>(this IEnumerable<IEnumerable<T>> list)
+  IList<T> FlattenList<T>(this IList<IList<T>> list)
+ Select (bidirectional projection):
+  IList<TResult> Select<TSource, TResult>(this IList<TSource> list, Func<TSource, TResult> selector, Func<TResult, TSource> reverseSelector)
+ Slice:
+  IList<T> Slice<T>(this IList<T> list, int offset, int count)
+  IList<T> Step<T>(this IList<T> list, int step)
+ Rotate:
+  IEnumerable<T> Rotate<T>(this IEnumerable<T> source, int offset)
+  IList<T> Rotate<T>(this IList<T> list, int offset)
+ CopyBackward:
+  void CopyBackward<T>(this IList<T> list, int index, IList<T> destination, int destinationIndex, int count)
+ Min/Max:
+  int IndexOfMin<T>(this IEnumerable<T> source, IComparer<T> comparer)
+  int IndexOfMin<T>(this IEnumerable<T> source)
+  int IndexOfMax<T>(this IEnumerable<T> source, IComparer<T> comparer)
+  int IndexOfMax<T>(this IEnumerable<T> source)
+  T Min<T>(this IEnumerable<T> source, IComparer<T> comparer)
+  T Max<T>(this IEnumerable<T> source, IComparer<T> comparer)
+ RandomShuffle:
+  void RandomShuffle<T>(this IList<T> list, Func<int, int> randomNumberGenerator, params ISwappable[] others)
+  void RandomShuffle<T>(this IList<T> list, Random randomNumberGenerator, params ISwappable[] others)
+  void RandomShuffle<T>(this IList<T> list, params ISwappable[] others)
+  IList<T> RandomShuffleIndirect<T>(this IList<T> list, Func<int, int> randomNumberGenerator, params ISwappable[] others)
+  IList<T> RandomShuffleIndirect<T>(this IList<T> list, Random randomNumberGenerator, params ISwappable[] others)
+  IList<T> RandomShuffleIndirect<T>(this IList<T> list, params ISwappable[] others)
+ Comparing Sequences:
+  LexicographicalComparer<T>
+ Swap (used for keeping other lists in sync when rearranging a source list in-place, e.g., Sort, RandomShuffle, etc.)
+  ISwappable AsSwappable<T>(this IList<T> source)
+
+Sorted IList<T>:
+ Sorting/Declaring as Sorted:
+  bool IsSorted<T>(this IEnumerable<T> source)
+  bool IsSorted<T>(this IEnumerable<T> source, IComparer<T> comparer)
+  ISortedList<T> AsSortedList<T>(this ISortedList<T> list)
+  ISortedList<T> AsSorted<T>(this IList<T> list, IComparer<T> comparer)
+  ISortedList<T> AsSorted<T>(this IList<T> list)
+  ISortedList<T> ToSortedList<T>(this ISortedEnumerable<T> source)
+  ISortedList<T> Empty<T>(IComparer<T> comparer)
+  ISortedList<T> Empty<T>()
+  ISortedList<T> Return<T>(T source, IComparer<T> comparer)
+  ISortedList<T> Return<T>(T source)
+  ISortedList<T> Repeat<T>(T source, IComparer<T> comparer, int count)
+  ISortedList<T> Repeat<T>(T source, int count)
+  ISortedList<T> Sort<T>(this IList<T> list, IComparer<T> comparer, params ISwappable[] others) // Note: sorts the source, not a copy
+  ISortedList<T> SortIndirect<T>(this IList<T> list, IComparer<T> comparer, params ISwappable[] others)
+  ISortedList<T> Sort<T>(this IList<T> list, params ISwappable[] others) // Note: sorts the source, not a copy
+  ISortedList<T> SortIndirect<T>(this IList<T> list, params ISwappable[] others)
+ Note: All operators returning ISortedList<T> return a type that implements IList<T>.IndexOf and IList<T>.Contains as binary searches
+ Searching:
+  int BinarySearch<T>(this ISortedList<T> list, T item)
+  int BinarySearch<T>(this ISortedList<T> list, Func<T, int> finder)
+  int LowerBound<T>(this ISortedList<T> list, T item)
+  int LowerBound<T>(this ISortedList<T> list, Func<T, int> finder)
+  int UpperBound<T>(this ISortedList<T> list, T item)
+  int UpperBound<T>(this ISortedList<T> list, Func<T, int> finder)
+  void EqualRange<T>(this ISortedList<T> list, T item, out int begin, out int end)
+  void EqualRange<T>(this ISortedList<T> list, Func<T, int> finder, out int begin, out int end)
+  bool Contains<T>(this ISortedList<T> list, Func<T, int> finder)
+  int IndexOf<T>(this ISortedList<T> list, Func<T, int> finder)
+  int LastIndexOf<T>(this ISortedList<T> list, Func<T, int> finder)
+  int LastIndexOf<T>(this ISortedList<T> list, T item)
+ Sort-Preserving Operations:
+  ISortedList<T> Reverse<T>(this ISortedList<T> list)
+  ISortedList<T> Memoize<T>(this ISortedList<T> list)
+  ISortedList<T> MemoizeAll<T>(this ISortedList<T> list)
+  ISortedList<T> Skip<T>(this ISortedList<T> list, int offset)
+  ISortedList<T> Slice<T>(this ISortedList<T> list, int offset, int count)
+  ISortedList<T> Step<T>(this ISortedList<T> list, int step)
+  ISortedList<T> Take<T>(this ISortedList<T> list, int count)
+ Sort-Specific Operations:
+  int Insert(this ISortedList<T> source, T item)
+
+Sorted IEnumerable<T>:
+ Declaring as Sorted:
+  ISortedEnumerable<T> AsSortedEnumerable<T>(this ISortedEnumerable<T> source)
+  ISortedEnumerable<T> AsSorted<T>(this IEnumerable<T> source, IComparer<T> comparer)
+  ISortedEnumerable<T> AsSorted<T>(this IEnumerable<T> source)
+  ISortedEnumerable<T> Empty<T>(IComparer<T> comparer)
+  ISortedEnumerable<T> Empty<T>()
+  ISortedEnumerable<T> Return<T>(T source, IComparer<T> comparer)
+  ISortedEnumerable<T> Return<T>(T source)
+  ISortedEnumerable<T> Repeat<T>(T source, IComparer<T> comparer, int count)
+  ISortedEnumerable<T> Repeat<T>(T source, int count)
+  ISortedEnumerable<T> Repeat<T>(T source, IComparer<T> comparer)
+  ISortedEnumerable<T> Repeat<T>(T source)
+ Searching:
+  int LowerBound<T>(this ISortedEnumerable<T> source, T item)
+  int LowerBound<T>(this ISortedEnumerable<T> source, Func<T, int> finder)
+  int UpperBound<T>(this ISortedEnumerable<T> source, T item)
+  int UpperBound<T>(this ISortedEnumerable<T> source, Func<T, int> finder)
+  void EqualRange<T>(this ISortedEnumerable<T> source, T item, out int begin, out int end)
+  void EqualRange<T>(this ISortedEnumerable<T> source, Func<T, int> finder, out int begin, out int end)
+  bool Contains<T>(this ISortedEnumerable<T> source, Func<T, int> finder)
+  bool Contains<T>(this ISortedEnumerable<T> source, T item)
+  int IndexOf<T>(this ISortedEnumerable<T> source, Func<T, int> finder)
+  int IndexOf<T>(this ISortedEnumerable<T> source, T item)
+  int LastIndexOf<T>(this ISortedEnumerable<T> source, Func<T, int> finder)
+  int LastIndexOf<T>(this ISortedEnumerable<T> source, T item)
+ Sort-Preserving Operations:
+  ISortedEnumerable<T> Memoize<T>(this ISortedEnumerable<T> list)
+  ISortedEnumerable<T> MemoizeAll<T>(this ISortedEnumerable<T> list)
+  ISortedEnumerable<T> Skip<T>(this ISortedEnumerable<T> list, int offset)
+  ISortedEnumerable<T> Step<T>(this ISortedEnumerable<T> list, int step)
+  ISortedEnumerable<T> Take<T>(this ISortedEnumerable<T> list, int count)
+ Sort-Specific Operations:
+  ISortedEnumerable<T> Distinct<T>(this ISortedEnumerable<T> source)
+  ISortedEnumerable<T> MergeSorted<T>(this ISortedEnumerable<T> source, params ISortedEnumerable<T>[] others)
+  ISortedEnumerable<T> MergeSorted<T>(this IEnumerable<ISortedEnumerable<T>> sources)
+  ISortedEnumerable<T> MergeSorted<T>(this ISortedEnumerable<T> source, params T[] values)
+  ISortedEnumerable<T> Union<T>(this ISortedEnumerable<T> source, params ISortedEnumerable<T>[] others)
+  ISortedEnumerable<T> UnionWithDuplicates<T>(this ISortedEnumerable<T> source, params ISortedEnumerable<T>[] others)
+  ISortedEnumerable<T> Union<T>(this IEnumerable<ISortedEnumerable<T>> sources)
+  ISortedEnumerable<T> UnionWithDuplicates<T>(this IEnumerable<ISortedEnumerable<T>> sources)
+  ISortedEnumerable<T> Union<T>(this ISortedEnumerable<T> source, params T[] values)
+  ISortedEnumerable<T> UnionWithDuplicates<T>(this ISortedEnumerable<T> source, params T[] values)
+  ISortedEnumerable<T> Intersect(this ISortedEnumerable<T> source, params ISortedEnumerable<T>[] others)
+  ISortedEnumerable<T> IntersectWithDuplicates(this ISortedEnumerable<T> source, params ISortedEnumerable<T>[] others)
+  ISortedEnumerable<T> Intersect(this IEnumerable<ISortedEnumerable<T>> sources)
+  ISortedEnumerable<T> IntersectWithDuplicates(this IEnumerable<ISortedEnumerable<T>> sources)
+  ISortedEnumerable<T> Except(this ISortedEnumerable<T> source, ISortedEnumerable<T> other)
+  ISortedEnumerable<T> ExceptWithDuplicates(this ISortedEnumerable<T> source, ISortedEnumerable<T> other)
+
+TODO:
+. Review Python generators and C++ algorithms to see if we're missing anything.
+  . C++: adjacent_find, mismatch/search/search_n/find_end, random_shuffle, random_sample/random_sample_n, partition, stable_partition, stable_sort, partial_sort/partial_sort_copy/nth_element, includes, set_symmetric_difference, next_permutation/prev_permutation, inner_product?
+. Conceptual documentation: views vs. in-place operations (Insert vs MergeSorted, Sort)
+  . SortIndirect, RandomShuffleIndirect
+. Document which operators may (partially) evaluate their sources
+. Conceptual documentation: Set operations, Merging sorted sequences (Union vs UnionWithDuplicates vs Merge vs MergeSorted vs Insert vs InsertIndirect)
+. Document: InPlace operators (Sort, RandomShuffle) are only permitted due to ISwappable[] needs. Any operators that don't need ISwappable[] are not InPlace (e.g., Reverse, Rotate).
+
+C++:
+for_each -> Run (Rx)
+find, find_if, find_first_of -> IndexOf (Me), First (.NET)
+count, count_if -> Count (.NET)
+equal -> SequenceEqual (.NET)
+copy, copy_n -> CopyTo (Me)
+copy_backward -> CopyBackward (Me)
+transform -> Select (.NET, Me), Zip (Rx)
+replace, replace_if, replace_copy, replace_copy_if -> Select (.NET)
+fill, fill_n -> Repeat (Rx)
+generate, generate_n -> Generate (Rx)
+remove, remove_if, remove_copy, remove_copy_if -> Where (.NET)
+unique, unique_copy -> Distinct (Me)
+reverse, reverse_copy -> Reverse (Me)
+lower_bound -> LowerBound (Me)
+upper_bound -> UpperBound (Me)
+equal_range -> EqualRange (Me)
+binary_search -> BinarySearch (Me)
+merge -> MergeSorted (Me)
+set_union -> UnionWithDuplicates (Me)
+set_intersection -> IntersectWithDuplicates (Me)
+set_difference -> ExceptWithDuplicates (Me)
+min_element -> IndexOfMin (Me)
+max_element -> IndexOfMax (Me)
+iota -> Range (.NET)
+accumulate -> Aggregate (.NET)
+partial_sum, adjacent_difference -> Scan (Rx)
+lexicographical_compare, lexicographical_compare_3way -> LexicographicalComparer (Me)
+rotate, rotate_copy -> Rotate (Me)
+is_sorted -> IsSorted (Me)
+sort -> Sort (Me)
+
+
+Rx adds (for IEnumerable):
+ Catch, Throw, Finally, OnErrorResumeNext, Retry - allow sequences to throw exceptions, or continue with other sequences when exceptions are thrown
+ Concat - with params argument (not an extension method)
+ Defer - acts as a sequence that isn't defined until it's enumerated
+ Do - Tee
+ Generate - uses delegates to generate a sequence, optionally with state, a terminating function, at each state yielding either a single value or an entire sequence
+ Let
+ Memoize - remembers enumerated elements of the sequence
+ MemoizeAll - enumerates every element of the sequence
+ Prune - ?
+ Publish - MemoizeAll and then invoke a delegate (optionally with StartWith)
+ Remotable - A [Serializable] holder of a MarshalByRefObject wrapper around the original sequence
+ Repeat
+ Replay - ?
+ Return - Yields a single value
+ Run - Enumerates the entire sequence, optionally with a side-effect function
+ Scan - Executes an accumulator function over the entire sequence, optionally with a seed
+ SelectMany - Repeats another sequence once for each element in this sequence
+ Share - Converts a sequence into a thread-safe sequence (allowing multiple threads to share the same IEnumerator)
+ StartWith - Prepends a value onto a sequence
+ Using - Like Generate, but creates the sequence from an IDisposable resource which is disposed when the sequence is finished (regardless of whether it throws)
+ Zip
+Rx observable-like operations for IEnumerable: Amb, Asynchronous, Merge, Synchronize
+Dematerialize, Materialize - Converts OnNext/OnError/OnDone -> OnNext, OnNext -> OnNext/OnError/OnDone (helpful for implementing operators)

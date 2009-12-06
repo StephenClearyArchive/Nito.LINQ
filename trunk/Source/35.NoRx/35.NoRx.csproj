@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{63C2D5C8-063B-417F-B612-A8B9FBA69856}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>_35.NoRx</RootNamespace>
+    <AssemblyName>Nito.Linq</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkSubset>Client</TargetFrameworkSubset>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Sources\AnonymousComparer.cs">
+      <Link>AnonymousComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\EnumerableExtensions.cs">
+      <Link>EnumerableExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Implementation.ListBase.cs">
+      <Link>Implementation.ListBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Implementation.ListHelper.cs">
+      <Link>Implementation.ListHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Implementation.ReadOnlyListBase.cs">
+      <Link>Implementation.ReadOnlyListBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\IndirectList.cs">
+      <Link>IndirectList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\LexicographicalComparer.cs">
+      <Link>LexicographicalComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\LinkedListExtensions.cs">
+      <Link>LinkedListExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.ConcatList.cs">
+      <Link>ListExtensions.ConcatList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.cs">
+      <Link>ListExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.GenerateList.cs">
+      <Link>ListExtensions.GenerateList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.MemoizeList.cs">
+      <Link>ListExtensions.MemoizeList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.ProjectList.cs">
+      <Link>ListExtensions.ProjectList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.ReadWriteProjectList.cs">
+      <Link>ListExtensions.ReadWriteProjectList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.RepeatList.cs">
+      <Link>ListExtensions.RepeatList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.ReverseList.cs">
+      <Link>ListExtensions.ReverseList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.SliceList.cs">
+      <Link>ListExtensions.SliceList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.StepList.cs">
+      <Link>ListExtensions.StepList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.Swappable.cs">
+      <Link>ListExtensions.Swappable.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.ValueList.cs">
+      <Link>ListExtensions.ValueList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\NoRx\EnumerableEx.cs">
+      <Link>EnumerableEx.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Properties\AssemblySharedInfo.cs">
+      <Link>Properties\AssemblySharedInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Properties\AssemblyVersion.cs">
+      <Link>Properties\AssemblyVersion.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\SortedEnumerableExtensions.cs">
+      <Link>SortedEnumerableExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\SortedListExtensions.cs">
+      <Link>SortedListExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\StringExtensions.cs">
+      <Link>StringExtensions.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

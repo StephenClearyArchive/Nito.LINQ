@@ -1,0 +1,146 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F3E89C71-DD57-4C2C-BCFC-732E89C7F0F9}</ProjectGuid>
+    <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SL3.NoRx</RootNamespace>
+    <AssemblyName>Nito.Linq</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>Bin\Release\Nito.Linq.XML</DocumentationFile>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Windows" />
+    <Reference Include="mscorlib" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Browser" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Sources\AnonymousComparer.cs">
+      <Link>AnonymousComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\EnumerableExtensions.cs">
+      <Link>EnumerableExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Implementation.ListBase.cs">
+      <Link>Implementation.ListBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Implementation.ListHelper.cs">
+      <Link>Implementation.ListHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Implementation.ReadOnlyListBase.cs">
+      <Link>Implementation.ReadOnlyListBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\IndirectList.cs">
+      <Link>IndirectList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\LexicographicalComparer.cs">
+      <Link>LexicographicalComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\LinkedListExtensions.cs">
+      <Link>LinkedListExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.ConcatList.cs">
+      <Link>ListExtensions.ConcatList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.cs">
+      <Link>ListExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.GenerateList.cs">
+      <Link>ListExtensions.GenerateList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.MemoizeList.cs">
+      <Link>ListExtensions.MemoizeList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.ProjectList.cs">
+      <Link>ListExtensions.ProjectList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.ReadWriteProjectList.cs">
+      <Link>ListExtensions.ReadWriteProjectList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.RepeatList.cs">
+      <Link>ListExtensions.RepeatList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.ReverseList.cs">
+      <Link>ListExtensions.ReverseList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.SliceList.cs">
+      <Link>ListExtensions.SliceList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.StepList.cs">
+      <Link>ListExtensions.StepList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.Swappable.cs">
+      <Link>ListExtensions.Swappable.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.ValueList.cs">
+      <Link>ListExtensions.ValueList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\NoRx\EnumerableEx.cs">
+      <Link>EnumerableEx.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Properties\AssemblySharedInfo.cs">
+      <Link>Properties\AssemblySharedInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Properties\AssemblyVersion.cs">
+      <Link>Properties\AssemblyVersion.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\SortedEnumerableExtensions.cs">
+      <Link>SortedEnumerableExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\SortedListExtensions.cs">
+      <Link>SortedListExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\StringExtensions.cs">
+      <Link>StringExtensions.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\v3.0\Microsoft.Silverlight.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{A1591282-1198-4647-A2B1-27E5FF5F6F3B}">
+        <SilverlightProjectProperties />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
