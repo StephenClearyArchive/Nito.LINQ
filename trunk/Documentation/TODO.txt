@@ -3,3 +3,4 @@ Memoize - may not have the proper semantics. Remove for now.
         public static ISortedEnumerable<T> Memoize<T>(this ISortedEnumerable<T> source)
         public static ISortedEnumerable<T> MemoizeAll<T>(this ISortedEnumerable<T> source)
 
+. SequenceEquals for lists - compare Count first.
