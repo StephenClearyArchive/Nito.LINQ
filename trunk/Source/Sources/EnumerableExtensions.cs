@@ -195,6 +195,18 @@ namespace Nito
         }
 
         /// <summary>
+        /// Attaches a delegate to each element of the sequence, so that the delegate is invoked immediately before each element of the sequence is yielded.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="source">The source sequence.</param>
+        /// <param name="action">The delegate to invoke as each element of the sequence is yielded.</param>
+        /// <returns>A sequence equivalent to the source sequence, but with a delegate attached to each element.</returns>
+        public static IEnumerable<T> Do<T>(this IEnumerable<T> source, Action<T> action)
+        {
+            return source.Select(x => { action(x); return x; });
+        }
+
+        /// <summary>
         /// Prepends a value to a source sequence. Identical to Rx's <c>EnumerableEx.StartWith</c>.
         /// </summary>
         /// <typeparam name="T">The type of elements in the sequence.</typeparam>

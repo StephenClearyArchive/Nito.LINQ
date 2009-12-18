@@ -54,9 +54,9 @@
     <Compile Include="StringExtensionsUnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sources\Sources.csproj">
-      <Project>{D8EAA615-D5C1-4546-A6B1-D9F3CCAB7B54}</Project>
-      <Name>Sources</Name>
+    <ProjectReference Include="..\35.Rx\35.Rx.csproj">
+      <Project>{40CC145D-0CBB-466A-B7A8-072884AFDE4C}</Project>
+      <Name>35.Rx</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
