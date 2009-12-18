@@ -72,8 +72,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnonymousComparer.cs" />
-    <Compile Include="NoRx\EnumerableEx.cs" />
     <Compile Include="Properties\AssemblyVersion.cs" />
+    <Compile Include="NoRx\EnumerableEx.cs" />
     <Compile Include="LexicographicalComparer.cs" />
     <Compile Include="IndirectList.cs" />
     <Compile Include="LinkedListExtensions.cs" />

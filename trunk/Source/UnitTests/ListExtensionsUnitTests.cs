@@ -1346,5 +1346,32 @@ namespace UnitTests
             var result = source.Rotate(4);
             Assert.IsTrue(result.SequenceEqual(new[] { 1, 2, 3 }), "Rotating by offset greater than count should result in same sequence");
         }
+
+        [TestMethod]
+        public void SequenceEqual_DifferentSourceCounts_AreNotEqual()
+        {
+            var source1 = new[] { 1, 2 };
+            var source2 = new[] { 1, 2, 3 };
+            var result = source1.SequenceEqual(source2);
+            Assert.IsFalse(result, "Sources with different counts should not be equal");
+        }
+
+        [TestMethod]
+        public void SequenceEqual_SameSourceCountsDifferentValues_AreNotEqual()
+        {
+            var source1 = new[] { 1, 2, 3 };
+            var source2 = new[] { 1, 2, 5 };
+            var result = source1.SequenceEqual(source2);
+            Assert.IsFalse(result, "Sources with different values should not be equal");
+        }
+
+        [TestMethod]
+        public void SequenceEqual_IdenticalSources_AreEqual()
+        {
+            var source1 = new[] { 1, 2, 3 };
+            var source2 = new[] { 1, 2, 3 };
+            var result = source1.SequenceEqual(source2);
+            Assert.IsTrue(result, "Identical sources should be equal");
+        }
     }
 }
