@@ -552,6 +552,36 @@ namespace Nito
             }
         }
 
+        /// <summary>
+        /// Compares two sequences and determines if they are equal, using the specified element equality comparer.
+        /// </summary>
+        /// <typeparam name="T">The type of elements contained in the lists.</typeparam>
+        /// <param name="list">The first source list.</param>
+        /// <param name="other">The second source list.</param>
+        /// <param name="comparer">The comparison object used to compare elements for equality.</param>
+        /// <returns><c>true</c> if every element in both lists are equal; otherwise, <c>false</c>.</returns>
+        public static bool SequenceEqual<T>(this IList<T> list, IList<T> other, IEqualityComparer<T> comparer)
+        {
+            if (list.Count != other.Count)
+            {
+                return false;
+            }
+
+            return list.AsEnumerable().SequenceEqual(other, comparer);
+        }
+
+        /// <summary>
+        /// Compares two sequences and determines if they are equal, using the default element equality comparer.
+        /// </summary>
+        /// <typeparam name="T">The type of elements contained in the lists.</typeparam>
+        /// <param name="list">The first source list.</param>
+        /// <param name="other">The second source list.</param>
+        /// <returns><c>true</c> if every element in both lists are equal; otherwise, <c>false</c>.</returns>
+        public static bool SequenceEqual<T>(this IList<T> list, IList<T> other)
+        {
+            return list.SequenceEqual(other, EqualityComparer<T>.Default);
+        }
+
         #endregion
     }
 }
