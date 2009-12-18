@@ -14,8 +14,6 @@ namespace Nito
     /// </summary>
     public static partial class ListExtensions
     {
-        #region Converters
-
         /// <summary>
         /// Returns the source typed as <see cref="IList{T}"/>. This method has no effect other than to restrict the compile-time type of an object implementing <see cref="IList{T}"/>.
         /// </summary>
@@ -26,10 +24,6 @@ namespace Nito
         {
             return list;
         }
-
-        #endregion
-
-        #region Sources
 
         /// <summary>
         /// Returns an empty list.
@@ -89,10 +83,6 @@ namespace Nito
         {
             return new GenerateList<T>(count, generator);
         }
-
-        #endregion
-
-        #region Operators
 
         /// <summary>
         /// Returns a read-only list wrapper for a given list.
@@ -427,10 +417,6 @@ namespace Nito
             return RandomShuffleIndirect(list, new Random(), others);
         }
 
-        #endregion
-
-        #region Consumers
-
         /// <summary>
         /// Determines the index of the last matching element in a list.
         /// </summary>
@@ -581,7 +567,5 @@ namespace Nito
         {
             return list.SequenceEqual(other, EqualityComparer<T>.Default);
         }
-
-        #endregion
     }
 }
