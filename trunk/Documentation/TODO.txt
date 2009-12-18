@@ -1,5 +1,4 @@
 . Compatibility for Rx:
-  . Do
   . Repeat (sequences)
   . Run
   . Scan
@@ -15,3 +14,6 @@
   . WITHRX - with Rx
 . Unit tests may standardize on NET35, but must be run both WITHRX and !WITHRX
 . Verify all comment restrictions, e.g., SortedListExtensions.Take.count, and also propogate all exception notes.
+. Split out all non-extension methods and extension methods for collections of collections, and place them in separate EnumerableSource/ListSource/SortedEnumerableSource/SortedListSource classes.
+. Refactor solution configuration so different targets are defined.
+  . Document checkout sequence: build and test (with coverage) for every configuration.
