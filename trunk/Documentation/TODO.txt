@@ -1,7 +1,4 @@
-. Compatibility layer for Enumerable/EnumerableEx generators:
-  . Generate - see all Rx overloads
 . Compatibility for Rx:
-  . Concat
   . Do
   . Repeat (sequences)
   . Run
@@ -9,6 +6,7 @@
   . SelectMany
   . StartWith
   . Zip
+  . Defer/Let?
 
 . Document compilation #defs:
   . SILVERLIGHT3 - for SL3

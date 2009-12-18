@@ -76,6 +76,67 @@ namespace Nito
         }
 
         /// <summary>
+        /// Generates an infinite sequence by iterating from an initial state; for each state, a sequence is generated.
+        /// </summary>
+        /// <typeparam name="TState">The type of the state.</typeparam>
+        /// <typeparam name="TResult">The type of elements in the sequence.</typeparam>
+        /// <param name="initialState">The starting value of the state.</param>
+        /// <param name="resultSelector">The generator delegate that generates a sequence from a state value.</param>
+        /// <param name="iterate">The iterator delegate that moves the state from one value to the next.</param>
+        /// <returns>An infinite sequence.</returns>
+        public static IEnumerable<TResult> Generate<TState, TResult>(TState initialState, Func<TState, IEnumerable<TResult>> resultSelector, Func<TState, TState> iterate)
+        {
+#if WITHRX
+            return EnumerableEx.Generate(initialState, resultSelector, iterate);
+#else
+            return Generate(initialState, x => true, resultSelector, iterate);
+#endif
+        }
+
+        /// <summary>
+        /// Generates a sequence by iterating from an initial state until the condition delegate returns <c>false</c>; for each state, a sequence is generated.
+        /// </summary>
+        /// <typeparam name="TState">The type of the state.</typeparam>
+        /// <typeparam name="TResult">The type of elements in the sequence.</typeparam>
+        /// <param name="initialState">The starting value of the state.</param>
+        /// <param name="condition">The condition delegate that determines if a state value constitutes the end of the sequence.</param>
+        /// <param name="resultSelector">The generator delegate that generates a sequence from a state value.</param>
+        /// <param name="iterate">The iterator delegate that moves the state from one value to the next.</param>
+        /// <returns>A generated sequence.</returns>
+        public static IEnumerable<TResult> Generate<TState, TResult>(TState initialState, Func<TState, bool> condition, Func<TState, IEnumerable<TResult>> resultSelector, Func<TState, TState> iterate)
+        {
+#if WITHRX
+            return EnumerableEx.Generate(initialState, condition, resultSelector, iterate);
+#else
+            return Generate<TState, IEnumerable<TResult>>(initialState, condition, resultSelector, iterate).Flatten();
+#endif
+        }
+
+        /// <summary>
+        /// Generates a sequence by iterating from an initial state until the condition delegate returns <c>false</c>; for each state, a single value is generated.
+        /// </summary>
+        /// <typeparam name="TState">The type of the state.</typeparam>
+        /// <typeparam name="TResult">The type of elements in the sequence.</typeparam>
+        /// <param name="initialState">The starting value of the state.</param>
+        /// <param name="condition">The condition delegate that determines if a state value constitutes the end of the sequence.</param>
+        /// <param name="resultSelector">The generator delegate that generates a sequence value from a state value.</param>
+        /// <param name="iterate">The iterator delegate that moves the state from one value to the next.</param>
+        /// <returns>A generated sequence.</returns>
+        public static IEnumerable<TResult> Generate<TState, TResult>(TState initialState, Func<TState, bool> condition, Func<TState, TResult> resultSelector, Func<TState, TState> iterate)
+        {
+#if WITHRX
+            return EnumerableEx.Generate(initialState, condition, resultSelector, iterate);
+#else
+            TState state = initialState;
+            while (condition(state))
+            {
+                yield return resultSelector(state);
+                state = iterate(state);
+            }
+#endif
+        }
+
+        /// <summary>
         /// Generates a sequence of integers. Identical to <see cref="Enumerable.Range"/>.
         /// </summary>
         /// <param name="start">The first integer in the returned sequence.</param>
@@ -170,6 +231,20 @@ namespace Nito
             }
         }
 #endif
+
+        /// <summary>
+        /// Generates an infinite sequence.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="generator">The generator delegate that generates each value in the sequence.</param>
+        /// <returns>An infinite sequence.</returns>
+        public static IEnumerable<T> Generate<T>(Func<T> generator)
+        {
+            while (true)
+            {
+                yield return generator();
+            }
+        }
 
         /// <summary>
         /// Concatenates the specified sequences. Similar to <see cref="Enumerable.Concat"/>, except this method allows any number of sequences to be concatenated. Similar to Rx's <c>EnumerableEx.Concat</c>, except this method is an extension method.
