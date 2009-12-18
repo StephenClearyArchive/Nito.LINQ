@@ -14,6 +14,97 @@ namespace Nito
     public static class EnumerableExtensions
     {
         /// <summary>
+        /// Creates an empty sequence. Identical to <see cref="Enumerable.Empty{T}"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of elements (not) in the sequence.</typeparam>
+        /// <returns>An empty sequence.</returns>
+        public static IEnumerable<T> Empty<T>()
+        {
+            return Enumerable.Empty<T>();
+        }
+
+        /// <summary>
+        /// Converts a single value into a sequence containing a single value.
+        /// </summary>
+        /// <typeparam name="T">The type of the value.</typeparam>
+        /// <param name="source">The value.</param>
+        /// <returns>A sequence containing a single element, <paramref name="source"/>.</returns>
+        public static IEnumerable<T> Return<T>(T source)
+        {
+#if WITHRX
+            return EnumerableEx.Return(source);
+#else
+            yield return source;
+#endif
+        }
+
+        /// <summary>
+        /// Converts a single value into a sequence containing that value the specified number of times. Identical to Rx's <c>EnumerableEx.Repeat</c>. Identical to <see cref="Enumerable.Repeat"/>, except that if <paramref name="count"/> is less than 0, this method returns an empty sequence instead of raising an exception.
+        /// </summary>
+        /// <typeparam name="T">The type of the value.</typeparam>
+        /// <param name="source">The value.</param>
+        /// <param name="count">The number of times <paramref name="source"/> is repeated. If <paramref name="count"/> is less than or equal to 0, an empty list is returned.</param>
+        /// <returns>A sequence containing <paramref name="count"/> elements, all equal to <paramref name="source"/>.</returns>
+        public static IEnumerable<T> Repeat<T>(T source, int count)
+        {
+#if WITHRX
+            return EnumerableEx.Repeat(source, count);
+#else
+            for (int i = 0; i < count; ++i)
+            {
+                yield return source;
+            }
+#endif
+        }
+
+        /// <summary>
+        /// Converts a single value into a sequence containing that value an infinite number of times.
+        /// </summary>
+        /// <typeparam name="T">The type of the value.</typeparam>
+        /// <param name="source">The value.</param>
+        /// <returns>A sequence containing an infinite number of elements, all equal to <paramref name="source"/>.</returns>
+        public static IEnumerable<T> Repeat<T>(T source)
+        {
+#if WITHRX
+            return EnumerableEx.Repeat(source);
+#else
+            while (true)
+            {
+                yield return source;
+            }
+#endif
+        }
+        
+        /// <summary>
+        /// Generates a sequence of integers. Identical to <see cref="Enumerable.Range"/>.
+        /// </summary>
+        /// <param name="start">The first integer in the returned sequence.</param>
+        /// <param name="count">The number of integers in the returned sequence.</param>
+        /// <returns>A sequence of integers.</returns>
+        public static IEnumerable<int> Range(int start, int count)
+        {
+            return Enumerable.Range(start, count);
+        }
+
+#if !WITHRX
+        /// <summary>
+        /// Prepends a value to a source sequence.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="source">The source sequence.</param>
+        /// <param name="value">The value to prepend.</param>
+        /// <returns>A sequence containing <paramref name="value"/> followed by <paramref name="source"/>.</returns>
+        public static IEnumerable<T> StartWith<T>(this IEnumerable<T> source, T value)
+        {
+            yield return value;
+            foreach (T item in source)
+            {
+                yield return item;
+            }
+        }
+#endif
+
+        /// <summary>
         /// Combines three source sequences into a result sequence. If the source sequences are of different lengths, the resulting sequence has a length equal to the smallest of the three.
         /// </summary>
         /// <typeparam name="TFirst">The type of elements in the first source sequence.</typeparam>

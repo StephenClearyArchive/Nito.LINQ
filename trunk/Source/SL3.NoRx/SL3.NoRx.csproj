@@ -105,9 +105,6 @@
     <Compile Include="..\Sources\ListExtensions.ValueList.cs">
       <Link>ListExtensions.ValueList.cs</Link>
     </Compile>
-    <Compile Include="..\Sources\NoRx\EnumerableEx.cs">
-      <Link>EnumerableEx.cs</Link>
-    </Compile>
     <Compile Include="..\Sources\Properties\AssemblySharedInfo.cs">
       <Link>Properties\AssemblySharedInfo.cs</Link>
     </Compile>
