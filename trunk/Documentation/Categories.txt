@@ -23,6 +23,8 @@ Operators optimized for IList<T> from Enumerable (.NET 3.5):
   IList<T> Reverse<T>(this IList<T> list) // Enumerable.Reverse
   T Last(this IList<T> list, Func<T, bool> selector)
   T LastOrDefault(this IList<T> list, Func<T, bool> selector)
+  bool SequenceEqual<T>(this IList<T> list, IList<T> other)
+  bool SequenceEqual<T>(this IList<T> list, IList<T> other, IEqualityComparer<T> comparer)
  Unnecessary:
   Cast - use Select instead
   Count - already tests for ICollection<T> implementation
