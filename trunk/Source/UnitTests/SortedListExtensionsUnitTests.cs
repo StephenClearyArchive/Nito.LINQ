@@ -1367,24 +1367,6 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Memoize_EnumeratesSource()
-        {
-            int seed = 0;
-            ISortedList<int> source = ListExtensions.Generate(3, () => seed++).AsSorted();
-            ISortedList<int> result = source.Memoize();
-            Assert.IsTrue(result.SequenceEqual(new[] { 0, 1, 2 }), "Memoize should enumerate its source");
-        }
-
-        [TestMethod]
-        public void MemoizeAll_EnumeratesSource()
-        {
-            int seed = 0;
-            ISortedList<int> source = ListExtensions.Generate(3, () => seed++).AsSorted();
-            ISortedList<int> result = source.MemoizeAll();
-            Assert.IsTrue(result.SequenceEqual(new[] { 0, 1, 2 }), "MemoizeAll should enumerate its source");
-        }
-
-        [TestMethod]
         public void Skip_EnumeratesItems()
         {
             ISortedList<int> test = new[] { 1, 2, 3, 4 }.AsSorted();
