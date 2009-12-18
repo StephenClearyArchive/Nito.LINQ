@@ -1,4 +1,20 @@
-ISortedList<KVP<...>> SortedList<>.AsSorted (and SortedDictionary)
-Memoize - may not have the proper semantics. Remove for now.
-        public static ISortedEnumerable<T> Memoize<T>(this ISortedEnumerable<T> source)
-        public static ISortedEnumerable<T> MemoizeAll<T>(this ISortedEnumerable<T> source)
+. Compatibility layer for Enumerable/EnumerableEx generators:
+  . IEnumerable<T> Concat<T>(this IEnumerable<IEnumerable<T>> sources)
+  . IEnumerable<T> Concat<T>(params IEnumerable<T>[] sources)
+  . Generate - see all Rx overloads
+. Compatibility for Rx:
+  . Concat
+  . Do
+  . Repeat (sequences)
+  . Run
+  . Scan
+  . SelectMany
+  . StartWith
+  . Zip
+
+. Document compilation #defs:
+  . SILVERLIGHT3 - for SL3
+  . NET35 - for .NET 3.5 SP1
+  . NET40 - for .NET 4.0
+  . WITHRX - with Rx
+. Unit tests may standardize on NET35, but must be run both WITHRX and !WITHRX

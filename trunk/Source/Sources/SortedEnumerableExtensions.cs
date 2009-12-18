@@ -158,7 +158,7 @@ namespace Nito
         /// <returns>A sorted sequence containing a single element, <paramref name="source"/>.</returns>
         public static ISortedEnumerable<T> Return<T>(T source, IComparer<T> comparer)
         {
-            return new AnonymousSortedEnumerable<T>(EnumerableEx.Return(source), comparer);
+            return new AnonymousSortedEnumerable<T>(EnumerableExtensions.Return(source), comparer);
         }
 
         /// <summary>
@@ -182,7 +182,7 @@ namespace Nito
         /// <returns>A sorted sequence containing <paramref name="count"/> elements, all equal to <paramref name="source"/>.</returns>
         public static ISortedEnumerable<T> Repeat<T>(T source, IComparer<T> comparer, int count)
         {
-            return new AnonymousSortedEnumerable<T>(EnumerableEx.Repeat(source, count), comparer);
+            return new AnonymousSortedEnumerable<T>(EnumerableExtensions.Repeat(source, count), comparer);
         }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace Nito
         /// <returns>A sorted sequence containing an infinite number of elements, all equal to <paramref name="source"/>.</returns>
         public static ISortedEnumerable<T> Repeat<T>(T source, IComparer<T> comparer)
         {
-            return new AnonymousSortedEnumerable<T>(EnumerableEx.Repeat(source), comparer);
+            return new AnonymousSortedEnumerable<T>(EnumerableExtensions.Repeat(source), comparer);
         }
 
         /// <summary>
