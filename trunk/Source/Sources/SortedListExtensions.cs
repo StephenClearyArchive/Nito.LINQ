@@ -22,8 +22,6 @@ namespace Nito
     /// </summary>
     public static partial class SortedListExtensions
     {
-        #region Converters
-
         /// <summary>
         /// Returns the source typed as <see cref="ISortedList{T}"/>. This method has no effect other than to restrict the compile-time type of an object implementing <see cref="ISortedList{T}"/>.
         /// </summary>
@@ -68,10 +66,6 @@ namespace Nito
         {
             return new AnonymousSortedList<T>(source.ToList(), source.Comparer);
         }
-
-        #endregion
-
-        #region Sources
 
         /// <summary>
         /// Creates an empty sorted list. The list is sorted by the specified comparison object.
@@ -141,10 +135,6 @@ namespace Nito
         {
             return Repeat(source, Comparer<T>.Default, count);
         }
-
-        #endregion
-
-        #region Operators
 
         /// <summary>
         /// Returns a list that acts as though it has been reversed, with a reversed comparison object.
@@ -290,10 +280,6 @@ namespace Nito
         {
             return SortIndirect(list, Comparer<T>.Default, others);
         }
-
-        #endregion
-
-        #region Consumers
 
         /// <summary>
         /// Searches a sorted list using a given finder function. The finder function must be compatible with the comparer used to sort the list.
@@ -510,10 +496,6 @@ namespace Nito
             list.Insert(index, item);
             return index;
         }
-
-        #endregion
-
-        #region Implementation
 
         /// <summary>
         /// Performs a binary search over a sorted list, returning both a match and the narrowed range.
@@ -836,7 +818,5 @@ namespace Nito
                 this.List.SwapAll(this.Others, indexA, indexB);
             }
         }
-
-        #endregion
     }
 }

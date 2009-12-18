@@ -13,8 +13,6 @@ namespace Nito
     /// </summary>
     public static class EnumerableExtensions
     {
-        #region Operators
-
         /// <summary>
         /// Combines three source sequences into a result sequence. If the source sequences are of different lengths, the resulting sequence has a length equal to the smallest of the three.
         /// </summary>
@@ -84,10 +82,6 @@ namespace Nito
         {
             return source.Skip(offset).Concat(source.Take(offset));
         }
-
-        #endregion
-
-        #region Consumers
 
         /// <summary>
         /// Determines the index of an element in a sequence using the default equality comparer.
@@ -272,8 +266,6 @@ namespace Nito
         {
             return Min(source, new AnonymousComparer<T> { Compare = (x, y) => comparer.Compare(y, x) });
         }
-
-        #endregion
 
         /// <summary>
         /// Steps through a sequence using a specified step size. The first element of the resulting sequence is the first element of the source sequence.
