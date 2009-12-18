@@ -100,6 +100,34 @@ namespace Nito
             return source.AsSorted(Comparer<T>.Default);
         }
 
+#if !SILVERLIGHT3 // SL3 does not have SortedList<TKey, TValue>
+        /// <summary>
+        /// Treats a <see cref="SortedList{TKey,TValue}"/> as a sorted sequence, sorted by the comparison function of the <see cref="SortedList{TKey,TValue}"/>.
+        /// </summary>
+        /// <typeparam name="TKey">The type of keys in the <see cref="SortedList{TKey,TValue}"/>.</typeparam>
+        /// <typeparam name="TValue">The type of values in the <see cref="SortedList{TKey,TValue}"/>.</typeparam>
+        /// <param name="source">The <see cref="SortedList{TKey,TValue}"/>.</param>
+        /// <returns>The <see cref="SortedList{TKey,TValue}"/> as a sorted sequence.</returns>
+        public static ISortedEnumerable<KeyValuePair<TKey, TValue>> AsSorted<TKey, TValue>(this SortedList<TKey, TValue> source)
+        {
+            return source.AsSorted(new AnonymousComparer<KeyValuePair<TKey, TValue>> { Compare = (x, y) => source.Comparer.Compare(x.Key, y.Key) });
+        }
+#endif
+
+#if !SILVERLIGHT3 // SL3 does not have SortedDictionary<TKey, TValue>
+        /// <summary>
+        /// Treats a <see cref="SortedDictionary{TKey,TValue}"/> as a sorted sequence, sorted by the comparison function of the <see cref="SortedDictionary{TKey,TValue}"/>.
+        /// </summary>
+        /// <typeparam name="TKey">The type of keys in the <see cref="SortedDictionary{TKey,TValue}"/>.</typeparam>
+        /// <typeparam name="TValue">The type of values in the <see cref="SortedDictionary{TKey,TValue}"/>.</typeparam>
+        /// <param name="source">The <see cref="SortedDictionary{TKey,TValue}"/>.</param>
+        /// <returns>The <see cref="SortedDictionary{TKey,TValue}"/> as a sorted sequence.</returns>
+        public static ISortedEnumerable<KeyValuePair<TKey, TValue>> AsSorted<TKey, TValue>(this SortedDictionary<TKey, TValue> source)
+        {
+            return source.AsSorted(new AnonymousComparer<KeyValuePair<TKey, TValue>> { Compare = (x, y) => source.Comparer.Compare(x.Key, y.Key) });
+        }
+#endif
+
         /// <summary>
         /// Creates a sorted, empty sequence. The sequence is sorted by the specified comparison object.
         /// </summary>
