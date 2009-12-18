@@ -300,28 +300,6 @@ namespace Nito
         }
 
         /// <summary>
-        /// Returns a read-only list wrapper that remembers the values of its source list. Acts as a cache for the source list elements.
-        /// </summary>
-        /// <typeparam name="T">The type of elements in the source list.</typeparam>
-        /// <param name="list">The source list.</param>
-        /// <returns>A read-only cache wrapper for the source list.</returns>
-        public static IList<T> Memoize<T>(this IList<T> list)
-        {
-            return new MemoizeList<T>(list);
-        }
-
-        /// <summary>
-        /// Returns a read-only list wrapper that evaluates all members of its source list. Acts as a cache for the entire source list.
-        /// </summary>
-        /// <typeparam name="T">The type of elements in the source list.</typeparam>
-        /// <param name="list">The source list.</param>
-        /// <returns>A read-only cache of the source list.</returns>
-        public static IList<T> MemoizeAll<T>(this IList<T> list)
-        {
-            return list.ToList().AsReadOnly();
-        }
-
-        /// <summary>
         /// Rotates a list by a given offset.
         /// </summary>
         /// <typeparam name="T">The type of elements in the source list.</typeparam>

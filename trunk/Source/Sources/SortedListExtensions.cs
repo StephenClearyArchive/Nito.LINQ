@@ -149,28 +149,6 @@ namespace Nito
         }
 
         /// <summary>
-        /// Returns a read-only list wrapper that remembers the values of its source list. Acts as a cache for the source list elements.
-        /// </summary>
-        /// <typeparam name="T">The type of elements in the source list.</typeparam>
-        /// <param name="list">The source list.</param>
-        /// <returns>A read-only cache wrapper for the source list.</returns>
-        public static ISortedList<T> Memoize<T>(this ISortedList<T> list)
-        {
-            return new AnonymousSortedList<T>(ListExtensions.Memoize(list), list.Comparer);
-        }
-
-        /// <summary>
-        /// Returns a read-only list wrapper that evaluates all members of its source list. Acts as a cache for the entire source list.
-        /// </summary>
-        /// <typeparam name="T">The type of elements in the source list.</typeparam>
-        /// <param name="list">The source list.</param>
-        /// <returns>A read-only cache wrapper for the source list.</returns>
-        public static ISortedList<T> MemoizeAll<T>(this ISortedList<T> list)
-        {
-            return new AnonymousSortedList<T>(ListExtensions.MemoizeAll(list), list.Comparer);
-        }
-
-        /// <summary>
         /// Returns a sliced list, which acts as a window into a subset of the original list.
         /// </summary>
         /// <typeparam name="T">The type of object contained in the list.</typeparam>

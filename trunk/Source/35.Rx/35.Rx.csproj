@@ -81,9 +81,6 @@
     <Compile Include="..\Sources\ListExtensions.GenerateList.cs">
       <Link>ListExtensions.GenerateList.cs</Link>
     </Compile>
-    <Compile Include="..\Sources\ListExtensions.MemoizeList.cs">
-      <Link>ListExtensions.MemoizeList.cs</Link>
-    </Compile>
     <Compile Include="..\Sources\ListExtensions.ProjectList.cs">
       <Link>ListExtensions.ProjectList.cs</Link>
     </Compile>

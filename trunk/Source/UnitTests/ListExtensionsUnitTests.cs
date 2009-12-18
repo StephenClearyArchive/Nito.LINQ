@@ -1224,66 +1224,6 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Memoize_EnumeratesSource()
-        {
-            int seed = 0;
-            IList<int> source = ListExtensions.Generate(3, () => seed++);
-            IList<int> result = source.Memoize();
-            Assert.IsTrue(result.SequenceEqual(new[] { 0, 1, 2 }), "Memoize should enumerate its source");
-        }
-
-        [TestMethod]
-        public void Memoize_RemembersSource()
-        {
-            int seed = 0;
-            IList<int> source = ListExtensions.Generate(3, () => seed++);
-            IList<int> result = source.Memoize();
-            result.Run();
-            Assert.IsFalse(source.SequenceEqual(result));
-            Assert.IsTrue(result.SequenceEqual(new[] { 0, 1, 2 }), "Memoize should remember its source");
-        }
-
-        [TestMethod]
-        public void Memoize_OutOfOrder_CachesOnlySingleValue()
-        {
-            int seed = 0;
-            IList<int> source = ListExtensions.Generate(3, () => seed++);
-            IList<int> result = source.Memoize();
-            Assert.AreEqual(0, result[1]);
-            Assert.IsTrue(result.SequenceEqual(new[] { 1, 0, 2 }), "Memoize should only cache elements as requested");
-        }
-
-        [TestMethod]
-        public void MemoizeAll_EnumeratesSource()
-        {
-            int seed = 0;
-            IList<int> source = ListExtensions.Generate(3, () => seed++);
-            IList<int> result = source.MemoizeAll();
-            Assert.IsTrue(result.SequenceEqual(new[] { 0, 1, 2 }), "MemoizeAll should enumerate its source");
-        }
-
-        [TestMethod]
-        public void MemoizeAll_RemembersSource()
-        {
-            int seed = 0;
-            IList<int> source = ListExtensions.Generate(3, () => seed++);
-            IList<int> result = source.MemoizeAll();
-            result.Run();
-            Assert.IsFalse(source.SequenceEqual(result));
-            Assert.IsTrue(result.SequenceEqual(new[] { 0, 1, 2 }), "Memoize should remember its source");
-        }
-
-        [TestMethod]
-        public void MemoizeAll_OutOfOrder_CachesInOrder()
-        {
-            int seed = 0;
-            IList<int> source = ListExtensions.Generate(3, () => seed++);
-            IList<int> result = source.MemoizeAll();
-            Assert.AreEqual(1, result[1]);
-            Assert.IsTrue(result.SequenceEqual(new[] { 0, 1, 2 }), "Memoize should cache all elements");
-        }
-
-        [TestMethod]
         public void Rotate_EmptySequence_NegativeOffset_IsEmptySequence()
         {
             var source = new int[] { };
