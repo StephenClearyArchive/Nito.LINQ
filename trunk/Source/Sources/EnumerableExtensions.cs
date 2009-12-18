@@ -74,7 +74,7 @@ namespace Nito
             }
 #endif
         }
-        
+
         /// <summary>
         /// Generates a sequence of integers. Identical to <see cref="Enumerable.Range"/>.
         /// </summary>
@@ -88,7 +88,53 @@ namespace Nito
 
 #if !WITHRX
         /// <summary>
-        /// Prepends a value to a source sequence.
+        /// Repeats a sequence of values a specified number of times. Identical to Rx's <c>EnumerableEx.Repeat</c>.
+        /// </summary>
+        /// <typeparam name="T">The type of the value.</typeparam>
+        /// <param name="source">The source sequence containing the values to repeat.</param>
+        /// <param name="count">The number of times all the values in <paramref name="source"/> are repeated. If <paramref name="count"/> is less than or equal to 0, an empty sequence is returned.</param>
+        /// <returns>The resulting repeated sequence.</returns>
+        public static IEnumerable<T> Repeat<T>(this IEnumerable<T> source, int count)
+        {
+            for (int i = 0; i < count; ++i)
+            {
+                foreach (T item in source)
+                {
+                    yield return item;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Repeats a sequence of values an infinite number of times. Identical to Rx's <c>EnumerableEx.Repeat</c>.
+        /// </summary>
+        /// <typeparam name="T">The type of the value.</typeparam>
+        /// <param name="source">The source sequence containing the values to repeat.</param>
+        /// <returns>The resulting repeated sequence.</returns>
+        public static IEnumerable<T> Repeat<T>(this IEnumerable<T> source)
+        {
+            while (true)
+            {
+                foreach (T item in source)
+                {
+                    yield return item;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Concatenates the specified sequences. Identical to Rx's <c>EnumerableEx.Concat</c>.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the source sequences.</typeparam>
+        /// <param name="sources">The sequence of source sequences.</param>
+        /// <returns>The concatenated sequence.</returns>
+        public static IEnumerable<T> Concat<T>(this IEnumerable<IEnumerable<T>> sources)
+        {
+            return sources.Flatten();
+        }
+
+        /// <summary>
+        /// Prepends a value to a source sequence. Identical to Rx's <c>EnumerableEx.StartWith</c>.
         /// </summary>
         /// <typeparam name="T">The type of elements in the sequence.</typeparam>
         /// <param name="source">The source sequence.</param>
@@ -102,7 +148,41 @@ namespace Nito
                 yield return item;
             }
         }
+
+        /// <summary>
+        /// Combines two source sequences into a result sequence. If the source sequences are of different lengths, the resulting sequence has a length equal to the smaller of the two. Identical to Rx's <c>EnumerableEx.Zip</c>.
+        /// </summary>
+        /// <typeparam name="TFirst">The type of elements in the first source sequence.</typeparam>
+        /// <typeparam name="TSecond">The type of elements in the second source sequence.</typeparam>
+        /// <typeparam name="TResult">The type of elements in the resulting sequence.</typeparam>
+        /// <param name="first">The first source sequence.</param>
+        /// <param name="second">The second source sequence.</param>
+        /// <param name="zipper">The delegate that creates a new element from corresponding elements of the two source sequences.</param>
+        /// <returns>The resulting combined sequence.</returns>
+        public static IEnumerable<TResult> Zip<TFirst, TSecond, TResult>(this IEnumerable<TFirst> first, IEnumerable<TSecond> second, Func<TFirst, TSecond, TResult> zipper)
+        {
+            var firstEnumerator = first.GetEnumerator();
+            var secondEnumerator = second.GetEnumerator();
+
+            while (firstEnumerator.MoveNext() && secondEnumerator.MoveNext())
+            {
+                yield return zipper(firstEnumerator.Current, secondEnumerator.Current);
+            }
+        }
 #endif
+
+        /// <summary>
+        /// Concatenates the specified sequences. Similar to <see cref="Enumerable.Concat"/>, except this method allows any number of sequences to be concatenated. Similar to Rx's <c>EnumerableEx.Concat</c>, except this method is an extension method.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the source sequences.</typeparam>
+        /// <param name="first">The first source sequence.</param>
+        /// <param name="second">The second source sequence.</param>
+        /// <param name="others">The other source sequences.</param>
+        /// <returns>The concatenated sequence.</returns>
+        public static IEnumerable<T> Concat<T>(this IEnumerable<T> first, IEnumerable<T> second, params IEnumerable<T>[] others)
+        {
+            return others.StartWith(second).StartWith(first).Concat();
+        }
 
         /// <summary>
         /// Combines three source sequences into a result sequence. If the source sequences are of different lengths, the resulting sequence has a length equal to the smallest of the three.

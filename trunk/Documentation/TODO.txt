@@ -1,6 +1,4 @@
 . Compatibility layer for Enumerable/EnumerableEx generators:
-  . IEnumerable<T> Concat<T>(this IEnumerable<IEnumerable<T>> sources)
-  . IEnumerable<T> Concat<T>(params IEnumerable<T>[] sources)
   . Generate - see all Rx overloads
 . Compatibility for Rx:
   . Concat
@@ -18,3 +16,4 @@
   . NET40 - for .NET 4.0
   . WITHRX - with Rx
 . Unit tests may standardize on NET35, but must be run both WITHRX and !WITHRX
+. Verify all comment restrictions, e.g., SortedListExtensions.Take.count, and also propogate all exception notes.
