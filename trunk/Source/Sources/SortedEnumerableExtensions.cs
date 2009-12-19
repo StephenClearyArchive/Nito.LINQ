@@ -114,7 +114,7 @@ namespace Nito
         }
 #endif
 
-#if !SILVERLIGHT3 // SL3 does not have SortedDictionary<TKey, TValue>
+#if !SILVERLIGHT3 && !CF35 // SL3 and CF3.5 do not have SortedDictionary<TKey, TValue>
         /// <summary>
         /// Treats a <see cref="SortedDictionary{TKey,TValue}"/> as a sorted sequence, sorted by the comparison function of the <see cref="SortedDictionary{TKey,TValue}"/>.
         /// </summary>
