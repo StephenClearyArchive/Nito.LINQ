@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Nito;
 
 namespace UnitTests
 {
@@ -88,7 +89,7 @@ namespace UnitTests
             IEnumerable<int> test1 = new[] { 1 };
             IEnumerable<int> test2 = new[] { 2, 3 };
             IEnumerable<int> test3 = new[] { 4 };
-            var result = EnumerableEx.Concat(test1, test2, test3);
+            var result = EnumerableExtensions.Concat(test1, test2, test3);
             Assert.IsTrue(result.SequenceEqual(new[] { 1, 2, 3, 4 }), "Concat should concatenate sequences.");
         }
 
@@ -96,7 +97,7 @@ namespace UnitTests
         public void Return_EnumeratesSingleItem()
         {
             int source = 13;
-            var result = EnumerableEx.Return(source);
+            var result = EnumerableExtensions.Return(source);
             Assert.IsTrue(result.SequenceEqual(new[] { 13 }), "Item should be enumerated.");
         }
 
@@ -104,7 +105,7 @@ namespace UnitTests
         public void RepeatValue_EnumeratesRepeatedItem()
         {
             int source = 13;
-            var result = EnumerableEx.Repeat(source, 3);
+            var result = EnumerableExtensions.Repeat(source, 3);
             Assert.IsTrue(result.SequenceEqual(new[] { 13, 13, 13 }), "Item should be repeated.");
         }
 
@@ -112,7 +113,7 @@ namespace UnitTests
         public void RepeatValue_NegativeTimes_EnumeratesEmptySequence()
         {
             int source = 13;
-            var result = EnumerableEx.Repeat(source, -1);
+            var result = EnumerableExtensions.Repeat(source, -1);
             Assert.IsTrue(result.SequenceEqual(new int[] { }), "Item should not be repeated.");
         }
 
@@ -120,7 +121,7 @@ namespace UnitTests
         public void RepeatValue_Infinitely_EnumeratesRepeatedItem()
         {
             int source = 13;
-            var result = EnumerableEx.Repeat(source).Take(3);
+            var result = EnumerableExtensions.Repeat(source).Take(3);
             Assert.IsTrue(result.SequenceEqual(new[] { 13, 13, 13 }), "Item should be repeated.");
         }
     }
