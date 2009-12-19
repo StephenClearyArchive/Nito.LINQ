@@ -8,11 +8,10 @@ using System.Collections;
 
 namespace UnitTests
 {
-    [TestClass]
     public class SortedEnumerableExtensionsUnitTests
     {
         [TestMethod]
-        public void IsSorted_EmptySequence_IsTrue()
+        public void Enumerable_IsSorted_EmptySequence_IsTrue()
         {
             var test = new int[] { };
             bool result = test.IsSorted();
@@ -20,7 +19,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IsSorted_SingleElementSequence_IsTrue()
+        public void Enumerable_IsSorted_SingleElementSequence_IsTrue()
         {
             var test = new[] { 1 };
             bool result = test.IsSorted();
@@ -28,7 +27,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IsSorted_SortedSequence_IsTrue()
+        public void Enumerable_IsSorted_SortedSequence_IsTrue()
         {
             var test = new[] { 1, 1, 3 };
             bool result = test.IsSorted();
@@ -36,7 +35,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IsSorted_UnsortedSequence_IsFalse()
+        public void Enumerable_IsSorted_UnsortedSequence_IsFalse()
         {
             var test = new[] { 1, 1, 0 };
             bool result = test.IsSorted();
@@ -44,7 +43,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IsSorted_ReverseSortedSequence_IsTrue()
+        public void Enumerable_IsSorted_ReverseSortedSequence_IsTrue()
         {
             var test = new[] { 1, 1, 0 };
             bool result = test.IsSorted(new AnonymousComparer<int> { Compare = (x, y) => Comparer<int>.Default.Compare(y, x) });
@@ -52,7 +51,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void AsSortedEnumerable_ReturnsArgument()
+        public void Enumerable_AsSortedEnumerable_ReturnsArgument()
         {
             var test = new[] { 1, 2, 3, 4 }.AsSorted();
             var result = test.AsSortedEnumerable();
@@ -60,21 +59,21 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Empty_IsEmpty()
+        public void SortedEnumerable_Empty_IsEmpty()
         {
             var sorted = SortedEnumerableExtensions.Empty<string>();
             Assert.IsTrue(sorted.SequenceEqual(new string[] { }), "Empty should be empty");
         }
 
         [TestMethod]
-        public void Empty_RemembersComparer()
+        public void SortedEnumerable_Empty_RemembersComparer()
         {
             var sorted = SortedEnumerableExtensions.Empty<string>(StringComparer.InvariantCultureIgnoreCase);
             Assert.AreEqual(StringComparer.InvariantCultureIgnoreCase, sorted.Comparer, "Empty should remember its comparison object");
         }
 
         [TestMethod]
-        public void AsSorted_RemembersComparer()
+        public void Enumerable_AsSorted_RemembersComparer()
         {
             IEnumerable<string> source = new[] { "a", "b", "c" };
             var sorted = source.AsSorted(StringComparer.InvariantCultureIgnoreCase);
@@ -82,7 +81,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void AsSorted_SupportsNongenericEnumeration()
+        public void Enumerable_AsSorted_SupportsNongenericEnumeration()
         {
             IEnumerable<string> source = new[] { "a", "b", "c" };
             var sorted = source.AsSorted(StringComparer.InvariantCultureIgnoreCase);
@@ -97,7 +96,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Return_EnumeratesSingleItem()
+        public void SortedEnumerable_Return_EnumeratesSingleItem()
         {
             int source = 13;
             ISortedEnumerable<int> result = SortedEnumerableExtensions.Return(source);
@@ -105,7 +104,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Repeat_EnumeratesRepeatedItem()
+        public void SortedEnumerable_Repeat_EnumeratesRepeatedItem()
         {
             int source = 13;
             ISortedEnumerable<int> result = SortedEnumerableExtensions.Repeat(source, 3);
@@ -113,7 +112,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Repeat_NegativeTimes_EnumeratesEmptySequence()
+        public void SortedEnumerable_Repeat_NegativeTimes_EnumeratesEmptySequence()
         {
             int source = 13;
             var result = SortedEnumerableExtensions.Repeat(source, -1);
@@ -121,7 +120,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Repeat_Infinitely_EnumeratesRepeatedItem()
+        public void SortedEnumerable_Repeat_Infinitely_EnumeratesRepeatedItem()
         {
             int source = 13;
             var result = SortedEnumerableExtensions.Repeat(source).Take(3);
@@ -129,7 +128,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LowerBound_ItemFound_ReturnsLowerBound()
+        public void SortedEnumerable_LowerBound_ItemFound_ReturnsLowerBound()
         {
             IEnumerable<int> source = new[] { 1, 2, 2, 4 };
             var sorted = source.AsSorted();
@@ -138,7 +137,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LowerBound_ItemNotFound_ReturnsBitwiseComplement()
+        public void SortedEnumerable_LowerBound_ItemNotFound_ReturnsBitwiseComplement()
         {
             IEnumerable<int> source = new[] { 1, 2, 2, 4 };
             var sorted = source.AsSorted();
@@ -147,7 +146,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LowerBound_ItemNotFoundInEmptySequence_ReturnsBitwiseComplementOf0()
+        public void SortedEnumerable_LowerBound_ItemNotFoundInEmptySequence_ReturnsBitwiseComplementOf0()
         {
             IEnumerable<int> source = new int[] { };
             var sorted = source.AsSorted();
@@ -156,7 +155,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LowerBound_ItemNotFoundPastSequence_ReturnsBitwiseComplement()
+        public void SortedEnumerable_LowerBound_ItemNotFoundPastSequence_ReturnsBitwiseComplement()
         {
             IEnumerable<int> source = new[] { 1, 2, 2, 4 };
             var sorted = source.AsSorted();
@@ -165,7 +164,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void UpperBound_ItemFound_ReturnsUpperBound()
+        public void SortedEnumerable_UpperBound_ItemFound_ReturnsUpperBound()
         {
             IEnumerable<int> source = new[] { 1, 2, 2, 4 };
             var sorted = source.AsSorted();
@@ -174,7 +173,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void UpperBound_ItemNotFound_ReturnsBitwiseComplement()
+        public void SortedEnumerable_UpperBound_ItemNotFound_ReturnsBitwiseComplement()
         {
             IEnumerable<int> source = new[] { 1, 2, 2, 4 };
             var sorted = source.AsSorted();
@@ -183,7 +182,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void UpperBound_ItemNotFoundInEmptySequence_ReturnsBitwiseComplementOf0()
+        public void SortedEnumerable_UpperBound_ItemNotFoundInEmptySequence_ReturnsBitwiseComplementOf0()
         {
             IEnumerable<int> source = new int[] { };
             var sorted = source.AsSorted();
@@ -192,7 +191,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void UpperBound_ItemNotFoundPastSequence_ReturnsBitwiseComplement()
+        public void SortedEnumerable_UpperBound_ItemNotFoundPastSequence_ReturnsBitwiseComplement()
         {
             IEnumerable<int> source = new[] { 1, 2, 2, 4 };
             var sorted = source.AsSorted();
@@ -201,7 +200,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf0_AtBeginning()
+        public void SortedEnumerable_EqualRange_RunOf0_AtBeginning()
         {
             IEnumerable<int> source = new[] { 1, 3 };
             var sorted = source.AsSorted();
@@ -213,7 +212,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf0_InMiddle()
+        public void SortedEnumerable_EqualRange_RunOf0_InMiddle()
         {
             IEnumerable<int> source = new[] { 1, 3 };
             var sorted = source.AsSorted();
@@ -225,7 +224,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf0_AtEnd()
+        public void SortedEnumerable_EqualRange_RunOf0_AtEnd()
         {
             IEnumerable<int> source = new[] { 1, 3 };
             var sorted = source.AsSorted();
@@ -237,7 +236,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf1_AtBeginning()
+        public void SortedEnumerable_EqualRange_RunOf1_AtBeginning()
         {
             IEnumerable<int> source = new[] { 1, 3 };
             var sorted = source.AsSorted();
@@ -249,7 +248,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf1_InMiddle()
+        public void SortedEnumerable_EqualRange_RunOf1_InMiddle()
         {
             IEnumerable<int> source = new[] { 1, 3, 5, 7 };
             var sorted = source.AsSorted();
@@ -261,7 +260,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf1_InSecondMiddle()
+        public void SortedEnumerable_EqualRange_RunOf1_InSecondMiddle()
         {
             IEnumerable<int> source = new[] { 1, 3, 5, 7 };
             var sorted = source.AsSorted();
@@ -273,7 +272,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf1_AtEnd()
+        public void SortedEnumerable_EqualRange_RunOf1_AtEnd()
         {
             IEnumerable<int> source = new[] { 1, 3 };
             var sorted = source.AsSorted();
@@ -285,7 +284,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf2_AtBeginning()
+        public void SortedEnumerable_EqualRange_RunOf2_AtBeginning()
         {
             IEnumerable<int> source = new[] { 1, 1, 3, 4 };
             var sorted = source.AsSorted();
@@ -297,7 +296,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf2_AtMiddle()
+        public void SortedEnumerable_EqualRange_RunOf2_AtMiddle()
         {
             IEnumerable<int> source = new[] { 1, 2, 3, 3, 4, 5 };
             var sorted = source.AsSorted();
@@ -309,7 +308,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf2_AtEnd()
+        public void SortedEnumerable_EqualRange_RunOf2_AtEnd()
         {
             IEnumerable<int> source = new[] { 1, 2, 3, 3 };
             var sorted = source.AsSorted();
@@ -321,7 +320,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf3_AtBeginning()
+        public void SortedEnumerable_EqualRange_RunOf3_AtBeginning()
         {
             IEnumerable<int> source = new[] { 1, 1, 1, 4 };
             var sorted = source.AsSorted();
@@ -333,7 +332,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf3_AtMiddle()
+        public void SortedEnumerable_EqualRange_RunOf3_AtMiddle()
         {
             IEnumerable<int> source = new[] { 0, 1, 1, 1, 4, 4 };
             var sorted = source.AsSorted();
@@ -345,7 +344,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf3_AtSecondMiddle()
+        public void SortedEnumerable_EqualRange_RunOf3_AtSecondMiddle()
         {
             IEnumerable<int> source = new[] { 0, 1, 4, 4, 4, 7 };
             var sorted = source.AsSorted();
@@ -357,7 +356,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf3_AtEnd()
+        public void SortedEnumerable_EqualRange_RunOf3_AtEnd()
         {
             IEnumerable<int> source = new[] { 0, 1, 1, 4, 4, 4 };
             var sorted = source.AsSorted();
@@ -369,7 +368,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Contains_WithValidItemValue_FindsItem()
+        public void SortedEnumerable_Contains_WithValidItemValue_FindsItem()
         {
             IEnumerable<string> source = new[] { "a", "b", "c" };
             var sorted = source.AsSorted();
@@ -378,7 +377,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Contains_WithInvalidItemValue_DoesNotFindItem()
+        public void SortedEnumerable_Contains_WithInvalidItemValue_DoesNotFindItem()
         {
             IEnumerable<string> source = new[] { "a", "b", "c" };
             var sorted = source.AsSorted();
@@ -387,7 +386,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Contains_WithValidItem_FindsItem()
+        public void SortedEnumerable_Contains_WithValidItem_FindsItem()
         {
             IEnumerable<string> source = new[] { "a", "b", "c" };
             var sorted = source.AsSorted();
@@ -396,7 +395,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Contains_WithInvalidItem_DoesNotFindItem()
+        public void SortedEnumerable_Contains_WithInvalidItem_DoesNotFindItem()
         {
             IEnumerable<string> source = new[] { "a", "b", "c" };
             var sorted = source.AsSorted();
@@ -405,7 +404,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IndexOf_WithValidItem_FindsItem()
+        public void SortedEnumerable_IndexOf_WithValidItem_FindsItem()
         {
             IEnumerable<string> source = new[] { "a", "a", "c" };
             var sorted = source.AsSorted();
@@ -414,7 +413,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IndexOf_WithInvalidItem_DoesNotFindItem()
+        public void SortedEnumerable_IndexOf_WithInvalidItem_DoesNotFindItem()
         {
             IEnumerable<string> source = new[] { "a", "a", "c" };
             var sorted = source.AsSorted();
@@ -423,7 +422,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IndexOf_WithValidItemValue_FindsItem()
+        public void SortedEnumerable_IndexOf_WithValidItemValue_FindsItem()
         {
             IEnumerable<string> source = new[] { "a", "a", "c" };
             var sorted = source.AsSorted();
@@ -432,7 +431,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IndexOf_WithInvalidItemValue_DoesNotFindItem()
+        public void SortedEnumerable_IndexOf_WithInvalidItemValue_DoesNotFindItem()
         {
             IEnumerable<string> source = new[] { "a", "a", "c" };
             var sorted = source.AsSorted();
@@ -441,7 +440,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LastIndexOf_WithValidItem_FindsItem()
+        public void SortedEnumerable_LastIndexOf_WithValidItem_FindsItem()
         {
             IEnumerable<string> source = new[] { "a", "a", "c" };
             var sorted = source.AsSorted();
@@ -450,7 +449,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LastIndexOf_WithInvalidItem_DoesNotFindItem()
+        public void SortedEnumerable_LastIndexOf_WithInvalidItem_DoesNotFindItem()
         {
             IEnumerable<string> source = new[] { "a", "a", "c" };
             var sorted = source.AsSorted();
@@ -459,7 +458,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LastIndexOf_WithValidItemValue_FindsItem()
+        public void SortedEnumerable_LastIndexOf_WithValidItemValue_FindsItem()
         {
             IEnumerable<string> source = new[] { "a", "a", "c" };
             var sorted = source.AsSorted();
@@ -468,7 +467,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LastIndexOf_WithInvalidItemValue_DoesNotFindItem()
+        public void SortedEnumerable_LastIndexOf_WithInvalidItemValue_DoesNotFindItem()
         {
             IEnumerable<string> source = new[] { "a", "a", "c" };
             var sorted = source.AsSorted();
@@ -477,7 +476,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Skip_EnumeratesItems()
+        public void SortedEnumerable_Skip_EnumeratesItems()
         {
             ISortedEnumerable<int> test = new[] { 1, 2, 3, 4 }.AsEnumerable().AsSorted();
             ISortedEnumerable<int> result = test.Skip(1);
@@ -485,7 +484,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Step_By2_EnumeratesItems()
+        public void SortedEnumerable_Step_By2_EnumeratesItems()
         {
             ISortedEnumerable<int> source = new List<int> { 1, 2, 3, 4, 5, 6 }.AsEnumerable().AsSorted();
             ISortedEnumerable<int> result = source.Step(2);
@@ -493,7 +492,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Take_EnumeratesItems()
+        public void SortedEnumerable_Take_EnumeratesItems()
         {
             ISortedEnumerable<int> test = new[] { 1, 2, 3, 4 }.AsEnumerable().AsSorted();
             ISortedEnumerable<int> result = test.Take(2);
@@ -501,7 +500,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Merge_OnEmptySequences_IsEmptySequence()
+        public void SortedEnumerable_Merge_OnEmptySequences_IsEmptySequence()
         {
             ISortedEnumerable<int> source1 = new int[] { }.AsSorted();
             ISortedEnumerable<int> source2 = new int[] { }.AsSorted();
@@ -510,7 +509,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void MergeViaParams_OnEmptySequences_IsEmptySequence()
+        public void SortedEnumerable_MergeViaParams_OnEmptySequences_IsEmptySequence()
         {
             ISortedEnumerable<int> source1 = new int[] { }.AsSorted();
             ISortedEnumerable<int> source2 = new int[] { }.AsSorted();
@@ -519,7 +518,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void MergeViaSequencesExtension_OnEmptySequences_IsEmptySequence()
+        public void SortedEnumerable_MergeViaSequencesExtension_OnEmptySequences_IsEmptySequence()
         {
             ISortedEnumerable<int> source1 = new int[] { }.AsSorted();
             ISortedEnumerable<int> source2 = new int[] { }.AsSorted();
@@ -529,7 +528,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Merge_OnNonEmptySequences_IsMerge()
+        public void SortedEnumerable_Merge_OnNonEmptySequences_IsMerge()
         {
             ISortedEnumerable<int> source1 = new int[] { 1 }.AsSorted();
             ISortedEnumerable<int> source2 = new int[] { }.AsSorted();
@@ -540,7 +539,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void MergeViaValues_IsMerge()
+        public void SortedEnumerable_MergeViaValues_IsMerge()
         {
             ISortedEnumerable<int> source1 = new int[] { 1 }.AsSorted();
             var result = source1.MergeSorted(1, 3, 0, 1, 2);
@@ -548,7 +547,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Merge_WithDuplicates_IsMerge()
+        public void SortedEnumerable_Merge_WithDuplicates_IsMerge()
         {
             ISortedEnumerable<int> source1 = new[] { 1, 1 }.AsSorted();
             ISortedEnumerable<int> source2 = new[] { 1, 2 }.AsSorted();
@@ -557,7 +556,7 @@ namespace UnitTests
         }
         
         [TestMethod]
-        public void Union_OnEmptySequences_IsEmptySequence()
+        public void SortedEnumerable_Union_OnEmptySequences_IsEmptySequence()
         {
             ISortedEnumerable<int> source1 = new int[] { }.AsSorted();
             ISortedEnumerable<int> source2 = new int[] { }.AsSorted();
@@ -566,7 +565,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void UnionViaParams_OnEmptySequences_IsEmptySequence()
+        public void SortedEnumerable_UnionViaParams_OnEmptySequences_IsEmptySequence()
         {
             ISortedEnumerable<int> source1 = new int[] { }.AsSorted();
             ISortedEnumerable<int> source2 = new int[] { }.AsSorted();
@@ -575,7 +574,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void UnionViaSequencesExtension_OnEmptySequences_IsEmptySequence()
+        public void SortedEnumerable_UnionViaSequencesExtension_OnEmptySequences_IsEmptySequence()
         {
             ISortedEnumerable<int> source1 = new int[] { }.AsSorted();
             ISortedEnumerable<int> source2 = new int[] { }.AsSorted();
@@ -585,7 +584,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Union_OnNonEmptySequences_IsUnion()
+        public void SortedEnumerable_Union_OnNonEmptySequences_IsUnion()
         {
             ISortedEnumerable<int> source1 = new int[] { 1 }.AsSorted();
             ISortedEnumerable<int> source2 = new int[] { }.AsSorted();
@@ -596,7 +595,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void UnionViaValues_IsUnion()
+        public void SortedEnumerable_UnionViaValues_IsUnion()
         {
             ISortedEnumerable<int> source1 = new int[] { 1 }.AsSorted();
             var result = source1.UnionWithDuplicates(1, 3, 0, 1, 2);
@@ -604,7 +603,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Union_WithDuplicates_IsUnion()
+        public void SortedEnumerable_Union_WithDuplicates_IsUnion()
         {
             ISortedEnumerable<int> source1 = new[] { 1, 1 }.AsSorted();
             ISortedEnumerable<int> source2 = new[] { 1, 2 }.AsSorted();
@@ -613,7 +612,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void UnionDistinct_WithDuplicates_IsDistinctUnion()
+        public void SortedEnumerable_UnionDistinct_WithDuplicates_IsDistinctUnion()
         {
             ISortedEnumerable<int> source1 = new[] { 1, 1 }.AsSorted();
             ISortedEnumerable<int> source2 = new[] { 1, 2 }.AsSorted();
@@ -622,7 +621,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void UnionDistinct_ViaSequencesExtension_IsDistinctUnion()
+        public void SortedEnumerable_UnionDistinct_ViaSequencesExtension_IsDistinctUnion()
         {
             ISortedEnumerable<int> source1 = new[] { 1, 1 }.AsSorted();
             ISortedEnumerable<int> source2 = new[] { 1, 2 }.AsSorted();
@@ -632,7 +631,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void UnionDistinct_ViaValues_IsDistinctUnion()
+        public void SortedEnumerable_UnionDistinct_ViaValues_IsDistinctUnion()
         {
             ISortedEnumerable<int> source1 = new[] { 1, 1 }.AsSorted();
             var result = source1.Union(1, 2);
@@ -640,7 +639,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Intersect_OnEmptySequences_IsEmptySequence()
+        public void SortedEnumerable_Intersect_OnEmptySequences_IsEmptySequence()
         {
             ISortedEnumerable<int> source1 = new int[] { }.AsSorted();
             ISortedEnumerable<int> source2 = new int[] { }.AsSorted();
@@ -649,7 +648,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IntersectViaParams_OnEmptySequences_IsEmptySequence()
+        public void SortedEnumerable_IntersectViaParams_OnEmptySequences_IsEmptySequence()
         {
             ISortedEnumerable<int> source1 = new int[] { }.AsSorted();
             ISortedEnumerable<int> source2 = new int[] { }.AsSorted();
@@ -658,7 +657,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IntersectViaSequencesExtension_OnEmptySequences_IsEmptySequence()
+        public void SortedEnumerable_IntersectViaSequencesExtension_OnEmptySequences_IsEmptySequence()
         {
             ISortedEnumerable<int> source1 = new int[] { }.AsSorted();
             ISortedEnumerable<int> source2 = new int[] { }.AsSorted();
@@ -668,7 +667,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Intersect_WithDuplicateValues_PreservesDuplicates()
+        public void SortedEnumerable_Intersect_WithDuplicateValues_PreservesDuplicates()
         {
             ISortedEnumerable<int> source1 = new int[] { 1, 1 }.AsSorted();
             ISortedEnumerable<int> source2 = new int[] { 0, 1, 1 }.AsSorted();
@@ -679,7 +678,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Intersect_WithSmallValuesEnding_IsIntersection()
+        public void SortedEnumerable_Intersect_WithSmallValuesEnding_IsIntersection()
         {
             ISortedEnumerable<int> source1 = new int[] { 1 }.AsSorted();
             ISortedEnumerable<int> source2 = new int[] { 2, 2 }.AsSorted();
@@ -688,7 +687,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Intersect_WithLargeValuesEnding_IsIntersection()
+        public void SortedEnumerable_Intersect_WithLargeValuesEnding_IsIntersection()
         {
             ISortedEnumerable<int> source1 = new int[] { 2, 2 }.AsSorted();
             ISortedEnumerable<int> source2 = new int[] { 1, 1, 1 }.AsSorted();
@@ -697,7 +696,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IntersectDistinct_WithDuplicateValues_IsDistinctIntersection()
+        public void SortedEnumerable_IntersectDistinct_WithDuplicateValues_IsDistinctIntersection()
         {
             ISortedEnumerable<int> source1 = new int[] { 1, 1 }.AsSorted();
             ISortedEnumerable<int> source2 = new int[] { 1, 1, 2 }.AsSorted();
@@ -706,7 +705,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IntersectDistinct_ViaSequencesExtension_IsDistinctIntersection()
+        public void SortedEnumerable_IntersectDistinct_ViaSequencesExtension_IsDistinctIntersection()
         {
             ISortedEnumerable<int> source1 = new int[] { 1, 1 }.AsSorted();
             ISortedEnumerable<int> source2 = new int[] { 1, 1, 2 }.AsSorted();
@@ -716,7 +715,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Except_WithEmptySourceSequence_IsEmpty()
+        public void SortedEnumerable_Except_WithEmptySourceSequence_IsEmpty()
         {
             ISortedEnumerable<int> source1 = new int[] { }.AsSorted();
             ISortedEnumerable<int> source2 = new int[] { 1 }.AsSorted();
@@ -725,7 +724,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Except_WithEmptyOtherSequence_IsEmpty()
+        public void SortedEnumerable_Except_WithEmptyOtherSequence_IsEmpty()
         {
             ISortedEnumerable<int> source1 = new int[] { 1 }.AsSorted();
             ISortedEnumerable<int> source2 = new int[] { }.AsSorted();
@@ -734,7 +733,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Except_WithOtherSequence_IsDifference()
+        public void SortedEnumerable_Except_WithOtherSequence_IsDifference()
         {
             ISortedEnumerable<int> source1 = new int[] { 1, 2, 3 }.AsSorted();
             ISortedEnumerable<int> source2 = new int[] { 0, 2 }.AsSorted();
@@ -743,7 +742,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Except_WithDuplicateValues_IsDifference()
+        public void SortedEnumerable_Except_WithDuplicateValues_IsDifference()
         {
             ISortedEnumerable<int> source1 = new int[] { 1, 2, 2, 2, 3 }.AsSorted();
             ISortedEnumerable<int> source2 = new int[] { 2, 2 }.AsSorted();
@@ -752,7 +751,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void ExceptDistinct_WithDuplicateValues_IsDistinctDifference()
+        public void SortedEnumerable_ExceptDistinct_WithDuplicateValues_IsDistinctDifference()
         {
             ISortedEnumerable<int> source1 = new int[] { 1, 2, 2, 2, 3, 3 }.AsSorted();
             ISortedEnumerable<int> source2 = new int[] { 2 }.AsSorted();
@@ -761,7 +760,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Distinct_WithEmptySource_IsEmpty()
+        public void SortedEnumerable_Distinct_WithEmptySource_IsEmpty()
         {
             ISortedEnumerable<int> source = new int[] { }.AsSorted();
             var result = source.Distinct();
@@ -769,7 +768,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Distinct_WithUniqueSourceValue_IsEqualToSource()
+        public void SortedEnumerable_Distinct_WithUniqueSourceValue_IsEqualToSource()
         {
             ISortedEnumerable<int> source = new[] { 1, 2, 3, 4 }.AsSorted();
             var result = source.Distinct();
@@ -777,7 +776,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Distinct_WithDuplicateSourceValues_RemovesDuplicates()
+        public void SortedEnumerable_Distinct_WithDuplicateSourceValues_RemovesDuplicates()
         {
             ISortedEnumerable<int> source = new[] { 1, 2, 2, 2, 3, 4, 4, 5 }.AsSorted();
             var result = source.Distinct();

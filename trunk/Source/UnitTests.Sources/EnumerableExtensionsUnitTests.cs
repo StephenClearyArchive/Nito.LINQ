@@ -7,11 +7,10 @@ using Nito;
 
 namespace UnitTests
 {
-    [TestClass]
-    public class EnumerableExtensionsUnitTests
+    public partial class Tests
     {
         [TestMethod]
-        public void IndexOf_WithValidItem_FindsItem()
+        public void Enumerable_IndexOf_WithValidItem_FindsItem()
         {
             IEnumerable<int> source = new List<int> { 13 };
             int result = source.IndexOf(13);
@@ -19,7 +18,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IndexOf_WithInvalidItem_DoesNotFindItem()
+        public void Enumerable_IndexOf_WithInvalidItem_DoesNotFindItem()
         {
             IEnumerable<int> source = new List<int> { 13 };
             int result = source.IndexOf(17);
@@ -27,7 +26,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IndexOf_WithSimpleMatch_FindsItem()
+        public void Enumerable_IndexOf_WithSimpleMatch_FindsItem()
         {
             IEnumerable<int> source = new List<int> { 13 };
             int result = source.IndexOf(_ => true);
@@ -35,7 +34,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IndexOf_WithInvalidMatch_DoesNotFindItem()
+        public void Enumerable_IndexOf_WithInvalidMatch_DoesNotFindItem()
         {
             IEnumerable<int> source = new List<int> { 13 };
             int result = source.IndexOf(_ => false);
@@ -43,7 +42,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IndexOf_WithMultipleMatches_FindsFirstItem()
+        public void Enumerable_IndexOf_WithMultipleMatches_FindsFirstItem()
         {
             IEnumerable<int> source = new List<int> { 13, 15 };
             int result = source.IndexOf(_ => true);
@@ -51,7 +50,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LastIndexOf_WithValidItem_FindsItem()
+        public void Enumerable_LastIndexOf_WithValidItem_FindsItem()
         {
             IEnumerable<int> source = new List<int> { 13 };
             int result = source.LastIndexOf(13);
@@ -59,7 +58,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LastIndexOf_WithInvalidItem_DoesNotFindItem()
+        public void Enumerable_LastIndexOf_WithInvalidItem_DoesNotFindItem()
         {
             IEnumerable<int> source = new List<int> { 13 };
             int result = source.LastIndexOf(17);
@@ -67,7 +66,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LastIndexOf_WithSimpleMatch_FindsItem()
+        public void Enumerable_LastIndexOf_WithSimpleMatch_FindsItem()
         {
             IEnumerable<int> source = new List<int> { 13 };
             int result = source.LastIndexOf(_ => true);
@@ -75,7 +74,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LastIndexOf_WithInvalidMatch_DoesNotFindItem()
+        public void Enumerable_LastIndexOf_WithInvalidMatch_DoesNotFindItem()
         {
             IEnumerable<int> source = new List<int> { 13 };
             int result = source.LastIndexOf(_ => false);
@@ -83,7 +82,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LastIndexOf_WithMultipleMatches_FindsLastItem()
+        public void Enumerable_LastIndexOf_WithMultipleMatches_FindsLastItem()
         {
             IEnumerable<int> source = new List<int> { 13, 15 };
             int result = source.LastIndexOf(_ => true);
@@ -91,7 +90,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IndexOfMin_WithEmptySequence_ReturnsNegativeOne()
+        public void Enumerable_IndexOfMin_WithEmptySequence_ReturnsNegativeOne()
         {
             IEnumerable<int> source = new List<int> { };
             int result = source.IndexOfMin();
@@ -99,7 +98,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IndexOfMin_WithOrderedSequence_ReturnsFirstValue()
+        public void Enumerable_IndexOfMin_WithOrderedSequence_ReturnsFirstValue()
         {
             IEnumerable<int> source = new List<int> { 1, 2, 3 };
             int result = source.IndexOfMin();
@@ -107,7 +106,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IndexOfMin_WithBackwardsOrderedSequence_ReturnsLastValue()
+        public void Enumerable_IndexOfMin_WithBackwardsOrderedSequence_ReturnsLastValue()
         {
             IEnumerable<int> source = new List<int> { 3, 2, 1 };
             int result = source.IndexOfMin();
@@ -115,7 +114,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IndexOfMin_WithBackwardsOrderingFunction_ReturnsMaxValue()
+        public void Enumerable_IndexOfMin_WithBackwardsOrderingFunction_ReturnsMaxValue()
         {
             IEnumerable<int> source = new List<int> { 3, 2, 1 };
             int result = source.IndexOfMin(new AnonymousComparer<int> { Compare = (x, y) => Comparer<int>.Default.Compare(y, x) });
@@ -123,7 +122,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IndexOfMax_WithEmptySequence_ReturnsNegativeOne()
+        public void Enumerable_IndexOfMax_WithEmptySequence_ReturnsNegativeOne()
         {
             IEnumerable<int> source = new List<int> { };
             int result = source.IndexOfMax();
@@ -131,7 +130,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IndexOfMax_WithOrderedSequence_ReturnsLastValue()
+        public void Enumerable_IndexOfMax_WithOrderedSequence_ReturnsLastValue()
         {
             IEnumerable<int> source = new List<int> { 1, 2, 3 };
             int result = source.IndexOfMax();
@@ -139,7 +138,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IndexOfMax_WithBackwardsOrderedSequence_ReturnsFirstValue()
+        public void Enumerable_IndexOfMax_WithBackwardsOrderedSequence_ReturnsFirstValue()
         {
             IEnumerable<int> source = new List<int> { 3, 2, 1 };
             int result = source.IndexOfMax();
@@ -147,7 +146,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IndexOfMax_WithBackwardsOrderingFunction_ReturnsMinValue()
+        public void Enumerable_IndexOfMax_WithBackwardsOrderingFunction_ReturnsMinValue()
         {
             IEnumerable<int> source = new List<int> { 3, 2, 1 };
             int result = source.IndexOfMax(new AnonymousComparer<int> { Compare = (x, y) => Comparer<int>.Default.Compare(y, x) });
@@ -155,7 +154,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Min_WithEmptySequence_ReturnsDefaultValue()
+        public void Enumerable_Min_WithEmptySequence_ReturnsDefaultValue()
         {
             IEnumerable<int> source = new List<int> { };
             int result = source.Min(Comparer<int>.Default);
@@ -163,7 +162,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Min_WithOrderedSequence_ReturnsFirstValue()
+        public void Enumerable_Min_WithOrderedSequence_ReturnsFirstValue()
         {
             IEnumerable<int> source = new List<int> { 1, 2, 3 };
             int result = source.Min(Comparer<int>.Default);
@@ -171,7 +170,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Min_WithBackwardsOrderedSequence_ReturnsLastValue()
+        public void Enumerable_Min_WithBackwardsOrderedSequence_ReturnsLastValue()
         {
             IEnumerable<int> source = new List<int> { 3, 2, 1 };
             int result = source.Min(Comparer<int>.Default);
@@ -179,7 +178,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Min_WithBackwardsOrderingFunction_ReturnsMaxValue()
+        public void Enumerable_Min_WithBackwardsOrderingFunction_ReturnsMaxValue()
         {
             IEnumerable<int> source = new List<int> { 3, 2, 1 };
             int result = source.Min(new AnonymousComparer<int> { Compare = (x, y) => Comparer<int>.Default.Compare(y, x) });
@@ -187,7 +186,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Max_WithEmptySequence_ReturnsDefaultValue()
+        public void Enumerable_Max_WithEmptySequence_ReturnsDefaultValue()
         {
             IEnumerable<int> source = new List<int> { };
             int result = source.Max(Comparer<int>.Default);
@@ -195,7 +194,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Max_WithOrderedSequence_ReturnsLastValue()
+        public void Enumerable_Max_WithOrderedSequence_ReturnsLastValue()
         {
             IEnumerable<int> source = new List<int> { 1, 2, 3 };
             int result = source.Max(Comparer<int>.Default);
@@ -203,7 +202,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Max_WithBackwardsOrderedSequence_ReturnsFirstValue()
+        public void Enumerable_Max_WithBackwardsOrderedSequence_ReturnsFirstValue()
         {
             IEnumerable<int> source = new List<int> { 3, 2, 1 };
             int result = source.Max(Comparer<int>.Default);
@@ -211,7 +210,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Max_WithBackwardsOrderingFunction_ReturnsMinValue()
+        public void Enumerable_Max_WithBackwardsOrderingFunction_ReturnsMinValue()
         {
             IEnumerable<int> source = new List<int> { 3, 2, 1 };
             int result = source.Max(new AnonymousComparer<int> { Compare = (x, y) => Comparer<int>.Default.Compare(y, x) });
@@ -219,7 +218,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Zip3_ZipsElements()
+        public void Enumerable_Zip3_ZipsElements()
         {
             IEnumerable<int> source1 = new List<int> { 13, 7 };
             IEnumerable<int> source2 = new List<int> { 17, 23 };
@@ -229,7 +228,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Zip3_WithShorterFirstSource_IsSmaller()
+        public void Enumerable_Zip3_WithShorterFirstSource_IsSmaller()
         {
             IEnumerable<int> source1 = new List<int> { 13 };
             IEnumerable<int> source2 = new List<int> { 17, 23 };
@@ -239,7 +238,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Zip3_WithShorterSecondSource_IsSmaller()
+        public void Enumerable_Zip3_WithShorterSecondSource_IsSmaller()
         {
             IEnumerable<int> source1 = new List<int> { 13, 23 };
             IEnumerable<int> source2 = new List<int> { 17 };
@@ -249,7 +248,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Zip3_WithShorterThirdSource_IsSmaller()
+        public void Enumerable_Zip3_WithShorterThirdSource_IsSmaller()
         {
             IEnumerable<int> source1 = new List<int> { 13, 23 };
             IEnumerable<int> source2 = new List<int> { 17, 23 };
@@ -259,7 +258,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Flatten_FlattensSequences()
+        public void Enumerable_Flatten_FlattensSequences()
         {
             IEnumerable<IEnumerable<int>> test = new[] { new[] { 1 }, new[] { 2 }, new[] { 3, 4 } };
             var result = test.Flatten();
@@ -267,7 +266,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Step_EmptySource_EnumeratesEmptySequence()
+        public void Enumerable_Step_EmptySource_EnumeratesEmptySequence()
         {
             IEnumerable<int> source = new List<int> { };
             var result = source.Step(1);
@@ -276,14 +275,14 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException), "Step should reject 0 or negative step sizes")]
-        public void Step_ZeroStep_IsRejected()
+        public void Enumerable_Step_ZeroStep_IsRejected()
         {
             IEnumerable<int> source = new List<int> { 1, 2, 3, 4, 5, 6 };
             var result = source.Step(0);
         }
 
         [TestMethod]
-        public void Step_SingleStep_EnumeratesItems()
+        public void Enumerable_Step_SingleStep_EnumeratesItems()
         {
             IEnumerable<int> source = new List<int> { 1, 2, 3, 4, 5, 6 };
             var result = source.Step(1);
@@ -291,7 +290,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Step_By2_EnumeratesItems()
+        public void Enumerable_Step_By2_EnumeratesItems()
         {
             IEnumerable<int> source = new List<int> { 1, 2, 3, 4, 5, 6 };
             var result = source.Step(2);
@@ -299,7 +298,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Step_By3_EnumeratesItems()
+        public void Enumerable_Step_By3_EnumeratesItems()
         {
             IEnumerable<int> source = new List<int> { 1, 2, 3, 4, 5, 6 };
             var result = source.Step(3);
@@ -307,7 +306,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Rotate_EmptySequence_NegativeOffset_IsEmptySequence()
+        public void Enumerable_Rotate_EmptySequence_NegativeOffset_IsEmptySequence()
         {
             IEnumerable<int> source = new int[] { };
             var result = source.Rotate(-1);
@@ -315,7 +314,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Rotate_EmptySequence_ZeroOffset_IsEmptySequence()
+        public void Enumerable_Rotate_EmptySequence_ZeroOffset_IsEmptySequence()
         {
             IEnumerable<int> source = new int[] { };
             var result = source.Rotate(0);
@@ -323,7 +322,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Rotate_EmptySequence_PositiveOffset_IsEmptySequence()
+        public void Enumerable_Rotate_EmptySequence_PositiveOffset_IsEmptySequence()
         {
             IEnumerable<int> source = new int[] { };
             var result = source.Rotate(1);
@@ -331,7 +330,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Rotate_NegativeOffset_IsSameSequence()
+        public void Enumerable_Rotate_NegativeOffset_IsSameSequence()
         {
             IEnumerable<int> source = new[] { 1, 2, 3 };
             var result = source.Rotate(-1);
@@ -339,7 +338,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Rotate_ZeroOffset_IsSameSequence()
+        public void Enumerable_Rotate_ZeroOffset_IsSameSequence()
         {
             IEnumerable<int> source = new[] { 1, 2, 3 };
             var result = source.Rotate(0);
@@ -347,7 +346,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Rotate_RotatesSequence()
+        public void Enumerable_Rotate_RotatesSequence()
         {
             IEnumerable<int> source = new[] { 1, 2, 3 };
             var result = source.Rotate(1);
@@ -355,7 +354,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Rotate_CountOffset_IsSameSequence()
+        public void Enumerable_Rotate_CountOffset_IsSameSequence()
         {
             IEnumerable<int> source = new[] { 1, 2, 3 };
             var result = source.Rotate(3);
@@ -363,7 +362,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Rotate_GreaterThanCountOffset_IsSameSequence()
+        public void Enumerable_Rotate_GreaterThanCountOffset_IsSameSequence()
         {
             IEnumerable<int> source = new[] { 1, 2, 3 };
             var result = source.Rotate(4);

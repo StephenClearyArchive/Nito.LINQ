@@ -7,8 +7,7 @@ using Nito.Implementation;
 
 namespace UnitTests
 {
-    [TestClass]
-    public class ListBaseUnitTests
+    public partial class Tests
     {
         [TestMethod]
         public void ReadWriteList_IsNotReadOnly()
@@ -32,7 +31,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void GetItem_WithValidIndex_RetrievesItem()
+        public void List_GetItem_WithValidIndex_RetrievesItem()
         {
             var list = new ReadWriteList<int>(new List<int> { 13 });
             int result = list[0];
@@ -41,7 +40,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException), "Retrieving items with a negative index should be rejected")]
-        public void GetItem_WithNegativeIndex_IsRejected()
+        public void List_GetItem_WithNegativeIndex_IsRejected()
         {
             var list = new ReadWriteList<int>(new List<int> { 13 });
             int result = list[-1];
@@ -49,14 +48,14 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException), "Retrieving items with an invalid index should be rejected")]
-        public void GetItem_WithInvalidIndex_IsRejected()
+        public void List_GetItem_WithInvalidIndex_IsRejected()
         {
             var list = new ReadWriteList<int>(new List<int> { 13 });
             int result = list[1];
         }
 
         [TestMethod]
-        public void SetItem_WithValidIndex_SetsItem()
+        public void List_SetItem_WithValidIndex_SetsItem()
         {
             var source = new List<int> { 13 };
             var list = new ReadWriteList<int>(source);
@@ -66,7 +65,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException), "Setting items with a negative index should be rejected")]
-        public void SetItem_WithNegativeIndex_IsRejected()
+        public void List_SetItem_WithNegativeIndex_IsRejected()
         {
             var list = new ReadWriteList<int>(new List<int> { 13 });
             list[-1] = 17;
@@ -74,7 +73,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException), "Setting items with an invalid index should be rejected")]
-        public void SetItem_WithInvalidIndex_IsRejected()
+        public void List_SetItem_WithInvalidIndex_IsRejected()
         {
             var list = new ReadWriteList<int>(new List<int> { 13 });
             list[1] = 17;
@@ -82,14 +81,14 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException), "Setting items on a read-only list should be rejected")]
-        public void SetItem_OnReadOnlyList_IsRejected()
+        public void List_SetItem_OnReadOnlyList_IsRejected()
         {
             var list = new ReadOnlyList<int>(new List<int> { 13 });
             list[0] = 17;
         }
 
         [TestMethod]
-        public void SetItem_OnWriteableReadOnlyList_SetsItem()
+        public void List_SetItem_OnWriteableReadOnlyList_SetsItem()
         {
             var source = new List<int> { 13 };
             var list = new WriteableReadOnlyList<int>(source);
@@ -98,7 +97,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void AddItem_AddsItem()
+        public void List_AddItem_AddsItem()
         {
             var source = new List<int> { 13 };
             var list = new ReadWriteList<int>(source);
@@ -108,7 +107,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException), "Adding items on a read-only list should be rejected")]
-        public void AddItem_OnReadOnlyList_IsRejected()
+        public void List_AddItem_OnReadOnlyList_IsRejected()
         {
             var source = new List<int> { 13 };
             var list = new ReadOnlyList<int>(source);
@@ -116,7 +115,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void AddItem_OnWriteableReadOnlyList_AddsItem()
+        public void List_AddItem_OnWriteableReadOnlyList_AddsItem()
         {
             var source = new List<int> { 13 };
             var list = new WriteableReadOnlyList<int>(source);
@@ -125,7 +124,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Clear_ClearsItems()
+        public void List_Clear_ClearsItems()
         {
             var source = new List<int> { 13 };
             var list = new ReadWriteList<int>(source);
@@ -135,7 +134,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException), "Clearing items on a read-only list should be rejected")]
-        public void Clear_OnReadOnlyList_IsRejected()
+        public void List_Clear_OnReadOnlyList_IsRejected()
         {
             var source = new List<int> { 13 };
             var list = new ReadOnlyList<int>(source);
@@ -143,7 +142,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Clear_OnWriteableReadOnlyList_ClearsItems()
+        public void List_Clear_OnWriteableReadOnlyList_ClearsItems()
         {
             var source = new List<int> { 13 };
             var list = new WriteableReadOnlyList<int>(source);
@@ -152,7 +151,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Contains_WithValidItem_FindsItem()
+        public void List_Contains_WithValidItem_FindsItem()
         {
             var source = new List<int> { 13 };
             var list = new ReadWriteList<int>(source);
@@ -161,7 +160,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Contains_WithInvalidItem_DoesNotFindItem()
+        public void List_Contains_WithInvalidItem_DoesNotFindItem()
         {
             var source = new List<int> { 13 };
             var list = new ReadWriteList<int>(source);
@@ -170,7 +169,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void CopyToArray_CopiesSequence()
+        public void List_CopyToArray_CopiesSequence()
         {
             var source = new List<int> { 1, 2, 3, 4 };
             var list = new ReadWriteList<int>(source);
@@ -181,7 +180,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void CopyTo_NullArray_IsRejected()
+        public void List_CopyTo_NullArray_IsRejected()
         {
             var source = new List<int> { 1, 2, 3, 4 };
             var list = new ReadWriteList<int>(source);
@@ -190,7 +189,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void CopyToArray_WithNegativeIndex_IsRejected()
+        public void List_CopyToArray_WithNegativeIndex_IsRejected()
         {
             var source = new List<int> { 1, 2, 3, 4 };
             var list = new ReadWriteList<int>(source);
@@ -200,7 +199,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void CopyToArray_WithInvalidIndex_IsRejected()
+        public void List_CopyToArray_WithInvalidIndex_IsRejected()
         {
             var source = new List<int> { 1, 2, 3, 4 };
             var list = new ReadWriteList<int>(source);
@@ -210,7 +209,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void CopyTo_TooSmallArray_IsRejected()
+        public void List_CopyTo_TooSmallArray_IsRejected()
         {
             var source = new List<int> { 1, 2, 3, 4 };
             var list = new ReadWriteList<int>(source);
@@ -244,7 +243,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IndexOf_WithValidItem_FindsItem()
+        public void List_IndexOf_WithValidItem_FindsItem()
         {
             var source = new List<int> { 13 };
             var list = new ReadWriteList<int>(source);
@@ -253,7 +252,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IndexOf_WithInvalidItem_DoesNotFindItem()
+        public void List_IndexOf_WithInvalidItem_DoesNotFindItem()
         {
             var source = new List<int> { 13 };
             var list = new ReadWriteList<int>(source);
@@ -262,7 +261,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Insert_InsertsItem()
+        public void List_Insert_InsertsItem()
         {
             var source = new List<int> { 13 };
             var list = new ReadWriteList<int>(source);
@@ -272,7 +271,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void Insert_WithNegativeIndex_IsRejected()
+        public void List_Insert_WithNegativeIndex_IsRejected()
         {
             var source = new List<int> { 13 };
             var list = new ReadWriteList<int>(source);
@@ -281,7 +280,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void Insert_WithInvalidIndex_IsRejected()
+        public void List_Insert_WithInvalidIndex_IsRejected()
         {
             var source = new List<int> { 13 };
             var list = new ReadWriteList<int>(source);
@@ -290,7 +289,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
-        public void Insert_OnReadOnlyList_IsRejected()
+        public void List_Insert_OnReadOnlyList_IsRejected()
         {
             var source = new List<int> { 13 };
             var list = new ReadOnlyList<int>(source);
@@ -298,7 +297,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Insert_OnWriteableReadOnlyList_InsertsItem()
+        public void List_Insert_OnWriteableReadOnlyList_InsertsItem()
         {
             var source = new List<int> { 13 };
             var list = new WriteableReadOnlyList<int>(source);
@@ -307,7 +306,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Remove_WithValidItem_RemovesItem()
+        public void List_Remove_WithValidItem_RemovesItem()
         {
             var source = new List<int> { 13 };
             var list = new ReadWriteList<int>(source);
@@ -317,7 +316,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Remove_WithInvalidItem_DoesNotFindItem()
+        public void List_Remove_WithInvalidItem_DoesNotFindItem()
         {
             var source = new List<int> { 13 };
             var list = new ReadWriteList<int>(source);
@@ -328,7 +327,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
-        public void Remove_OnReadOnlyList_IsRejected()
+        public void List_Remove_OnReadOnlyList_IsRejected()
         {
             var source = new List<int> { 13 };
             var list = new ReadOnlyList<int>(source);
@@ -336,7 +335,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Remove_OnWriteableReadOnlyList_RemovesItem()
+        public void List_Remove_OnWriteableReadOnlyList_RemovesItem()
         {
             var source = new List<int> { 13 };
             var list = new WriteableReadOnlyList<int>(source);
@@ -346,7 +345,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void RemoveAt_RemovesItem()
+        public void List_RemoveAt_RemovesItem()
         {
             var source = new List<int> { 13 };
             var list = new ReadWriteList<int>(source);
@@ -356,7 +355,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void RemoveAt_WithNegativeIndex_IsRejected()
+        public void List_RemoveAt_WithNegativeIndex_IsRejected()
         {
             var source = new List<int> { 13 };
             var list = new ReadWriteList<int>(source);
@@ -365,7 +364,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void RemoveAt_WithInvalidIndex_IsRejected()
+        public void List_RemoveAt_WithInvalidIndex_IsRejected()
         {
             var source = new List<int> { 13 };
             var list = new ReadWriteList<int>(source);
@@ -374,7 +373,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
-        public void RemoveAt_OnReadOnlyList_IsRejected()
+        public void List_RemoveAt_OnReadOnlyList_IsRejected()
         {
             var source = new List<int> { 13 };
             var list = new ReadOnlyList<int>(source);
@@ -382,7 +381,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void RemoveAt_OnWriteableReadOnlyList_RemovesItem()
+        public void List_RemoveAt_OnWriteableReadOnlyList_RemovesItem()
         {
             var source = new List<int> { 13 };
             var list = new WriteableReadOnlyList<int>(source);

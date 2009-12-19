@@ -7,8 +7,7 @@ using Nito;
 
 namespace UnitTests
 {
-    [TestClass]
-    public class ListExtensionsUnitTests
+    public partial class Tests
     {
         [TestMethod]
         public void AsList_ReturnsArgument()
@@ -19,7 +18,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Empty_IsEmpty()
+        public void List_Empty_IsEmpty()
         {
             var result = ListExtensions.Empty<int>();
             Assert.AreEqual(0, result.Count, "Empty should be empty");
@@ -27,7 +26,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void Slice_RejectsNegativeOffset()
+        public void List_Slice_RejectsNegativeOffset()
         {
             int[] test = new[] { 1, 2, 3, 4 };
             test.Slice(-1, 1);
@@ -35,7 +34,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void Slice_RejectsOffsetOverflow()
+        public void List_Slice_RejectsOffsetOverflow()
         {
             int[] test = new[] { 1, 2, 3, 4 };
             test.Slice(5, 0);
@@ -43,7 +42,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void Slice_RejectsNegativeCount()
+        public void List_Slice_RejectsNegativeCount()
         {
             int[] test = new[] { 1, 2, 3, 4 };
             test.Slice(1, -1);
@@ -51,14 +50,14 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void Slice_RejectsCountOverflow()
+        public void List_Slice_RejectsCountOverflow()
         {
             int[] test = new[] { 1, 2, 3, 4 };
             test.Slice(4, 1);
         }
 
         [TestMethod]
-        public void Slice_OverArray_IsReadOnly()
+        public void List_Slice_OverArray_IsReadOnly()
         {
             int[] test = new[] { 1, 2, 3, 4 };
             var slice = test.Slice(2, 2);
@@ -67,7 +66,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SliceEmptyAtBeginningOfSource_EnumeratesNothing()
+        public void List_SliceEmptyAtBeginningOfSource_EnumeratesNothing()
         {
             int[] test = new[] { 1, 2, 3, 4 };
             var slice = test.Slice(0, 0);
@@ -76,7 +75,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SliceEmptyAtEndOfSource_EnumeratesNothing()
+        public void List_SliceEmptyAtEndOfSource_EnumeratesNothing()
         {
             int[] test = new[] { 1, 2, 3, 4 };
             var slice = test.Slice(4, 0);
@@ -85,7 +84,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SliceEmptyInMiddleOfSource_EnumeratesNothing()
+        public void List_SliceEmptyInMiddleOfSource_EnumeratesNothing()
         {
             int[] test = new[] { 1, 2, 3, 4 };
             var slice = test.Slice(2, 0);
@@ -94,7 +93,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SliceNonEmptyAtBeginningOfSource_EnumeratesItems()
+        public void List_SliceNonEmptyAtBeginningOfSource_EnumeratesItems()
         {
             int[] test = new[] { 1, 2, 3, 4 };
             var slice = test.Slice(0, 2);
@@ -103,7 +102,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SliceNonEmptyInMiddleOfSource_EnumeratesItems()
+        public void List_SliceNonEmptyInMiddleOfSource_EnumeratesItems()
         {
             int[] test = new[] { 1, 2, 3, 4, 5 };
             var slice = test.Slice(2, 2);
@@ -112,7 +111,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SliceNonEmptyAtEndOfSource_EnumeratesItems()
+        public void List_SliceNonEmptyAtEndOfSource_EnumeratesItems()
         {
             int[] test = new[] { 1, 2, 3, 4, 5 };
             var slice = test.Slice(3, 2);
@@ -121,7 +120,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Slice_AddItem_UpdatesSource()
+        public void List_Slice_AddItem_UpdatesSource()
         {
             List<int> test = new List<int> { 1, 2, 3, 4 };
             var slice = test.Slice(4, 0);
@@ -131,7 +130,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Slice_InsertItem_UpdatesSource()
+        public void List_Slice_InsertItem_UpdatesSource()
         {
             List<int> test = new List<int> { 1, 2, 3, 4 };
             var slice = test.Slice(2, 2);
@@ -141,7 +140,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Slice_RemoveAtItem_UpdatesSource()
+        public void List_Slice_RemoveAtItem_UpdatesSource()
         {
             List<int> test = new List<int> { 1, 2, 3, 4 };
             var slice = test.Slice(2, 2);
@@ -151,7 +150,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Slice_RemoveItem_UpdatesSource()
+        public void List_Slice_RemoveItem_UpdatesSource()
         {
             List<int> test = new List<int> { 1, 2, 3, 4 };
             var slice = test.Slice(2, 2);
@@ -162,7 +161,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Slice_RemoveInvalidItem_DoesNothing()
+        public void List_Slice_RemoveInvalidItem_DoesNothing()
         {
             List<int> test = new List<int> { 1, 2, 3, 4 };
             var slice = test.Slice(2, 2);
@@ -173,7 +172,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Slice_Clear_UpdatesSource()
+        public void List_Slice_Clear_UpdatesSource()
         {
             List<int> test = new List<int> { 1, 2, 3, 4 };
             var slice = test.Slice(1, 2);
@@ -183,7 +182,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SliceGetItem_AdjustsIndex()
+        public void List_SliceGetItem_AdjustsIndex()
         {
             List<int> test = new List<int> { 1, 2, 3, 4 };
             var slice = test.Slice(1, 2);
@@ -192,7 +191,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SliceSetItem_UpdatesSource()
+        public void List_SliceSetItem_UpdatesSource()
         {
             List<int> test = new List<int> { 1, 2, 3, 4 };
             var slice = test.Slice(1, 2);
@@ -202,7 +201,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Take_EnumeratesItems()
+        public void List_Take_EnumeratesItems()
         {
             int[] test = new[] { 1, 2, 3, 4 };
             var result = test.Take(2);
@@ -211,7 +210,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Take_NegativeCount_EnumeratesEmpty()
+        public void List_Take_NegativeCount_EnumeratesEmpty()
         {
             int[] test = new[] { 1, 2, 3, 4 };
             var result = test.Take(-1);
@@ -220,7 +219,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Take_ZeroCount_EnumeratesEmpty()
+        public void List_Take_ZeroCount_EnumeratesEmpty()
         {
             int[] test = new[] { 1, 2, 3, 4 };
             var result = test.Take(0);
@@ -229,7 +228,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Take_ListCount_EnumeratesItems()
+        public void List_Take_ListCount_EnumeratesItems()
         {
             int[] test = new[] { 1, 2, 3, 4 };
             var result = test.Take(4);
@@ -238,7 +237,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Take_GreaterThanListCount_EnumeratesItems()
+        public void List_Take_GreaterThanListCount_EnumeratesItems()
         {
             int[] test = new[] { 1, 2, 3, 4 };
             var result = test.Take(5);
@@ -247,7 +246,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Skip_EnumeratesItems()
+        public void List_Skip_EnumeratesItems()
         {
             int[] test = new[] { 1, 2, 3, 4 };
             var result = test.Skip(1);
@@ -256,7 +255,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Skip_NegativeCount_EnumeratesItems()
+        public void List_Skip_NegativeCount_EnumeratesItems()
         {
             int[] test = new[] { 1, 2, 3, 4 };
             var result = test.Skip(-1);
@@ -265,7 +264,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Skip_ZeroCount_EnumeratesItems()
+        public void List_Skip_ZeroCount_EnumeratesItems()
         {
             int[] test = new[] { 1, 2, 3, 4 };
             var result = test.Skip(0);
@@ -274,7 +273,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Skip_ListCount_EnumeratesEmpty()
+        public void List_Skip_ListCount_EnumeratesEmpty()
         {
             int[] test = new[] { 1, 2, 3, 4 };
             var result = test.Skip(4);
@@ -283,7 +282,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Skip_GreaterThanListCount_EnumeratesEmpty()
+        public void List_Skip_GreaterThanListCount_EnumeratesEmpty()
         {
             int[] test = new[] { 1, 2, 3, 4 };
             var result = test.Skip(5);
@@ -293,14 +292,14 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException), "Step should reject 0 or negative step sizes")]
-        public void Step_ZeroStep_IsRejected()
+        public void List_Step_ZeroStep_IsRejected()
         {
             List<int> source = new List<int> { 1, 2, 3, 4, 5, 6 };
             var result = source.Step(0);
         }
 
         [TestMethod]
-        public void Step_EmptySource_EnumeratesEmptySequence()
+        public void List_Step_EmptySource_EnumeratesEmptySequence()
         {
             List<int> source = new List<int> { };
             var result = source.Step(1);
@@ -308,7 +307,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Step_SingleStep_EnumeratesItems()
+        public void List_Step_SingleStep_EnumeratesItems()
         {
             List<int> source = new List<int> { 1, 2, 3, 4, 5, 6 };
             var result = source.Step(1);
@@ -316,7 +315,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Step_By2_EnumeratesItems()
+        public void List_Step_By2_EnumeratesItems()
         {
             List<int> source = new List<int> { 1, 2, 3, 4, 5, 6 };
             var result = source.Step(2);
@@ -324,7 +323,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Step_By3_EnumeratesItems()
+        public void List_Step_By3_EnumeratesItems()
         {
             List<int> source = new List<int> { 1, 2, 3, 4, 5, 6 };
             var result = source.Step(3);
@@ -332,7 +331,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Step_By2_SourceLength0_CountIs0()
+        public void List_Step_By2_SourceLength0_CountIs0()
         {
             List<int> source = new List<int> { };
             var result = source.Step(2);
@@ -340,7 +339,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Step_By2_SourceLength1_CountIs1()
+        public void List_Step_By2_SourceLength1_CountIs1()
         {
             List<int> source = new List<int> { 1 };
             var result = source.Step(2);
@@ -348,7 +347,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Step_By2_SourceLength2_CountIs1()
+        public void List_Step_By2_SourceLength2_CountIs1()
         {
             List<int> source = new List<int> { 1, 2 };
             var result = source.Step(2);
@@ -356,7 +355,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Step_By2_SourceLength3_CountIs2()
+        public void List_Step_By2_SourceLength3_CountIs2()
         {
             List<int> source = new List<int> { 1, 2, 3 };
             var result = source.Step(2);
@@ -364,7 +363,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Step_By2_SourceLength4_CountIs2()
+        public void List_Step_By2_SourceLength4_CountIs2()
         {
             List<int> source = new List<int> { 1, 2, 3, 4 };
             var result = source.Step(2);
@@ -373,7 +372,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException), "Clearing a step list should not be allowed")]
-        public void Step_Clear_IsRejected()
+        public void List_Step_Clear_IsRejected()
         {
             List<int> source = new List<int> { 1, 2, 3, 4, 5, 6 };
             var result = source.Step(3);
@@ -382,7 +381,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException), "Removing elements from a step list should not be allowed")]
-        public void Step_RemoveAt_IsRejected()
+        public void List_Step_RemoveAt_IsRejected()
         {
             List<int> source = new List<int> { 1, 2, 3, 4, 5, 6 };
             var result = source.Step(3);
@@ -391,7 +390,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException), "Inserting elements into a step list should not be allowed")]
-        public void Step_Insert_IsRejected()
+        public void List_Step_Insert_IsRejected()
         {
             List<int> source = new List<int> { 1, 2, 3, 4, 5, 6 };
             var result = source.Step(3);
@@ -399,7 +398,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Step_SetItem_UpdatesSource()
+        public void List_Step_SetItem_UpdatesSource()
         {
             List<int> source = new List<int> { 1, 2, 3, 4, 5, 6 };
             var result = source.Step(3);
@@ -409,7 +408,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Step_OnArray_IsReadOnly()
+        public void List_Step_OnArray_IsReadOnly()
         {
             int[] source = new int[] { 1, 2, 3, 4, 5, 6 };
             var result = source.Step(3);
@@ -417,7 +416,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SelectWithIndex_ProjectsSequenceSameAsEnumerableSelect()
+        public void List_SelectWithIndex_ProjectsSequenceSameAsEnumerableSelect()
         {
             List<int> test = new List<int> { 1, 2, 3, 4 };
             var result = test.Select((x, i) => new { x, i });
@@ -426,7 +425,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SelectWithoutIndex_ProjectsSequenceSameAsEnumerableSelect()
+        public void List_SelectWithoutIndex_ProjectsSequenceSameAsEnumerableSelect()
         {
             List<int> test = new List<int> { 1, 2, 3, 4 };
             var result = test.Select(x => new { x });
@@ -435,7 +434,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SelectWriteable_ProjectsSequence()
+        public void List_SelectWriteable_ProjectsSequence()
         {
             List<int> test = new List<int> { 1, 2, 3, 4 };
             var result = test.Select(x => new { value = x * 2 }, x => x.value / 2);
@@ -443,7 +442,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SelectWriteable_OverArray_IsReadOnly()
+        public void List_SelectWriteable_OverArray_IsReadOnly()
         {
             int[] test = new[] { 1, 2, 3, 4 };
             var result = test.Select(x => x * 2, x => x / 2);
@@ -451,7 +450,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SelectWriteable_AddItem_UpdatesSource()
+        public void List_SelectWriteable_AddItem_UpdatesSource()
         {
             List<int> test = new List<int> { 1, 2, 3, 4 };
             var result = test.Select(x => x * 2, x => x / 2);
@@ -461,7 +460,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SelectWriteable_InsertItem_UpdatesSource()
+        public void List_SelectWriteable_InsertItem_UpdatesSource()
         {
             List<int> test = new List<int> { 1, 2, 3, 4 };
             var result = test.Select(x => x * 2, x => x / 2);
@@ -471,7 +470,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SelectWriteable_RemoveAtItem_UpdatesSource()
+        public void List_SelectWriteable_RemoveAtItem_UpdatesSource()
         {
             List<int> test = new List<int> { 1, 2, 3, 4 };
             var result = test.Select(x => x * 2, x => x / 2);
@@ -481,7 +480,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SelectWriteable_RemoveItem_UpdatesSource()
+        public void List_SelectWriteable_RemoveItem_UpdatesSource()
         {
             List<int> test = new List<int> { 1, 2, 3, 4 };
             var result = test.Select(x => x * 2, x => x / 2);
@@ -492,7 +491,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SelectWriteable_RemoveInvalidItem_DoesNothing()
+        public void List_SelectWriteable_RemoveInvalidItem_DoesNothing()
         {
             List<int> test = new List<int> { 1, 2, 3, 4 };
             var result = test.Select(x => x * 2, x => x / 2);
@@ -503,7 +502,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SelectWriteable_Clear_UpdatesSource()
+        public void List_SelectWriteable_Clear_UpdatesSource()
         {
             List<int> test = new List<int> { 1, 2, 3, 4 };
             var result = test.Select(x => x * 2, x => x / 2);
@@ -513,7 +512,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SelectWriteable_SetItem_UpdatesSource()
+        public void List_SelectWriteable_SetItem_UpdatesSource()
         {
             List<int> test = new List<int> { 1, 2, 3, 4 };
             var result = test.Select(x => x * 2, x => x / 2);
@@ -523,7 +522,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void CopyTo_CopyingEntireList_CopiesElements()
+        public void List_CopyTo_CopyingEntireList_CopiesElements()
         {
             IList<int> source = new List<int> { 1, 2, 3, 4 };
             IList<int> dest = new List<int> { 5, 6, 7, 8 };
@@ -532,7 +531,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void CopyTo_CopyingWithDestIndex_CopiesElements()
+        public void List_CopyTo_CopyingWithDestIndex_CopiesElements()
         {
             IList<int> source = new List<int> { 1, 2, 3, 4 };
             IList<int> dest = new List<int> { 5, 6, 7, 8, 9, 10 };
@@ -541,7 +540,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void CopyTo_CopyingWithDestAndSourceIndexes_CopiesElements()
+        public void List_CopyTo_CopyingWithDestAndSourceIndexes_CopiesElements()
         {
             IList<int> source = new List<int> { 1, 2, 3, 4 };
             IList<int> dest = new List<int> { 5, 6, 7, 8, 9, 10 };
@@ -550,7 +549,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void CopyTo_CopiesForward()
+        public void List_CopyTo_CopiesForward()
         {
             IList<int> list = new List<int> { 1, 2, 3, 4 };
             list.CopyTo(0, list, 1, 3);
@@ -559,7 +558,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "CopyTo with a source index too large should be rejected")]
-        public void CopyTo_CopyingWithSourceIndexTooLarge_IsRejected()
+        public void List_CopyTo_CopyingWithSourceIndexTooLarge_IsRejected()
         {
             IList<int> source = new List<int> { 1, 2, 3, 4 };
             IList<int> dest = new List<int> { 5, 6, 7, 8, 9, 10 };
@@ -568,7 +567,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException), "CopyTo with a source index too small should be rejected")]
-        public void CopyTo_CopyingWithSourceIndexTooSmall_IsRejected()
+        public void List_CopyTo_CopyingWithSourceIndexTooSmall_IsRejected()
         {
             IList<int> source = new List<int> { 1, 2, 3, 4 };
             IList<int> dest = new List<int> { 5, 6, 7, 8, 9, 10 };
@@ -577,7 +576,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "CopyTo with a dest index too large should be rejected")]
-        public void CopyTo_CopyingWithDestIndexTooLarge_IsRejected()
+        public void List_CopyTo_CopyingWithDestIndexTooLarge_IsRejected()
         {
             IList<int> source = new List<int> { 1, 2, 3, 4 };
             IList<int> dest = new List<int> { 5, 6, 7, 8 };
@@ -586,7 +585,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException), "CopyTo with a dest index too small should be rejected")]
-        public void CopyTo_CopyingWithDestIndexTooSmall_IsRejected()
+        public void List_CopyTo_CopyingWithDestIndexTooSmall_IsRejected()
         {
             IList<int> source = new List<int> { 1, 2, 3, 4 };
             IList<int> dest = new List<int> { 5, 6, 7, 8, 9, 10 };
@@ -595,7 +594,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "CopyTo with a count larger than source should be rejected")]
-        public void CopyTo_CopyingWithCountTooLargeForSource_IsRejected()
+        public void List_CopyTo_CopyingWithCountTooLargeForSource_IsRejected()
         {
             IList<int> source = new List<int> { 1, 2 };
             IList<int> dest = new List<int> { 5, 6, 7, 8 };
@@ -604,7 +603,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "CopyTo with a count larger than dest should be rejected")]
-        public void CopyTo_CopyingWithCountTooLargeForDest_IsRejected()
+        public void List_CopyTo_CopyingWithCountTooLargeForDest_IsRejected()
         {
             IList<int> source = new List<int> { 1, 2, 3, 4 };
             IList<int> dest = new List<int> { 5, 6 };
@@ -612,7 +611,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void CopyToBackward_CopiesBackward()
+        public void List_CopyToBackward_CopiesBackward()
         {
             IList<int> list = new List<int> { 1, 2, 3, 4 };
             list.CopyBackward(0, list, 1, 3);
@@ -621,7 +620,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "CopyBackward with a source index too large should be rejected")]
-        public void CopyBackward_CopyingWithSourceIndexTooLarge_IsRejected()
+        public void List_CopyBackward_CopyingWithSourceIndexTooLarge_IsRejected()
         {
             IList<int> source = new List<int> { 1, 2, 3, 4 };
             IList<int> dest = new List<int> { 5, 6, 7, 8, 9, 10 };
@@ -630,7 +629,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException), "CopyBackward with a source index too small should be rejected")]
-        public void CopyBackward_CopyingWithSourceIndexTooSmall_IsRejected()
+        public void List_CopyBackward_CopyingWithSourceIndexTooSmall_IsRejected()
         {
             IList<int> source = new List<int> { 1, 2, 3, 4 };
             IList<int> dest = new List<int> { 5, 6, 7, 8, 9, 10 };
@@ -639,7 +638,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "CopyBackward with a dest index too large should be rejected")]
-        public void CopyBackward_CopyingWithDestIndexTooLarge_IsRejected()
+        public void List_CopyBackward_CopyingWithDestIndexTooLarge_IsRejected()
         {
             IList<int> source = new List<int> { 1, 2, 3, 4 };
             IList<int> dest = new List<int> { 5, 6, 7, 8 };
@@ -648,7 +647,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException), "CopyBackward with a dest index too small should be rejected")]
-        public void CopyBackward_CopyingWithDestIndexTooSmall_IsRejected()
+        public void List_CopyBackward_CopyingWithDestIndexTooSmall_IsRejected()
         {
             IList<int> source = new List<int> { 1, 2, 3, 4 };
             IList<int> dest = new List<int> { 5, 6, 7, 8, 9, 10 };
@@ -657,7 +656,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "CopyBackward with a count larger than source should be rejected")]
-        public void CopyBackward_CopyingWithCountTooLargeForSource_IsRejected()
+        public void List_CopyBackward_CopyingWithCountTooLargeForSource_IsRejected()
         {
             IList<int> source = new List<int> { 1, 2 };
             IList<int> dest = new List<int> { 5, 6, 7, 8 };
@@ -666,7 +665,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "CopyBackward with a count larger than dest should be rejected")]
-        public void CopyBackward_CopyingWithCountTooLargeForDest_IsRejected()
+        public void List_CopyBackward_CopyingWithCountTooLargeForDest_IsRejected()
         {
             IList<int> source = new List<int> { 1, 2, 3, 4 };
             IList<int> dest = new List<int> { 5, 6 };
@@ -674,7 +673,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Reverse_OverList_IsNotReadOnly()
+        public void List_Reverse_OverList_IsNotReadOnly()
         {
             IList<int> source = new List<int> { 1, 2, 3, 4 };
             var result = source.Reverse();
@@ -682,7 +681,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Reverse_OverArray_IsReadOnly()
+        public void List_Reverse_OverArray_IsReadOnly()
         {
             IList<int> source = new[] { 1, 2, 3, 4 };
             var result = source.Reverse();
@@ -690,7 +689,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Reverse_EnumeratesInReverse()
+        public void List_Reverse_EnumeratesInReverse()
         {
             IList<int> source = new List<int> { 1, 2, 3, 4 };
             var result = source.Reverse();
@@ -698,7 +697,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Reverse_SetItem_UpdatesSource()
+        public void List_Reverse_SetItem_UpdatesSource()
         {
             IList<int> source = new List<int> { 1, 2, 3, 4 };
             var result = source.Reverse();
@@ -708,7 +707,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Reverse_RemoveAt_UpdatesSource()
+        public void List_Reverse_RemoveAt_UpdatesSource()
         {
             IList<int> source = new List<int> { 1, 2, 3, 4 };
             var result = source.Reverse();
@@ -718,7 +717,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Reverse_Clear_UpdatesSource()
+        public void List_Reverse_Clear_UpdatesSource()
         {
             IList<int> source = new List<int> { 1, 2, 3, 4 };
             var result = source.Reverse();
@@ -728,7 +727,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Reverse_InsertItem_UpdatesSource()
+        public void List_Reverse_InsertItem_UpdatesSource()
         {
             IList<int> source = new List<int> { 1, 2, 3, 4 };
             var result = source.Reverse();
@@ -738,7 +737,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Return_EnumeratesSingleItem()
+        public void List_Return_EnumeratesSingleItem()
         {
             int source = 13;
             var result = ListExtensions.Return(source);
@@ -746,7 +745,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Return_IsReadOnly()
+        public void List_Return_IsReadOnly()
         {
             int source = 13;
             var result = ListExtensions.Return(source);
@@ -754,7 +753,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Repeat_IsReadOnly()
+        public void List_Repeat_IsReadOnly()
         {
             int source = 13;
             var result = ListExtensions.Repeat(source, 3);
@@ -762,7 +761,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Repeat_EnumeratesRepeatedItem()
+        public void List_Repeat_EnumeratesRepeatedItem()
         {
             int source = 13;
             var result = ListExtensions.Repeat(source, 3);
@@ -770,7 +769,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void RepeatSingleValue_NegativeTimes_EnumeratesEmptySequence()
+        public void List_RepeatSingleValue_NegativeTimes_EnumeratesEmptySequence()
         {
             int source = 13;
             var result = ListExtensions.Repeat(source, -1);
@@ -778,7 +777,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Repeat_EnumeratesRepeatedItems()
+        public void List_Repeat_EnumeratesRepeatedItems()
         {
             var source = new[] { 13, 15 };
             var result = source.Repeat(3);
@@ -786,7 +785,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Repeat_NegativeTimes_EnumeratesEmptySequence()
+        public void List_Repeat_NegativeTimes_EnumeratesEmptySequence()
         {
             var source = new[] { 13, 15 };
             var result = source.Repeat(-1);
@@ -794,7 +793,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Concat_WithNoArguments_ReturnsEmptyList()
+        public void List_Concat_WithNoArguments_ReturnsEmptyList()
         {
             var source = new List<IList<int>>();
             var result = source.Concat();
@@ -802,7 +801,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Concat_WithOneArgument_ReturnsList()
+        public void List_Concat_WithOneArgument_ReturnsList()
         {
             IList<int> test1 = new[] { 1 };
             var result = ListExtensions.Concat(test1);
@@ -810,7 +809,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Concat_WithTwoArguments_ConcatenatesLists()
+        public void List_Concat_WithTwoArguments_ConcatenatesLists()
         {
             IList<int> test1 = new[] { 1 };
             IList<int> test2 = new[] { 2, 3 };
@@ -819,7 +818,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Concat_WithMultipleArguments_ConcatenatesLists()
+        public void List_Concat_WithMultipleArguments_ConcatenatesLists()
         {
             IList<int> test1 = new[] { 1 };
             IList<int> test2 = new[] { 2, 3 };
@@ -829,7 +828,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Concat_WithEmptySource_ConcatenatesLists()
+        public void List_Concat_WithEmptySource_ConcatenatesLists()
         {
             IList<int> test1 = new[] { 1 };
             IList<int> test2 = new int[] { };
@@ -839,7 +838,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Concat_WithAtLeastOneReadOnlySource_IsReadOnly()
+        public void List_Concat_WithAtLeastOneReadOnlySource_IsReadOnly()
         {
             IList<int> test1 = new List<int> { 1 };
             IList<int> test2 = new[] { 2, 3 };
@@ -849,7 +848,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Concat_WithNoReadOnlySources_IsNotReadOnly()
+        public void List_Concat_WithNoReadOnlySources_IsNotReadOnly()
         {
             IList<int> test1 = new List<int> { 1 };
             IList<int> test2 = new List<int> { 2, 3 };
@@ -859,7 +858,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Concat_SetItem_UpdatesSource()
+        public void List_Concat_SetItem_UpdatesSource()
         {
             IList<int> test1 = new List<int> { 1 };
             IList<int> test2 = new List<int> { 2, 3 };
@@ -871,7 +870,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Concat_RemoveAt_UpdatesSource()
+        public void List_Concat_RemoveAt_UpdatesSource()
         {
             IList<int> test1 = new List<int> { 1 };
             IList<int> test2 = new List<int> { 2, 3 };
@@ -883,7 +882,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Concat_Clear_UpdatesSource()
+        public void List_Concat_Clear_UpdatesSource()
         {
             IList<int> test1 = new List<int> { 1 };
             IList<int> test2 = new List<int> { 2, 3 };
@@ -897,7 +896,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Concat_InsertItem_UpdatesSource()
+        public void List_Concat_InsertItem_UpdatesSource()
         {
             IList<int> test1 = new List<int> { 1 };
             IList<int> test2 = new List<int> { 2, 3 };
@@ -909,7 +908,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Concat_InsertItemAtEndOfList_UpdatesSource()
+        public void List_Concat_InsertItemAtEndOfList_UpdatesSource()
         {
             IList<int> test1 = new List<int> { 1 };
             IList<int> test2 = new List<int> { 2, 3 };
@@ -921,7 +920,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Concat_InsertItemAtEmptyList_UpdatesPreviousSource()
+        public void List_Concat_InsertItemAtEmptyList_UpdatesPreviousSource()
         {
             IList<int> test1 = new List<int> { 1 };
             IList<int> test2 = new List<int>();
@@ -933,7 +932,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Concat_InsertItemAtEmptyList_UpdatesFirstSource()
+        public void List_Concat_InsertItemAtEmptyList_UpdatesFirstSource()
         {
             IList<int> test1 = new List<int>();
             IList<int> test2 = new List<int>();
@@ -945,7 +944,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void ConcatLists_WithTwoLists_ConcatenatesLists()
+        public void List_ConcatLists_WithTwoLists_ConcatenatesLists()
         {
             IList<int> test1 = new[] { 1 };
             IList<int> test2 = new[] { 2, 3 };
@@ -954,7 +953,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Flatten_FlattensLists()
+        public void List_Flatten_FlattensLists()
         {
             var test1 = new[] { 1 };
             var test2 = new[] { 2, 3 };
@@ -965,7 +964,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Zip_ZipsElements()
+        public void List_Zip_ZipsElements()
         {
             var source1 = new List<int> { 13, 7 };
             var source2 = new List<int> { 17, 23 };
@@ -974,7 +973,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Zip_WithShorterFirstSource_IsSmaller()
+        public void List_Zip_WithShorterFirstSource_IsSmaller()
         {
             var source1 = new List<int> { 13 };
             var source2 = new List<int> { 17, 23 };
@@ -983,7 +982,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Zip_WithShorterSecondSource_IsSmaller()
+        public void List_Zip_WithShorterSecondSource_IsSmaller()
         {
             var source1 = new List<int> { 13, 23 };
             var source2 = new List<int> { 17 };
@@ -992,7 +991,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Zip3_ZipsElements()
+        public void List_Zip3_ZipsElements()
         {
             var source1 = new List<int> { 13, 7 };
             var source2 = new List<int> { 17, 23 };
@@ -1002,7 +1001,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Zip3_WithShorterFirstSource_IsSmaller()
+        public void List_Zip3_WithShorterFirstSource_IsSmaller()
         {
             var source1 = new List<int> { 13 };
             var source2 = new List<int> { 17, 23 };
@@ -1012,7 +1011,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Zip3_WithShorterSecondSource_IsSmaller()
+        public void List_Zip3_WithShorterSecondSource_IsSmaller()
         {
             var source1 = new List<int> { 13, 23 };
             var source2 = new List<int> { 17 };
@@ -1022,7 +1021,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Zip3_WithShorterThirdSource_IsSmaller()
+        public void List_Zip3_WithShorterThirdSource_IsSmaller()
         {
             var source1 = new List<int> { 13, 23 };
             var source2 = new List<int> { 17, 23 };
@@ -1032,7 +1031,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LastIndexOf_WithValidItem_FindsItem()
+        public void List_LastIndexOf_WithValidItem_FindsItem()
         {
             IList<int> source = new List<int> { 13 };
             int result = source.LastIndexOf(13);
@@ -1040,7 +1039,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LastIndexOf_WithInvalidItem_DoesNotFindItem()
+        public void List_LastIndexOf_WithInvalidItem_DoesNotFindItem()
         {
             IList<int> source = new List<int> { 13 };
             int result = source.LastIndexOf(17);
@@ -1048,7 +1047,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LastIndexOf_WithSimpleMatch_FindsItem()
+        public void List_LastIndexOf_WithSimpleMatch_FindsItem()
         {
             IList<int> source = new List<int> { 13 };
             int result = source.LastIndexOf(_ => true);
@@ -1056,7 +1055,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LastIndexOf_WithInvalidMatch_DoesNotFindItem()
+        public void List_LastIndexOf_WithInvalidMatch_DoesNotFindItem()
         {
             IList<int> source = new List<int> { 13 };
             int result = source.LastIndexOf(_ => false);
@@ -1064,7 +1063,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LastIndexOf_WithMultipleMatches_FindsLastItem()
+        public void List_LastIndexOf_WithMultipleMatches_FindsLastItem()
         {
             IList<int> source = new List<int> { 13, 15 };
             int result = source.LastIndexOf(_ => true);
@@ -1072,7 +1071,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Last_WithSimpleMatch_FindsItem()
+        public void List_Last_WithSimpleMatch_FindsItem()
         {
             var source = new List<int> { 13 };
             int result = source.Last(_ => true);
@@ -1081,14 +1080,14 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException), "Item should not be found")]
-        public void Last_WithInvalidMatch_DoesNotFindItem()
+        public void List_Last_WithInvalidMatch_DoesNotFindItem()
         {
             var source = new List<int> { 13 };
             int result = source.Last(_ => false);
         }
 
         [TestMethod]
-        public void Last_WithMultipleMatches_FindsLastItem()
+        public void List_Last_WithMultipleMatches_FindsLastItem()
         {
             IList<int> source = new List<int> { 13, 15 };
             int result = source.Last(_ => true);
@@ -1096,7 +1095,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LastOrDefault_WithSimpleMatch_FindsItem()
+        public void List_LastOrDefault_WithSimpleMatch_FindsItem()
         {
             var source = new List<int> { 13 };
             int result = source.LastOrDefault(_ => true);
@@ -1104,7 +1103,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LastOrDefault_WithInvalidMatch_DoesNotFindItem()
+        public void List_LastOrDefault_WithInvalidMatch_DoesNotFindItem()
         {
             var source = new List<int> { 13 };
             int result = source.LastOrDefault(_ => false);
@@ -1112,7 +1111,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LastOrDefault_WithMultipleMatches_FindsLastItem()
+        public void List_LastOrDefault_WithMultipleMatches_FindsLastItem()
         {
             IList<int> source = new List<int> { 13, 15 };
             int result = source.LastOrDefault(_ => true);
@@ -1120,7 +1119,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void AsReadOnly_IsReadOnly()
+        public void List_AsReadOnly_IsReadOnly()
         {
             IList<int> source = new List<int> { 13 };
             var result = source.AsReadOnly();
@@ -1129,7 +1128,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException), "Read-only list should reject inserts")]
-        public void AsReadOnly_Insert_IsRejected()
+        public void List_AsReadOnly_Insert_IsRejected()
         {
             IList<int> source = new List<int> { 13 };
             var result = source.AsReadOnly();
@@ -1138,7 +1137,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException), "Read-only list should reject adds")]
-        public void AsReadOnly_Add_IsRejected()
+        public void List_AsReadOnly_Add_IsRejected()
         {
             IList<int> source = new List<int> { 13 };
             var result = source.AsReadOnly();
@@ -1147,7 +1146,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException), "Read-only list should reject removes")]
-        public void AsReadOnly_Remove_IsRejected()
+        public void List_AsReadOnly_Remove_IsRejected()
         {
             IList<int> source = new List<int> { 13 };
             var result = source.AsReadOnly();
@@ -1156,7 +1155,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException), "Read-only list should reject RemoveAt")]
-        public void AsReadOnly_RemoveAt_IsRejected()
+        public void List_AsReadOnly_RemoveAt_IsRejected()
         {
             IList<int> source = new List<int> { 13 };
             var result = source.AsReadOnly();
@@ -1165,7 +1164,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException), "Read-only list should reject Clear")]
-        public void AsReadOnly_Clear_IsRejected()
+        public void List_AsReadOnly_Clear_IsRejected()
         {
             IList<int> source = new List<int> { 13 };
             var result = source.AsReadOnly();
@@ -1174,7 +1173,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException), "Read-only list should reject setting items")]
-        public void AsReadOnly_SetItem_IsRejected()
+        public void List_AsReadOnly_SetItem_IsRejected()
         {
             IList<int> source = new List<int> { 13 };
             var result = source.AsReadOnly();
@@ -1182,14 +1181,14 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void GenerateWithIndex_GeneratesItems()
+        public void List_GenerateWithIndex_GeneratesItems()
         {
             IList<int> source = ListExtensions.Generate(3, i => i);
             Assert.IsTrue(source.SequenceEqual(new[] { 0, 1, 2 }), "Generate should generate a sequence");
         }
 
         [TestMethod]
-        public void GenerateWithIndex_WithZeroCount_GeneratesEmptySequence()
+        public void List_GenerateWithIndex_WithZeroCount_GeneratesEmptySequence()
         {
             IList<int> source = ListExtensions.Generate(0, i => i);
             Assert.IsTrue(source.SequenceEqual(new int[] { }), "Generate should generate a sequence");
@@ -1197,20 +1196,20 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException), "Generate should not generate a sequence of negative count")]
-        public void GenerateWithIndex_WithNegativeCount_IsRejected()
+        public void List_GenerateWithIndex_WithNegativeCount_IsRejected()
         {
             IList<int> source = ListExtensions.Generate(-1, i => i);
         }
 
         [TestMethod]
-        public void GenerateWithoutIndex_GeneratesItems()
+        public void List_GenerateWithoutIndex_GeneratesItems()
         {
             IList<int> source = ListExtensions.Generate(3, () => 13);
             Assert.IsTrue(source.SequenceEqual(new[] { 13, 13, 13 }), "Generate should generate a sequence");
         }
 
         [TestMethod]
-        public void GenerateWithoutIndex_WithZeroCount_GeneratesEmptySequence()
+        public void List_GenerateWithoutIndex_WithZeroCount_GeneratesEmptySequence()
         {
             IList<int> source = ListExtensions.Generate(0, () => 13);
             Assert.IsTrue(source.SequenceEqual(new int[] { }), "Generate should generate a sequence");
@@ -1218,13 +1217,13 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException), "Generate should not generate a sequence of negative count")]
-        public void GenerateWithoutIndex_WithNegativeCount_IsRejected()
+        public void List_GenerateWithoutIndex_WithNegativeCount_IsRejected()
         {
             IList<int> source = ListExtensions.Generate(-1, () => 13);
         }
 
         [TestMethod]
-        public void Rotate_EmptySequence_NegativeOffset_IsEmptySequence()
+        public void List_Rotate_EmptySequence_NegativeOffset_IsEmptySequence()
         {
             var source = new int[] { };
             var result = source.Rotate(-1);
@@ -1232,7 +1231,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Rotate_EmptySequence_ZeroOffset_IsEmptySequence()
+        public void List_Rotate_EmptySequence_ZeroOffset_IsEmptySequence()
         {
             var source = new int[] { };
             var result = source.Rotate(0);
@@ -1240,7 +1239,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Rotate_EmptySequence_PositiveOffset_IsEmptySequence()
+        public void List_Rotate_EmptySequence_PositiveOffset_IsEmptySequence()
         {
             var source = new int[] { };
             var result = source.Rotate(1);
@@ -1248,7 +1247,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Rotate_NegativeOffset_IsSameSequence()
+        public void List_Rotate_NegativeOffset_IsSameSequence()
         {
             var source = new[] { 1, 2, 3 };
             var result = source.Rotate(-1);
@@ -1256,7 +1255,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Rotate_ZeroOffset_IsSameSequence()
+        public void List_Rotate_ZeroOffset_IsSameSequence()
         {
             var source = new[] { 1, 2, 3 };
             var result = source.Rotate(0);
@@ -1264,7 +1263,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Rotate_RotatesSequence()
+        public void List_Rotate_RotatesSequence()
         {
             var source = new[] { 1, 2, 3 };
             var result = source.Rotate(1);
@@ -1272,7 +1271,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Rotate_CountOffset_IsSameSequence()
+        public void List_Rotate_CountOffset_IsSameSequence()
         {
             var source = new[] { 1, 2, 3 };
             var result = source.Rotate(3);
@@ -1280,7 +1279,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Rotate_GreaterThanCountOffset_IsSameSequence()
+        public void List_Rotate_GreaterThanCountOffset_IsSameSequence()
         {
             var source = new[] { 1, 2, 3 };
             var result = source.Rotate(4);
@@ -1288,7 +1287,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SequenceEqual_DifferentSourceCounts_AreNotEqual()
+        public void List_SequenceEqual_DifferentSourceCounts_AreNotEqual()
         {
             var source1 = new[] { 1, 2 };
             var source2 = new[] { 1, 2, 3 };
@@ -1297,7 +1296,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SequenceEqual_SameSourceCountsDifferentValues_AreNotEqual()
+        public void List_SequenceEqual_SameSourceCountsDifferentValues_AreNotEqual()
         {
             var source1 = new[] { 1, 2, 3 };
             var source2 = new[] { 1, 2, 5 };
@@ -1306,7 +1305,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SequenceEqual_IdenticalSources_AreEqual()
+        public void List_SequenceEqual_IdenticalSources_AreEqual()
         {
             var source1 = new[] { 1, 2, 3 };
             var source2 = new[] { 1, 2, 3 };
