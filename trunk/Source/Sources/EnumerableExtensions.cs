@@ -207,6 +207,30 @@ namespace Nito
         }
 
         /// <summary>
+        /// Immediately executes a delegate for each element of the sequence.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="source">The source sequence.</param>
+        /// <param name="action">The delegate to invoke for each element of the sequence.</param>
+        public static void Run<T>(this IEnumerable<T> source, Action<T> action)
+        {
+            foreach (T item in source)
+            {
+                action(item);
+            }
+        }
+
+        /// <summary>
+        /// Evaluates a sequence.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="source">The source sequence.</param>
+        public static void Run<T>(this IEnumerable<T> source)
+        {
+            source.Run((_) => { });
+        }
+
+        /// <summary>
         /// Prepends a value to a source sequence. Identical to Rx's <c>EnumerableEx.StartWith</c>.
         /// </summary>
         /// <typeparam name="T">The type of elements in the sequence.</typeparam>
