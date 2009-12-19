@@ -8,13 +8,12 @@ using Nito;
 namespace UnitTests
 {
     /// <summary>
-    /// Tests are added to this class as Utility functionality is subsumed by the Rx framework.
+    /// Tests are added to this file as Nito.Linq functionality is subsumed by the Rx framework.
     /// </summary>
-    [TestClass]
-    public class RxUnitTests
+    public partial class Tests
     {
         [TestMethod]
-        public void Zip_ZipsElements()
+        public void Enumerable_Zip_ZipsElements()
         {
             IEnumerable<int> source1 = new List<int> { 13, 7 };
             IEnumerable<int> source2 = new List<int> { 17, 23 };
@@ -23,7 +22,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Zip_WithShorterFirstSource_IsSmaller()
+        public void Enumerable_Zip_WithShorterFirstSource_IsSmaller()
         {
             IEnumerable<int> source1 = new List<int> { 13 };
             IEnumerable<int> source2 = new List<int> { 17, 23 };
@@ -32,7 +31,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Zip_WithShorterSecondSource_IsSmaller()
+        public void Enumerable_Zip_WithShorterSecondSource_IsSmaller()
         {
             IEnumerable<int> source1 = new List<int> { 13, 23 };
             IEnumerable<int> source2 = new List<int> { 17 };
@@ -41,7 +40,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Repeat_EnumeratesRepeatedItems()
+        public void Enumerable_Repeat_EnumeratesRepeatedItems()
         {
             IEnumerable<int> source = new[] { 13, 15 };
             var result = source.Repeat(3);
@@ -49,7 +48,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Repeat_NegativeTimes_EnumeratesEmptySequence()
+        public void Enumerable_Repeat_NegativeTimes_EnumeratesEmptySequence()
         {
             IEnumerable<int> source = new[] { 13, 15 };
             var result = source.Repeat(-1);
@@ -57,7 +56,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Repeat_Infinitely_EnumeratesRepeatedItems()
+        public void Enumerable_Repeat_Infinitely_EnumeratesRepeatedItems()
         {
             IEnumerable<int> source = new[] { 13, 15 };
             var result = source.Repeat().Take(5);
@@ -65,7 +64,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Run_InvokesCallback()
+        public void Enumerable_Run_InvokesCallback()
         {
             IEnumerable<int> source = new[] { 13, 15 };
             List<int> result = new List<int>();
@@ -74,7 +73,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Do_InvokesCallbackAndReturnsSequence()
+        public void Enumerable_Do_InvokesCallbackAndReturnsSequence()
         {
             IEnumerable<int> source = new[] { 13, 15 };
             List<int> result = new List<int>();
@@ -84,7 +83,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Concat_ConcatenatesSequences()
+        public void Enumerable_Concat_ConcatenatesSequences()
         {
             IEnumerable<int> test1 = new[] { 1 };
             IEnumerable<int> test2 = new[] { 2, 3 };
@@ -94,7 +93,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Return_EnumeratesSingleItem()
+        public void Enumerable_Return_EnumeratesSingleItem()
         {
             int source = 13;
             var result = EnumerableExtensions.Return(source);
@@ -102,7 +101,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void RepeatValue_EnumeratesRepeatedItem()
+        public void Enumerable_RepeatValue_EnumeratesRepeatedItem()
         {
             int source = 13;
             var result = EnumerableExtensions.Repeat(source, 3);
@@ -110,7 +109,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void RepeatValue_NegativeTimes_EnumeratesEmptySequence()
+        public void Enumerable_RepeatValue_NegativeTimes_EnumeratesEmptySequence()
         {
             int source = 13;
             var result = EnumerableExtensions.Repeat(source, -1);
@@ -118,7 +117,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void RepeatValue_Infinitely_EnumeratesRepeatedItem()
+        public void Enumerable_RepeatValue_Infinitely_EnumeratesRepeatedItem()
         {
             int source = 13;
             var result = EnumerableExtensions.Repeat(source).Take(3);

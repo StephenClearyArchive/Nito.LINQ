@@ -7,11 +7,10 @@ using Nito;
 
 namespace UnitTests
 {
-    [TestClass]
-    public class LinkedListExtensionsUnitTests
+    public partial class Tests
     {
         [TestMethod]
-        public void Nodes_EmptyList_ReturnsEmptySequence()
+        public void LinkedListNodes_EmptyList_ReturnsEmptySequence()
         {
             var list = new LinkedList<int>();
             var result = list.Nodes();
@@ -19,7 +18,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Nodes_SingleElementList_ReturnsSingleElementSequence()
+        public void LinkedListNodes_SingleElementList_ReturnsSingleElementSequence()
         {
             var list = new LinkedList<int>();
             list.AddLast(13);
@@ -28,7 +27,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Nodes_TwoElementList_ReturnsTwoElementSequence()
+        public void LinkedListNodes_TwoElementList_ReturnsTwoElementSequence()
         {
             var list = new LinkedList<int>();
             list.AddLast(13);
@@ -38,7 +37,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Nodes_AllowsRemoval()
+        public void LinkedListNodes_AllowsRemoval()
         {
             var list = new LinkedList<int>();
             List<int> result = new List<int>();

@@ -7,11 +7,10 @@ using Nito;
 
 namespace UnitTests
 {
-    [TestClass]
-    public class LexicographicalComparerUnitTests
+    public partial class Tests
     {
         [TestMethod]
-        public void Compare_EmptySequences_ReturnsEqual()
+        public void LexicographicalComparer_EmptySequences_ReturnsEqual()
         {
             var x = new int[] { };
             var y = new int[] { };
@@ -20,7 +19,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Compare_FirstSequenceEmpty_ReturnsLessThan()
+        public void LexicographicalComparer_FirstSequenceEmpty_ReturnsLessThan()
         {
             var x = new int[] { };
             var y = new int[] { 1 };
@@ -29,7 +28,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Compare_SecondSequenceEmpty_ReturnsGreaterThan()
+        public void LexicographicalComparer_SecondSequenceEmpty_ReturnsGreaterThan()
         {
             var x = new int[] { 1 };
             var y = new int[] { };
@@ -38,7 +37,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Compare_EqualSequences_ReturnsEqual()
+        public void LexicographicalComparer_EqualSequences_ReturnsEqual()
         {
             var x = new int[] { 1, 2, 3 };
             var y = new int[] { 1, 2, 3 };
@@ -47,7 +46,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Compare_FirstSequenceShorter_ReturnsLessThan()
+        public void LexicographicalComparer_FirstSequenceShorter_ReturnsLessThan()
         {
             var x = new int[] { 1, 2 };
             var y = new int[] { 1, 2, 3 };
@@ -56,7 +55,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Compare_SecondSequenceShorter_ReturnsGreaterThan()
+        public void LexicographicalComparer_SecondSequenceShorter_ReturnsGreaterThan()
         {
             var x = new int[] { 1, 2, 3 };
             var y = new int[] { 1, 2 };
@@ -65,7 +64,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Compare_FirstSequenceSmaller_ReturnsLessThan()
+        public void LexicographicalComparer_FirstSequenceSmaller_ReturnsLessThan()
         {
             var x = new int[] { 1, 1, 3 };
             var y = new int[] { 1, 2, 3 };
@@ -74,7 +73,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Compare_SecondSequenceSmaller_ReturnsGreaterThan()
+        public void LexicographicalComparer_SecondSequenceSmaller_ReturnsGreaterThan()
         {
             var x = new int[] { 1, 1, 3 };
             var y = new int[] { 1, 0, 3 };

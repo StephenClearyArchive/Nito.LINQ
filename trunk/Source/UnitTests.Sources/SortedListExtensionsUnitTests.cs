@@ -7,11 +7,10 @@ using Nito;
 
 namespace UnitTests
 {
-    [TestClass]
-    public class SortedListExtensionsUnitTests
+    public partial class Tests
     {
         [TestMethod]
-        public void ToSortedList_RemembersComparer()
+        public void SortedEnumerable_ToSortedList_RemembersComparer()
         {
             var source = new[] { "a", "b", "c" }.AsEnumerable().AsSorted(StringComparer.InvariantCultureIgnoreCase);
             var result = source.ToSortedList();
@@ -19,21 +18,21 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Empty_RemembersComparer()
+        public void SortedList_Empty_RemembersComparer()
         {
             var result = SortedListExtensions.Empty<string>(StringComparer.InvariantCultureIgnoreCase);
             Assert.AreEqual(StringComparer.InvariantCultureIgnoreCase, result.Comparer, "Empty should remember its comparison object");
         }
 
         [TestMethod]
-        public void Empty_IsEmpty()
+        public void SortedList_Empty_IsEmpty()
         {
             var result = SortedListExtensions.Empty<string>();
             Assert.IsTrue(result.SequenceEqual(new string[] { }), "Empty should be empty");
         }
 
         [TestMethod]
-        public void AsSortedList_ReturnsArgument()
+        public void SortedList_AsSortedList_ReturnsArgument()
         {
             var test = new[] { 1, 2, 3, 4 }.AsSorted();
             var result = test.AsSortedList();
@@ -41,7 +40,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void AsSorted_RemembersComparer()
+        public void List_AsSorted_RemembersComparer()
         {
             var source = new[] { "a", "b", "c" };
             var sorted = source.AsSorted(StringComparer.InvariantCultureIgnoreCase);
@@ -49,7 +48,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void AsSorted_OverArray_IsReadOnly()
+        public void List_AsSorted_OverArray_IsReadOnly()
         {
             var source = new[] { 1, 2, 3 };
             var sorted = source.AsSorted();
@@ -57,7 +56,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void AsSorted_OverList_IsNotReadOnly()
+        public void List_AsSorted_OverList_IsNotReadOnly()
         {
             var source = new List<int> { 1, 2, 3 };
             var sorted = source.AsSorted();
@@ -65,7 +64,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void AsSorted_Clear_ClearsSource()
+        public void List_AsSorted_Clear_ClearsSource()
         {
             var source = new List<int> { 1, 2, 3 };
             var sorted = source.AsSorted();
@@ -74,7 +73,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void AsSorted_SetItem_UpdatesSource()
+        public void List_AsSorted_SetItem_UpdatesSource()
         {
             var source = new List<int> { 1, 2, 4 };
             var sorted = source.AsSorted();
@@ -83,7 +82,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void AsSorted_Insert_UpdatesSource()
+        public void List_AsSorted_Insert_UpdatesSource()
         {
             var source = new List<int> { 1, 2, 4 };
             var sorted = source.AsSorted();
@@ -92,7 +91,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void AsSorted_Remove_UpdatesSource()
+        public void List_AsSorted_Remove_UpdatesSource()
         {
             var source = new List<int> { 1, 2, 4 };
             var sorted = source.AsSorted();
@@ -101,7 +100,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void AsSortedIndexOf_WithValidItem_FindsItem()
+        public void List_AsSortedIndexOf_WithValidItem_FindsItem()
         {
             var source = new List<int> { 13 };
             var sorted = source.AsSorted();
@@ -110,7 +109,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void AsSortedIndexOf_WithInvalidItem_DoesNotFindItem()
+        public void List_AsSortedIndexOf_WithInvalidItem_DoesNotFindItem()
         {
             IList<int> source = new List<int> { 13 };
             var sorted = source.AsSorted();
@@ -119,7 +118,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void AsSortedContains_WithValidItem_FindsItem()
+        public void List_AsSortedContains_WithValidItem_FindsItem()
         {
             var source = new List<int> { 13 };
             var sorted = source.AsSorted();
@@ -128,7 +127,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void AsSortedContains_WithInvalidItem_DoesNotFindItem()
+        public void List_AsSortedContains_WithInvalidItem_DoesNotFindItem()
         {
             IList<int> source = new List<int> { 13 };
             var sorted = source.AsSorted();
@@ -137,7 +136,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Contains_WithValidItem_FindsItem()
+        public void SortedList_Contains_WithValidItem_FindsItem()
         {
             var source = new[] { "a", "b", "c" };
             var sorted = source.AsSorted();
@@ -146,7 +145,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Contains_WithInvalidItem_DoesNotFindItem()
+        public void SortedList_Contains_WithInvalidItem_DoesNotFindItem()
         {
             var source = new[] { "a", "b", "c" };
             var sorted = source.AsSorted();
@@ -155,7 +154,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IndexOf_WithValidItem_FindsItem()
+        public void SortedList_IndexOf_WithValidItem_FindsItem()
         {
             var source = new[] { "a", "a", "c" };
             var sorted = source.AsSorted();
@@ -164,7 +163,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void IndexOf_WithInvalidItem_DoesNotFindItem()
+        public void SortedList_IndexOf_WithInvalidItem_DoesNotFindItem()
         {
             var source = new[] { "a", "a", "c" };
             var sorted = source.AsSorted();
@@ -173,7 +172,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LastIndexOf_WithValidItem_FindsItem()
+        public void SortedList_LastIndexOf_WithValidItem_FindsItem()
         {
             var source = new[] { "a", "a", "c" };
             var sorted = source.AsSorted();
@@ -182,7 +181,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LastIndexOf_WithInvalidItem_DoesNotFindItem()
+        public void SortedList_LastIndexOf_WithInvalidItem_DoesNotFindItem()
         {
             var source = new[] { "a", "a", "c" };
             var sorted = source.AsSorted();
@@ -191,7 +190,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LastIndexOf_WithValidItemValue_FindsItem()
+        public void SortedList_LastIndexOf_WithValidItemValue_FindsItem()
         {
             var source = new[] { "a", "a", "c" };
             var sorted = source.AsSorted();
@@ -200,7 +199,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LastIndexOf_WithInvalidItemValue_DoesNotFindItem()
+        public void SortedList_LastIndexOf_WithInvalidItemValue_DoesNotFindItem()
         {
             var source = new[] { "a", "a", "c" };
             var sorted = source.AsSorted();
@@ -209,7 +208,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void BinarySearchOn3Items_ItemAt0_FindsItem()
+        public void SortedList_BinarySearchOn3Items_ItemAt0_FindsItem()
         {
             var source = new[] { 1, 3, 5 };
             var sorted = source.AsSorted();
@@ -218,7 +217,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void BinarySearchOn3Items_ItemAt1_FindsItem()
+        public void SortedList_BinarySearchOn3Items_ItemAt1_FindsItem()
         {
             var source = new[] { 1, 3, 5 };
             var sorted = source.AsSorted();
@@ -227,7 +226,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void BinarySearchOn3Items_ItemAt2_FindsItem()
+        public void SortedList_BinarySearchOn3Items_ItemAt2_FindsItem()
         {
             var source = new[] { 1, 3, 5 };
             var sorted = source.AsSorted();
@@ -236,7 +235,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void BinarySearchOn3Items_ItemBefore0_FindsIndex()
+        public void SortedList_BinarySearchOn3Items_ItemBefore0_FindsIndex()
         {
             var source = new[] { 1, 3, 5 };
             var sorted = source.AsSorted();
@@ -245,7 +244,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void BinarySearchOn3Items_ItemBefore1_FindsIndex()
+        public void SortedList_BinarySearchOn3Items_ItemBefore1_FindsIndex()
         {
             var source = new[] { 1, 3, 5 };
             var sorted = source.AsSorted();
@@ -254,7 +253,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void BinarySearchOn3Items_ItemBefore2_FindsIndex()
+        public void SortedList_BinarySearchOn3Items_ItemBefore2_FindsIndex()
         {
             var source = new[] { 1, 3, 5 };
             var sorted = source.AsSorted();
@@ -263,7 +262,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void BinarySearchOn3Items_ItemBefore3_FindsIndex()
+        public void SortedList_BinarySearchOn3Items_ItemBefore3_FindsIndex()
         {
             var source = new[] { 1, 3, 5 };
             var sorted = source.AsSorted();
@@ -272,7 +271,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void BinarySearchOn4Items_ItemAt0_FindsItem()
+        public void SortedList_BinarySearchOn4Items_ItemAt0_FindsItem()
         {
             var source = new[] { 2, 4, 6, 8 };
             var sorted = source.AsSorted();
@@ -281,7 +280,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void BinarySearchOn4Items_ItemAt1_FindsItem()
+        public void SortedList_BinarySearchOn4Items_ItemAt1_FindsItem()
         {
             var source = new[] { 2, 4, 6, 8 };
             var sorted = source.AsSorted();
@@ -290,7 +289,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void BinarySearchOn4Items_ItemAt2_FindsItem()
+        public void SortedList_BinarySearchOn4Items_ItemAt2_FindsItem()
         {
             var source = new[] { 2, 4, 6, 8 };
             var sorted = source.AsSorted();
@@ -299,7 +298,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void BinarySearchOn4Items_ItemAt3_FindsItem()
+        public void SortedList_BinarySearchOn4Items_ItemAt3_FindsItem()
         {
             var source = new[] { 2, 4, 6, 8 };
             var sorted = source.AsSorted();
@@ -308,7 +307,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void BinarySearchOn4Items_ItemBefore0_FindsIndex()
+        public void SortedList_BinarySearchOn4Items_ItemBefore0_FindsIndex()
         {
             var source = new[] { 2, 4, 6, 8 };
             var sorted = source.AsSorted();
@@ -317,7 +316,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void BinarySearchOn4Items_ItemBefore1_FindsIndex()
+        public void SortedList_BinarySearchOn4Items_ItemBefore1_FindsIndex()
         {
             var source = new[] { 2, 4, 6, 8 };
             var sorted = source.AsSorted();
@@ -326,7 +325,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void BinarySearchOn4Items_ItemBefore2_FindsIndex()
+        public void SortedList_BinarySearchOn4Items_ItemBefore2_FindsIndex()
         {
             var source = new[] { 2, 4, 6, 8 };
             var sorted = source.AsSorted();
@@ -335,7 +334,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void BinarySearchOn4Items_ItemBefore3_FindsIndex()
+        public void SortedList_BinarySearchOn4Items_ItemBefore3_FindsIndex()
         {
             var source = new[] { 2, 4, 6, 8 };
             var sorted = source.AsSorted();
@@ -344,7 +343,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void BinarySearchOn4Items_ItemBefore4_FindsIndex()
+        public void SortedList_BinarySearchOn4Items_ItemBefore4_FindsIndex()
         {
             var source = new[] { 2, 4, 6, 8 };
             var sorted = source.AsSorted();
@@ -353,7 +352,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf0_AtBeginning_EvenCount()
+        public void SortedList_EqualRange_RunOf0_AtBeginning_EvenCount()
         {
             var source = new[] { 1, 3 };
             var sorted = source.AsSorted();
@@ -365,7 +364,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf0_AtBeginning_OddCount()
+        public void SortedList_EqualRange_RunOf0_AtBeginning_OddCount()
         {
             var source = new[] { 1, 3, 5 };
             var sorted = source.AsSorted();
@@ -377,7 +376,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf0_InMiddle_EvenCount()
+        public void SortedList_EqualRange_RunOf0_InMiddle_EvenCount()
         {
             var source = new[] { 1, 3 };
             var sorted = source.AsSorted();
@@ -389,7 +388,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf0_InMiddle_OddCount()
+        public void SortedList_EqualRange_RunOf0_InMiddle_OddCount()
         {
             var source = new[] { 1, 3, 5 };
             var sorted = source.AsSorted();
@@ -401,7 +400,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf0_InSecondMiddle_OddCount()
+        public void SortedList_EqualRange_RunOf0_InSecondMiddle_OddCount()
         {
             var source = new[] { 1, 3, 5 };
             var sorted = source.AsSorted();
@@ -413,7 +412,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf0_AtEnd_EvenCount()
+        public void SortedList_EqualRange_RunOf0_AtEnd_EvenCount()
         {
             var source = new[] { 1, 3 };
             var sorted = source.AsSorted();
@@ -425,7 +424,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf0_AtEnd_OddCount()
+        public void SortedList_EqualRange_RunOf0_AtEnd_OddCount()
         {
             var source = new[] { 1, 3, 5 };
             var sorted = source.AsSorted();
@@ -437,7 +436,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf1_AtBeginning_EvenCount()
+        public void SortedList_EqualRange_RunOf1_AtBeginning_EvenCount()
         {
             var source = new[] { 1, 3 };
             var sorted = source.AsSorted();
@@ -449,7 +448,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf1_InMiddle_EvenCount()
+        public void SortedList_EqualRange_RunOf1_InMiddle_EvenCount()
         {
             var source = new[] { 1, 3, 5, 7 };
             var sorted = source.AsSorted();
@@ -461,7 +460,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf1_InSecondMiddle_EvenCount()
+        public void SortedList_EqualRange_RunOf1_InSecondMiddle_EvenCount()
         {
             var source = new[] { 1, 3, 5, 7 };
             var sorted = source.AsSorted();
@@ -473,7 +472,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf1_AtEnd_EvenCount()
+        public void SortedList_EqualRange_RunOf1_AtEnd_EvenCount()
         {
             var source = new[] { 1, 3 };
             var sorted = source.AsSorted();
@@ -485,7 +484,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf1_AtBeginning_OddCount()
+        public void SortedList_EqualRange_RunOf1_AtBeginning_OddCount()
         {
             var source = new[] { 1, 3, 5 };
             var sorted = source.AsSorted();
@@ -497,7 +496,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf1_InMiddle_OddCount()
+        public void SortedList_EqualRange_RunOf1_InMiddle_OddCount()
         {
             var source = new[] { 1, 3, 5 };
             var sorted = source.AsSorted();
@@ -509,7 +508,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf1_AtEnd_OddCount()
+        public void SortedList_EqualRange_RunOf1_AtEnd_OddCount()
         {
             var source = new[] { 1, 3, 5 };
             var sorted = source.AsSorted();
@@ -521,7 +520,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf2_AtBeginning_EvenCount()
+        public void SortedList_EqualRange_RunOf2_AtBeginning_EvenCount()
         {
             var source = new[] { 1, 1, 3, 4 };
             var sorted = source.AsSorted();
@@ -533,7 +532,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf2_AtMiddle_EvenCount()
+        public void SortedList_EqualRange_RunOf2_AtMiddle_EvenCount()
         {
             var source = new[] { 1, 2, 3, 3, 4, 5 };
             var sorted = source.AsSorted();
@@ -545,7 +544,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf2_AtEnd_EvenCount()
+        public void SortedList_EqualRange_RunOf2_AtEnd_EvenCount()
         {
             var source = new[] { 1, 2, 3, 3 };
             var sorted = source.AsSorted();
@@ -557,7 +556,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf2_AtBeginning_OddCount()
+        public void SortedList_EqualRange_RunOf2_AtBeginning_OddCount()
         {
             var source = new[] { 1, 1, 3, 3, 4, 5, 7 };
             var sorted = source.AsSorted();
@@ -569,7 +568,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf2_AtMiddle_OddCount()
+        public void SortedList_EqualRange_RunOf2_AtMiddle_OddCount()
         {
             var source = new[] { 1, 1, 3, 3, 4, 5, 7 };
             var sorted = source.AsSorted();
@@ -581,7 +580,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf2_AtSecondMiddle_OddCount()
+        public void SortedList_EqualRange_RunOf2_AtSecondMiddle_OddCount()
         {
             var source = new[] { 1, 1, 3, 4, 4, 5, 7 };
             var sorted = source.AsSorted();
@@ -593,7 +592,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf2_AtThirdMiddle_OddCount()
+        public void SortedList_EqualRange_RunOf2_AtThirdMiddle_OddCount()
         {
             var source = new[] { 1, 1, 3, 4, 5, 5, 7 };
             var sorted = source.AsSorted();
@@ -605,7 +604,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf2_AtEnd_OddCount()
+        public void SortedList_EqualRange_RunOf2_AtEnd_OddCount()
         {
             var source = new[] { 1, 1, 3, 4, 5, 7, 7 };
             var sorted = source.AsSorted();
@@ -617,7 +616,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf3_AtBeginning_EvenCount()
+        public void SortedList_EqualRange_RunOf3_AtBeginning_EvenCount()
         {
             var source = new[] { 1, 1, 1, 4 };
             var sorted = source.AsSorted();
@@ -629,7 +628,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf3_AtMiddle_EvenCount()
+        public void SortedList_EqualRange_RunOf3_AtMiddle_EvenCount()
         {
             var source = new[] { 0, 1, 1, 1, 4, 4 };
             var sorted = source.AsSorted();
@@ -641,7 +640,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf3_AtSecondMiddle_EvenCount()
+        public void SortedList_EqualRange_RunOf3_AtSecondMiddle_EvenCount()
         {
             var source = new[] { 0, 1, 4, 4, 4, 7 };
             var sorted = source.AsSorted();
@@ -653,7 +652,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf3_AtEnd_EvenCount()
+        public void SortedList_EqualRange_RunOf3_AtEnd_EvenCount()
         {
             var source = new[] { 0, 1, 1, 4, 4, 4 };
             var sorted = source.AsSorted();
@@ -665,7 +664,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf3_AtBeginning_OddCount()
+        public void SortedList_EqualRange_RunOf3_AtBeginning_OddCount()
         {
             var source = new[] { 0, 0, 0, 1, 4 };
             var sorted = source.AsSorted();
@@ -677,7 +676,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf3_InMiddle_OddCount()
+        public void SortedList_EqualRange_RunOf3_InMiddle_OddCount()
         {
             var source = new[] { -1, 0, 0, 0, 1 };
             var sorted = source.AsSorted();
@@ -689,7 +688,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EqualRange_RunOf3_AtEnd_OddCount()
+        public void SortedList_EqualRange_RunOf3_AtEnd_OddCount()
         {
             var source = new[] { -1, -1, 0, 0, 0 };
             var sorted = source.AsSorted();
@@ -701,7 +700,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LowerBound_ItemFound_ReturnsLowerBound()
+        public void SortedList_LowerBound_ItemFound_ReturnsLowerBound()
         {
             var source = new[] { 1, 2, 2, 4 };
             var sorted = source.AsSorted();
@@ -710,7 +709,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LowerBound_ItemNotFound_ReturnsBitwiseComplement()
+        public void SortedList_LowerBound_ItemNotFound_ReturnsBitwiseComplement()
         {
             var source = new[] { 1, 2, 2, 4 };
             var sorted = source.AsSorted();
@@ -719,7 +718,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LowerBound_ItemNotFoundInEmptySequence_ReturnsBitwiseComplementOf0()
+        public void SortedList_LowerBound_ItemNotFoundInEmptySequence_ReturnsBitwiseComplementOf0()
         {
             var source = new int[] { };
             var sorted = source.AsSorted();
@@ -728,7 +727,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void LowerBound_ItemNotFoundPastSequence_ReturnsBitwiseComplement()
+        public void SortedList_LowerBound_ItemNotFoundPastSequence_ReturnsBitwiseComplement()
         {
             var source = new[] { 1, 2, 2, 4 };
             var sorted = source.AsSorted();
@@ -737,7 +736,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void UpperBound_ItemFound_ReturnsUpperBound()
+        public void SortedList_UpperBound_ItemFound_ReturnsUpperBound()
         {
             var source = new[] { 1, 2, 2, 4 };
             var sorted = source.AsSorted();
@@ -746,7 +745,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void UpperBound_ItemNotFound_ReturnsBitwiseComplement()
+        public void SortedList_UpperBound_ItemNotFound_ReturnsBitwiseComplement()
         {
             var source = new[] { 1, 2, 2, 4 };
             var sorted = source.AsSorted();
@@ -755,7 +754,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void UpperBound_ItemNotFoundInEmptySequence_ReturnsBitwiseComplementOf0()
+        public void SortedList_UpperBound_ItemNotFoundInEmptySequence_ReturnsBitwiseComplementOf0()
         {
             var source = new int[] { };
             var sorted = source.AsSorted();
@@ -764,7 +763,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void UpperBound_ItemNotFoundPastSequence_ReturnsBitwiseComplement()
+        public void SortedList_UpperBound_ItemNotFoundPastSequence_ReturnsBitwiseComplement()
         {
             var source = new[] { 1, 2, 2, 4 };
             var sorted = source.AsSorted();
@@ -773,7 +772,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EmptyList_InsertSorted_ContainsSingleValue()
+        public void SortedList_EmptyList_InsertSorted_ContainsSingleValue()
         {
             var list = new List<int>().AsSorted();
             list.Insert(13);
@@ -781,7 +780,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SingleElementList_InsertSmall_ContainsSortedValues()
+        public void SortedList_SingleElementList_InsertSmall_ContainsSortedValues()
         {
             var list = new List<int> { 13 }.AsSorted();
             list.Insert(7);
@@ -789,7 +788,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SingleElementList_InsertSame_ContainsSortedValues()
+        public void SortedList_SingleElementList_InsertSame_ContainsSortedValues()
         {
             var list = new List<int> { 13 }.AsSorted();
             list.Insert(13);
@@ -797,7 +796,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SingleElementList_InsertLarge_ContainsSortedValues()
+        public void SortedList_SingleElementList_InsertLarge_ContainsSortedValues()
         {
             var list = new List<int> { 13 }.AsSorted();
             list.Insert(17);
@@ -805,7 +804,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void EmptyList_InsertSorted_ReturnsItemIndex()
+        public void SortedList_EmptyList_InsertSorted_ReturnsItemIndex()
         {
             var list = new List<int>().AsSorted();
             int result = list.Insert(13);
@@ -813,7 +812,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SingleElementList_InsertSmall_ReturnsItemIndex()
+        public void SortedList_SingleElementList_InsertSmall_ReturnsItemIndex()
         {
             var list = new List<int> { 13 }.AsSorted();
             int result = list.Insert(7);
@@ -821,7 +820,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SingleElementList_InsertSame_ReturnsItemIndex()
+        public void SortedList_SingleElementList_InsertSame_ReturnsItemIndex()
         {
             var list = new List<int> { 13 }.AsSorted();
             int result = list.Insert(13);
@@ -829,7 +828,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void SingleElementList_InsertLarge_ReturnsItemIndex()
+        public void SortedList_SingleElementList_InsertLarge_ReturnsItemIndex()
         {
             var list = new List<int> { 13 }.AsSorted();
             int result = list.Insert(17);
@@ -837,7 +836,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_EmptyList_SortsList()
+        public void SortedList_Sort_EmptyList_SortsList()
         {
             IList<int> source = new List<int>();
             var result = source.Sort();
@@ -845,7 +844,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_SingleElementList_SortsList()
+        public void SortedList_Sort_SingleElementList_SortsList()
         {
             IList<int> source = new List<int> { 1 };
             var result = source.Sort();
@@ -853,7 +852,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_2ElementList_Permutation1_SortsList()
+        public void SortedList_Sort_2ElementList_Permutation1_SortsList()
         {
             IList<int> source = new List<int> { 1, 2 };
             var result = source.Sort();
@@ -861,7 +860,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_2ElementList_Permutation2_SortsList()
+        public void SortedList_Sort_2ElementList_Permutation2_SortsList()
         {
             IList<int> source = new List<int> { 2, 1 };
             var result = source.Sort();
@@ -869,7 +868,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_3ElementList_Permutation1_SortsList()
+        public void SortedList_Sort_3ElementList_Permutation1_SortsList()
         {
             IList<int> source = new List<int> { 1, 2, 3 };
             var result = source.Sort();
@@ -877,7 +876,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_3ElementList_Permutation2_SortsList()
+        public void SortedList_Sort_3ElementList_Permutation2_SortsList()
         {
             IList<int> source = new List<int> { 1, 3, 2 };
             var result = source.Sort();
@@ -885,7 +884,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_3ElementList_Permutation3_SortsList()
+        public void SortedList_Sort_3ElementList_Permutation3_SortsList()
         {
             IList<int> source = new List<int> { 2, 1, 3 };
             var result = source.Sort();
@@ -893,7 +892,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_3ElementList_Permutation4_SortsList()
+        public void SortedList_Sort_3ElementList_Permutation4_SortsList()
         {
             IList<int> source = new List<int> { 3, 1, 2 };
             var result = source.Sort();
@@ -901,7 +900,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_3ElementList_Permutation5_SortsList()
+        public void SortedList_Sort_3ElementList_Permutation5_SortsList()
         {
             IList<int> source = new List<int> { 2, 3, 1 };
             var result = source.Sort();
@@ -909,7 +908,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_3ElementList_Permutation6_SortsList()
+        public void SortedList_Sort_3ElementList_Permutation6_SortsList()
         {
             IList<int> source = new List<int> { 3, 2, 1 };
             var result = source.Sort();
@@ -917,7 +916,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation1_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation1_SortsList()
         {
             IList<int> source = new List<int> { 1, 2, 3, 4 };
             var result = source.Sort();
@@ -925,7 +924,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation2_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation2_SortsList()
         {
             IList<int> source = new List<int> { 1, 2, 4, 3 };
             var result = source.Sort();
@@ -933,7 +932,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation3_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation3_SortsList()
         {
             IList<int> source = new List<int> { 1, 3, 2, 4 };
             var result = source.Sort();
@@ -941,7 +940,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation4_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation4_SortsList()
         {
             IList<int> source = new List<int> { 1, 4, 2, 3 };
             var result = source.Sort();
@@ -949,7 +948,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation5_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation5_SortsList()
         {
             IList<int> source = new List<int> { 1, 3, 4, 2 };
             var result = source.Sort();
@@ -957,7 +956,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation6_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation6_SortsList()
         {
             IList<int> source = new List<int> { 1, 4, 3, 2 };
             var result = source.Sort();
@@ -965,7 +964,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation7_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation7_SortsList()
         {
             IList<int> source = new List<int> { 2, 1, 3, 4 };
             var result = source.Sort();
@@ -973,7 +972,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation8_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation8_SortsList()
         {
             IList<int> source = new List<int> { 2, 1, 4, 3 };
             var result = source.Sort();
@@ -981,7 +980,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation9_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation9_SortsList()
         {
             IList<int> source = new List<int> { 2, 3, 1, 4 };
             var result = source.Sort();
@@ -989,7 +988,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation10_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation10_SortsList()
         {
             IList<int> source = new List<int> { 2, 4, 1, 3 };
             var result = source.Sort();
@@ -997,7 +996,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation11_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation11_SortsList()
         {
             IList<int> source = new List<int> { 2, 3, 4, 1 };
             var result = source.Sort();
@@ -1005,7 +1004,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation12_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation12_SortsList()
         {
             IList<int> source = new List<int> { 2, 4, 3, 1 };
             var result = source.Sort();
@@ -1013,7 +1012,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation13_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation13_SortsList()
         {
             IList<int> source = new List<int> { 3, 1, 2, 4 };
             var result = source.Sort();
@@ -1021,7 +1020,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation14_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation14_SortsList()
         {
             IList<int> source = new List<int> { 3, 1, 4, 2 };
             var result = source.Sort();
@@ -1029,7 +1028,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation15_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation15_SortsList()
         {
             IList<int> source = new List<int> { 3, 2, 1, 4 };
             var result = source.Sort();
@@ -1037,7 +1036,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation16_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation16_SortsList()
         {
             IList<int> source = new List<int> { 3, 4, 1, 2 };
             var result = source.Sort();
@@ -1045,7 +1044,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation17_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation17_SortsList()
         {
             IList<int> source = new List<int> { 3, 2, 4, 1 };
             var result = source.Sort();
@@ -1053,7 +1052,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation18_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation18_SortsList()
         {
             IList<int> source = new List<int> { 3, 4, 2, 1 };
             var result = source.Sort();
@@ -1061,7 +1060,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation19_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation19_SortsList()
         {
             IList<int> source = new List<int> { 4, 1, 2, 3 };
             var result = source.Sort();
@@ -1069,7 +1068,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation20_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation20_SortsList()
         {
             IList<int> source = new List<int> { 4, 1, 3, 2 };
             var result = source.Sort();
@@ -1077,7 +1076,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation21_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation21_SortsList()
         {
             IList<int> source = new List<int> { 4, 2, 1, 3 };
             var result = source.Sort();
@@ -1085,7 +1084,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation22_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation22_SortsList()
         {
             IList<int> source = new List<int> { 4, 3, 1, 2 };
             var result = source.Sort();
@@ -1093,7 +1092,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation23_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation23_SortsList()
         {
             IList<int> source = new List<int> { 4, 2, 3, 1 };
             var result = source.Sort();
@@ -1101,7 +1100,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_4ElementList_Permutation24_SortsList()
+        public void SortedList_Sort_4ElementList_Permutation24_SortsList()
         {
             IList<int> source = new List<int> { 4, 3, 2, 1 };
             var result = source.Sort();
@@ -1109,7 +1108,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_UpdatesSource()
+        public void SortedList_Sort_UpdatesSource()
         {
             IList<int> source = new List<int> { 4, 3, 2, 1 };
             var result = source.Sort();
@@ -1117,7 +1116,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_SyncsOtherList()
+        public void SortedList_Sort_SyncsOtherList()
         {
             IList<int> source = new List<int> { 4, 2, 1, 3 };
             var other = new List<string> { "A", "B", "C", "D" };
@@ -1126,7 +1125,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_SyncsTwoOtherLists()
+        public void SortedList_Sort_SyncsTwoOtherLists()
         {
             IList<int> source = new List<int> { 3, 2, 1, 4 };
             var other1 = new List<string> { "A", "B", "C", "D" };
@@ -1137,7 +1136,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_SyncsThreeOtherLists()
+        public void SortedList_Sort_SyncsThreeOtherLists()
         {
             IList<int> source = new List<int> { 2, 3, 1, 4 };
             var other1 = new List<string> { "B", "A", "C", "D" };
@@ -1150,7 +1149,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_InReverse_DoesReverseSort()
+        public void SortedList_Sort_InReverse_DoesReverseSort()
         {
             IList<int> source = new List<int> { 4, 2, 1, 3 };
             IComparer<int> comparer = new ReverseSort<int> { Comparer = Comparer<int>.Default };
@@ -1159,7 +1158,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_InReverse_SyncsOtherList()
+        public void SortedList_Sort_InReverse_SyncsOtherList()
         {
             IList<int> source = new List<int> { 4, 2, 1, 3 };
             IComparer<int> comparer = new ReverseSort<int> { Comparer = Comparer<int>.Default };
@@ -1169,7 +1168,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_InReverse_SyncsTwoOtherLists()
+        public void SortedList_Sort_InReverse_SyncsTwoOtherLists()
         {
             IList<int> source = new List<int> { 3, 2, 1, 4 };
             IComparer<int> comparer = new ReverseSort<int> { Comparer = Comparer<int>.Default };
@@ -1181,7 +1180,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_InReverse_SyncsThreeOtherLists()
+        public void SortedList_Sort_InReverse_SyncsThreeOtherLists()
         {
             IList<int> source = new List<int> { 2, 3, 1, 4 };
             IComparer<int> comparer = new ReverseSort<int> { Comparer = Comparer<int>.Default };
@@ -1196,7 +1195,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "Sort should reject sync lists that are too small")]
-        public void Sort_SyncingListTooSmall_IsRejected()
+        public void SortedList_Sort_SyncingListTooSmall_IsRejected()
         {
             IList<int> source = new List<int> { 4, 2, 1, 3 };
             var other = new List<string> { "A", "B", "C" };
@@ -1205,7 +1204,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "Sort should reject sync lists that are too small")]
-        public void Sort_SyncingTwoOtherLists_FirstTooSmall_IsRejected()
+        public void SortedList_Sort_SyncingTwoOtherLists_FirstTooSmall_IsRejected()
         {
             IList<int> source = new List<int> { 4, 2, 1, 3 };
             var other = new List<string> { "A", "B", "C" };
@@ -1215,7 +1214,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "Sort should reject sync lists that are too small")]
-        public void Sort_SyncingTwoOtherLists_SecondTooSmall_IsRejected()
+        public void SortedList_Sort_SyncingTwoOtherLists_SecondTooSmall_IsRejected()
         {
             IList<int> source = new List<int> { 4, 2, 1, 3 };
             var other = new List<string> { "A", "B", "C", "D" };
@@ -1225,7 +1224,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "Sort should reject sync lists that are too small")]
-        public void Sort_SyncingThreeOtherLists_FirstTooSmall_IsRejected()
+        public void SortedList_Sort_SyncingThreeOtherLists_FirstTooSmall_IsRejected()
         {
             IList<int> source = new List<int> { 4, 2, 1, 3 };
             var other = new List<string> { "A", "B", "C" };
@@ -1236,7 +1235,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "Sort should reject sync lists that are too small")]
-        public void Sort_SyncingThreeOtherLists_SecondTooSmall_IsRejected()
+        public void SortedList_Sort_SyncingThreeOtherLists_SecondTooSmall_IsRejected()
         {
             IList<int> source = new List<int> { 4, 2, 1, 3 };
             var other = new List<string> { "A", "B", "C", "D" };
@@ -1247,7 +1246,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "Sort should reject sync lists that are too small")]
-        public void Sort_SyncingThreeOtherLists_ThirdTooSmall_IsRejected()
+        public void SortedList_Sort_SyncingThreeOtherLists_ThirdTooSmall_IsRejected()
         {
             IList<int> source = new List<int> { 4, 2, 1, 3 };
             var other = new List<string> { "A", "B", "C", "D" };
@@ -1258,7 +1257,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "Sort should reject sync lists that are too small")]
-        public void Sort_InReverse_SyncingListTooSmall_IsRejected()
+        public void SortedList_Sort_InReverse_SyncingListTooSmall_IsRejected()
         {
             IList<int> source = new List<int> { 4, 2, 1, 3 };
             IComparer<int> comparer = new ReverseSort<int> { Comparer = Comparer<int>.Default };
@@ -1268,7 +1267,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "Sort should reject sync lists that are too small")]
-        public void Sort_InReverse_SyncingTwoOtherLists_FirstTooSmall_IsRejected()
+        public void SortedList_Sort_InReverse_SyncingTwoOtherLists_FirstTooSmall_IsRejected()
         {
             IList<int> source = new List<int> { 4, 2, 1, 3 };
             IComparer<int> comparer = new ReverseSort<int> { Comparer = Comparer<int>.Default };
@@ -1279,7 +1278,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "Sort should reject sync lists that are too small")]
-        public void Sort_InReverse_SyncingTwoOtherLists_SecondTooSmall_IsRejected()
+        public void SortedList_Sort_InReverse_SyncingTwoOtherLists_SecondTooSmall_IsRejected()
         {
             IList<int> source = new List<int> { 4, 2, 1, 3 };
             IComparer<int> comparer = new ReverseSort<int> { Comparer = Comparer<int>.Default };
@@ -1290,7 +1289,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "Sort should reject sync lists that are too small")]
-        public void Sort_InReverse_SyncingThreeOtherLists_FirstTooSmall_IsRejected()
+        public void SortedList_Sort_InReverse_SyncingThreeOtherLists_FirstTooSmall_IsRejected()
         {
             IList<int> source = new List<int> { 4, 2, 1, 3 };
             IComparer<int> comparer = new ReverseSort<int> { Comparer = Comparer<int>.Default };
@@ -1302,7 +1301,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "Sort should reject sync lists that are too small")]
-        public void Sort_InReverse_SyncingThreeOtherLists_SecondTooSmall_IsRejected()
+        public void SortedList_Sort_InReverse_SyncingThreeOtherLists_SecondTooSmall_IsRejected()
         {
             IList<int> source = new List<int> { 4, 2, 1, 3 };
             IComparer<int> comparer = new ReverseSort<int> { Comparer = Comparer<int>.Default };
@@ -1314,7 +1313,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "Sort should reject sync lists that are too small")]
-        public void Sort_InReverse_SyncingThreeOtherLists_ThirdTooSmall_IsRejected()
+        public void SortedList_Sort_InReverse_SyncingThreeOtherLists_ThirdTooSmall_IsRejected()
         {
             IList<int> source = new List<int> { 4, 2, 1, 3 };
             IComparer<int> comparer = new ReverseSort<int> { Comparer = Comparer<int>.Default };
@@ -1325,7 +1324,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Sort_WithDuplicates_SortsList()
+        public void SortedList_Sort_WithDuplicates_SortsList()
         {
             IList<string> source = new List<string> { "This", "is", "only", "a", "test", "and", "is", "not", "a", "proof", "of", "correctness" };
             var result = source.Sort(StringComparer.InvariantCultureIgnoreCase);
@@ -1333,7 +1332,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Reverse_EnumeratesInReverse()
+        public void SortedList_Reverse_EnumeratesInReverse()
         {
             var source = new List<int> { 1, 2, 3, 4 }.AsSorted();
             var result = source.Reverse();
@@ -1341,7 +1340,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Reverse_InsertItem_UpdatesSource()
+        public void SortedList_Reverse_InsertItem_UpdatesSource()
         {
             var source = new List<int> { 1, 2, 3, 4 }.AsSorted();
             var result = source.Reverse();
@@ -1351,7 +1350,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Return_EnumeratesSingleItem()
+        public void SortedList_Return_EnumeratesSingleItem()
         {
             int source = 13;
             ISortedList<int> result = SortedListExtensions.Return(source);
@@ -1359,7 +1358,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Repeat_EnumeratesRepeatedItem()
+        public void SortedList_Repeat_EnumeratesRepeatedItem()
         {
             int source = 13;
             ISortedList<int> result = SortedListExtensions.Repeat(source, 3);
@@ -1367,7 +1366,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Skip_EnumeratesItems()
+        public void SortedList_Skip_EnumeratesItems()
         {
             ISortedList<int> test = new[] { 1, 2, 3, 4 }.AsSorted();
             ISortedList<int> result = test.Skip(1);
@@ -1376,7 +1375,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Slice_EnumeratesItems()
+        public void SortedList_Slice_EnumeratesItems()
         {
             ISortedList<int> test = new[] { 1, 2, 3, 4 }.AsSorted();
             ISortedList<int> slice = test.Slice(1, 2);
@@ -1385,7 +1384,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Step_By2_EnumeratesItems()
+        public void SortedList_Step_By2_EnumeratesItems()
         {
             ISortedList<int> source = new List<int> { 1, 2, 3, 4, 5, 6 }.AsSorted();
             ISortedList<int> result = source.Step(2);
@@ -1393,7 +1392,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Take_EnumeratesItems()
+        public void SortedList_Take_EnumeratesItems()
         {
             ISortedList<int> test = new[] { 1, 2, 3, 4 }.AsSorted();
             ISortedList<int> result = test.Take(2);
