@@ -55,9 +55,6 @@
     <Compile Include="..\UnitTests.Sources\ListExtensionsUnitTests.cs">
       <Link>ListExtensionsUnitTests.cs</Link>
     </Compile>
-    <Compile Include="..\UnitTests.Sources\RxUnitTests.cs">
-      <Link>RxUnitTests.cs</Link>
-    </Compile>
     <Compile Include="..\UnitTests.Sources\SortedEnumerableExtensionsUnitTests.cs">
       <Link>SortedEnumerableExtensionsUnitTests.cs</Link>
     </Compile>

@@ -13,21 +13,21 @@ namespace UnitTests
         public void ReadWriteList_IsNotReadOnly()
         {
             var list = new ReadWriteList<int>(new List<int> { 13 });
-            Assert.IsFalse(list.IsReadOnly, "Read/write lists should not be read-only");
+            Assert.IsFalse(list.IsReadOnly, "Read/write lists should not be read-only.");
         }
 
         [TestMethod]
         public void ReadOnlyList_IsReadOnly()
         {
             var list = new ReadOnlyList<int>(new List<int> { 13 });
-            Assert.IsTrue(list.IsReadOnly, "Read-only lists should be read-only");
+            Assert.IsTrue(list.IsReadOnly, "Read-only lists should be read-only.");
         }
 
         [TestMethod]
         public void WriteableReadOnlyList_IsReadOnly()
         {
             var list = new WriteableReadOnlyList<int>(new List<int> { 13 });
-            Assert.IsTrue(list.IsReadOnly, "Writeable read-only lists should be read-only");
+            Assert.IsTrue(list.IsReadOnly, "Writeable read-only lists should be read-only.");
         }
 
         [TestMethod]
@@ -39,7 +39,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException), "Retrieving items with a negative index should be rejected")]
+        [ExpectedException(typeof(ArgumentOutOfRangeException), "Retrieving items with a negative index should be rejected.")]
         public void List_GetItem_WithNegativeIndex_IsRejected()
         {
             var list = new ReadWriteList<int>(new List<int> { 13 });
@@ -47,7 +47,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException), "Retrieving items with an invalid index should be rejected")]
+        [ExpectedException(typeof(ArgumentOutOfRangeException), "Retrieving items with an invalid index should be rejected.")]
         public void List_GetItem_WithInvalidIndex_IsRejected()
         {
             var list = new ReadWriteList<int>(new List<int> { 13 });
@@ -64,7 +64,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException), "Setting items with a negative index should be rejected")]
+        [ExpectedException(typeof(ArgumentOutOfRangeException), "Setting items with a negative index should be rejected.")]
         public void List_SetItem_WithNegativeIndex_IsRejected()
         {
             var list = new ReadWriteList<int>(new List<int> { 13 });
@@ -72,7 +72,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException), "Setting items with an invalid index should be rejected")]
+        [ExpectedException(typeof(ArgumentOutOfRangeException), "Setting items with an invalid index should be rejected.")]
         public void List_SetItem_WithInvalidIndex_IsRejected()
         {
             var list = new ReadWriteList<int>(new List<int> { 13 });
@@ -80,7 +80,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NotSupportedException), "Setting items on a read-only list should be rejected")]
+        [ExpectedException(typeof(NotSupportedException), "Setting items on a read-only list should be rejected.")]
         public void List_SetItem_OnReadOnlyList_IsRejected()
         {
             var list = new ReadOnlyList<int>(new List<int> { 13 });
@@ -106,7 +106,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NotSupportedException), "Adding items on a read-only list should be rejected")]
+        [ExpectedException(typeof(NotSupportedException), "Adding items on a read-only list should be rejected.")]
         public void List_AddItem_OnReadOnlyList_IsRejected()
         {
             var source = new List<int> { 13 };
@@ -133,7 +133,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NotSupportedException), "Clearing items on a read-only list should be rejected")]
+        [ExpectedException(typeof(NotSupportedException), "Clearing items on a read-only list should be rejected.")]
         public void List_Clear_OnReadOnlyList_IsRejected()
         {
             var source = new List<int> { 13 };
@@ -175,7 +175,7 @@ namespace UnitTests
             var list = new ReadWriteList<int>(source);
             int[] array = new int[5];
             list.CopyTo(array, 1);
-            Assert.IsTrue(array.SequenceEqual(new[] { 0, 1, 2, 3, 4 }), "List should copy to an array");
+            Assert.IsTrue(array.SequenceEqual(new[] { 0, 1, 2, 3, 4 }), "List should copy to an array.");
         }
 
         [TestMethod]
@@ -224,7 +224,7 @@ namespace UnitTests
             var list = new ReadWriteList<int>(source);
             List<int> result = new List<int>((IEnumerable<int>)list);
 
-            Assert.IsTrue(result.SequenceEqual(new[] { 1, 2, 3, 4 }), "List should enumerate");
+            Assert.IsTrue(result.SequenceEqual(new[] { 1, 2, 3, 4 }), "List should enumerate.");
         }
 
         [TestMethod]
@@ -239,7 +239,7 @@ namespace UnitTests
                 result.Add((int)enumerator.Current);
             }
 
-            Assert.IsTrue(result.SequenceEqual(new[] { 1, 2, 3, 4 }), "List should enumerate");
+            Assert.IsTrue(result.SequenceEqual(new[] { 1, 2, 3, 4 }), "List should enumerate.");
         }
 
         [TestMethod]

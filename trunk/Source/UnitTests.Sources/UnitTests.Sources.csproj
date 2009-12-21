@@ -48,7 +48,6 @@
     <Compile Include="ListBaseUnitTests.cs" />
     <Compile Include="ListExtensionsUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RxUnitTests.cs" />
     <Compile Include="SortedEnumerableExtensionsUnitTests.cs" />
     <Compile Include="SortedListExtensionsUnitTests.cs" />
     <Compile Include="StringExtensionsUnitTests.cs" />
