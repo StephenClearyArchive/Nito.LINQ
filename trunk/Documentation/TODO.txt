@@ -1,10 +1,6 @@
 . Compatibility for Rx:
-  . Repeat (sequences)
-  . Run
   . Scan
   . SelectMany
-  . StartWith
-  . Zip
   . Defer/Let?
 
 . Document compilation #defs:
@@ -12,9 +8,6 @@
   . NET35 - for .NET 3.5 SP1
   . NET40 - for .NET 4.0
   . WITHRX - with Rx
-. Unit tests may standardize on NET35, but must be run both WITHRX and !WITHRX
 . Verify all comment restrictions, e.g., SortedListExtensions.Take.count, and also propogate all exception notes.
 . Split out all non-extension methods and extension methods for collections of collections, and place them in separate EnumerableSource/ListSource/SortedEnumerableSource/SortedListSource classes.
-. Document checkout sequence: build and test (with coverage) for every configuration.
-. Review all unit tests and their names (some operators have been renamed and the unit tests are out of sync)
-  . Ensure all types are explicit or constrained (ISortedEnumerable<int> or AsSortedEnumerable()).
+. Document release sequence: build and test (with coverage) for every configuration.

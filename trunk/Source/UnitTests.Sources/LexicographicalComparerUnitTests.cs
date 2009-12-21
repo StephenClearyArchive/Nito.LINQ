@@ -15,7 +15,7 @@ namespace UnitTests
             var x = new int[] { };
             var y = new int[] { };
             int result = new LexicographicalComparer<int>().Compare(x, y);
-            Assert.IsTrue(result == 0, "Empty sequences should be equal");
+            Assert.IsTrue(result == 0, "Empty sequences should be equal.");
         }
 
         [TestMethod]
@@ -24,7 +24,7 @@ namespace UnitTests
             var x = new int[] { };
             var y = new int[] { 1 };
             int result = new LexicographicalComparer<int>().Compare(x, y);
-            Assert.IsTrue(result < 0, "Empty sequence should be less than non-empty sequence");
+            Assert.IsTrue(result < 0, "Empty sequence should be less than non-empty sequence.");
         }
 
         [TestMethod]
@@ -33,7 +33,7 @@ namespace UnitTests
             var x = new int[] { 1 };
             var y = new int[] { };
             int result = new LexicographicalComparer<int>().Compare(x, y);
-            Assert.IsTrue(result > 0, "Empty sequence should be less than non-empty sequence");
+            Assert.IsTrue(result > 0, "Empty sequence should be less than non-empty sequence.");
         }
 
         [TestMethod]
@@ -42,7 +42,7 @@ namespace UnitTests
             var x = new int[] { 1, 2, 3 };
             var y = new int[] { 1, 2, 3 };
             int result = new LexicographicalComparer<int>().Compare(x, y);
-            Assert.IsTrue(result == 0, "Equal sequences should be equal");
+            Assert.IsTrue(result == 0, "Equal sequences should be equal.");
         }
 
         [TestMethod]
@@ -51,7 +51,7 @@ namespace UnitTests
             var x = new int[] { 1, 2 };
             var y = new int[] { 1, 2, 3 };
             int result = new LexicographicalComparer<int>().Compare(x, y);
-            Assert.IsTrue(result < 0, "Shorter sequence should be less than longer sequence");
+            Assert.IsTrue(result < 0, "Shorter sequence should be less than longer sequence.");
         }
 
         [TestMethod]
@@ -60,7 +60,7 @@ namespace UnitTests
             var x = new int[] { 1, 2, 3 };
             var y = new int[] { 1, 2 };
             int result = new LexicographicalComparer<int>().Compare(x, y);
-            Assert.IsTrue(result > 0, "Shorter sequence should be less than longer sequence");
+            Assert.IsTrue(result > 0, "Shorter sequence should be less than longer sequence.");
         }
 
         [TestMethod]
@@ -69,7 +69,7 @@ namespace UnitTests
             var x = new int[] { 1, 1, 3 };
             var y = new int[] { 1, 2, 3 };
             int result = new LexicographicalComparer<int>().Compare(x, y);
-            Assert.IsTrue(result < 0, "Smaller sequence should be less than larger sequence");
+            Assert.IsTrue(result < 0, "Smaller sequence should be less than larger sequence.");
         }
 
         [TestMethod]
@@ -78,7 +78,7 @@ namespace UnitTests
             var x = new int[] { 1, 1, 3 };
             var y = new int[] { 1, 0, 3 };
             int result = new LexicographicalComparer<int>().Compare(x, y);
-            Assert.IsTrue(result > 0, "Smaller sequence should be less than larger sequence");
+            Assert.IsTrue(result > 0, "Smaller sequence should be less than larger sequence.");
         }
     }
 }

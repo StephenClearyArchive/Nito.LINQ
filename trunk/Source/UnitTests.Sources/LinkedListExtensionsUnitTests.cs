@@ -14,7 +14,7 @@ namespace UnitTests
         {
             var list = new LinkedList<int>();
             var result = list.Nodes();
-            Assert.IsTrue(result.SequenceEqual(new LinkedListNode<int>[] { }), "Nodes on an empty list should result in an empty sequence");
+            Assert.IsTrue(result.SequenceEqual(new LinkedListNode<int>[] { }), "Nodes on an empty list should result in an empty sequence.");
         }
 
         [TestMethod]
@@ -23,7 +23,7 @@ namespace UnitTests
             var list = new LinkedList<int>();
             list.AddLast(13);
             var result = list.Nodes();
-            Assert.IsTrue(result.Select(x => x.Value).SequenceEqual(new[] { 13 }), "Nodes on a single-element list should result in a single-element sequence");
+            Assert.IsTrue(result.Select(x => x.Value).SequenceEqual(new[] { 13 }), "Nodes on a single-element list should result in a single-element sequence.");
         }
 
         [TestMethod]
@@ -33,7 +33,7 @@ namespace UnitTests
             list.AddLast(13);
             list.AddLast(17);
             var result = list.Nodes();
-            Assert.IsTrue(result.Select(x => x.Value).SequenceEqual(new[] { 13, 17 }), "Nodes on a two-element list should result in a two-element sequence");
+            Assert.IsTrue(result.Select(x => x.Value).SequenceEqual(new[] { 13, 17 }), "Nodes on a two-element list should result in a two-element sequence.");
         }
 
         [TestMethod]
@@ -44,8 +44,8 @@ namespace UnitTests
             list.AddLast(13);
             list.AddLast(17);
             var nodes = list.Nodes().Do(x => { if (x.Value == 13) list.Remove(x); });
-            Assert.IsTrue(nodes.Select(x => x.Value).SequenceEqual(new[] { 13, 17 }), "Nodes on a two-element list should result in a two-element sequence");
-            Assert.IsTrue(list.Nodes().Select(x => x.Value).SequenceEqual(new[] { 17 }), "Nodes should allow removal of the current element");
+            Assert.IsTrue(nodes.Select(x => x.Value).SequenceEqual(new[] { 13, 17 }), "Nodes on a two-element list should result in a two-element sequence.");
+            Assert.IsTrue(list.Nodes().Select(x => x.Value).SequenceEqual(new[] { 17 }), "Nodes should allow removal of the current element.");
         }
     }
 }
