@@ -1,13 +1,10 @@
-. Compatibility for Rx:
-  . Scan
-  . SelectMany
-  . Defer/Let?
+. Verify all comment restrictions, e.g., SortedListExtensions.Take.count, and also propogate all exception notes.
+. Split out all non-extension methods and extension methods for collections of collections, and place them in separate EnumerableSource/ListSource/SortedEnumerableSource/SortedListSource classes.
+. Consider: ArgumentNullException checks
 
 . Document compilation #defs:
   . SILVERLIGHT3 - for SL3
   . NET35 - for .NET 3.5 SP1
   . NET40 - for .NET 4.0
   . WITHRX - with Rx
-. Verify all comment restrictions, e.g., SortedListExtensions.Take.count, and also propogate all exception notes.
-. Split out all non-extension methods and extension methods for collections of collections, and place them in separate EnumerableSource/ListSource/SortedEnumerableSource/SortedListSource classes.
 . Document release sequence: build and test (with coverage) for every configuration.

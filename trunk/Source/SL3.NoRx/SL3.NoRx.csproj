@@ -51,6 +51,9 @@
     <Compile Include="..\Sources\AnonymousComparer.cs">
       <Link>AnonymousComparer.cs</Link>
     </Compile>
+    <Compile Include="..\Sources\AnonymousEnumerable.cs">
+      <Link>AnonymousEnumerable.cs</Link>
+    </Compile>
     <Compile Include="..\Sources\EnumerableExtensions.cs">
       <Link>EnumerableExtensions.cs</Link>
     </Compile>

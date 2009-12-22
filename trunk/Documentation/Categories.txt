@@ -178,6 +178,7 @@ Sorted IEnumerable<T>:
   ISortedEnumerable<T> ExceptWithDuplicates(this ISortedEnumerable<T> source, ISortedEnumerable<T> other)
 
 TODO:
+. Let, Defer, Scan for IList<T>
 . Review Python generators and C++ algorithms to see if we're missing anything.
   . C++: adjacent_find, mismatch/search/search_n/find_end, random_shuffle, random_sample/random_sample_n, partition, stable_partition, stable_sort, partial_sort/partial_sort_copy/nth_element, includes, set_symmetric_difference, next_permutation/prev_permutation, inner_product?
 . Conceptual documentation: views vs. in-place operations (Insert vs MergeSorted, Sort)
