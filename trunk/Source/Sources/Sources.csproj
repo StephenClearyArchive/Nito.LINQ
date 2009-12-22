@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnonymousComparer.cs" />
+    <Compile Include="AnonymousEnumerable.cs" />
     <Compile Include="Properties\AssemblyVersion.cs" />
     <Compile Include="LexicographicalComparer.cs" />
     <Compile Include="IndirectList.cs" />

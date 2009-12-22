@@ -137,6 +137,21 @@ namespace Nito
         }
 
         /// <summary>
+        /// Creates a sequence that invokes the factory delegate whenever the sequence is enumerated.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="factory">The factory delegate that is invoked whenever the returned sequence is enumerated.</param>
+        /// <returns>A sequence that invokes the factory delegate whenever it is enumerated.</returns>
+        public static IEnumerable<T> Defer<T>(Func<IEnumerable<T>> factory)
+        {
+#if WITHRX
+            return EnumerableEx.Defer(factory);
+#else
+            return new AnonymousEnumerable<T> { GetEnumerator = () => factory().GetEnumerator() };
+#endif
+        }
+
+        /// <summary>
         /// Generates a sequence of integers. Identical to <see cref="Enumerable.Range"/>.
         /// </summary>
         /// <param name="start">The first integer in the returned sequence.</param>
@@ -265,6 +280,83 @@ namespace Nito
             {
                 yield return zipper(firstEnumerator.Current, secondEnumerator.Current);
             }
+        }
+
+        /// <summary>
+        /// Repeats another sequence once for each element of this sequence, and flattens the results.
+        /// </summary>
+        /// <typeparam name="TSource">The type of elements in the source sequence.</typeparam>
+        /// <typeparam name="TResult">The type of elements in the resulting sequence.</typeparam>
+        /// <param name="source">The source sequence; the <paramref name="other"/> sequence is repeated once for each element in this sequence.</param>
+        /// <param name="other">The other sequence.</param>
+        /// <returns>The resulting combined sequence.</returns>
+        public static IEnumerable<TResult> SelectMany<TSource, TResult>(this IEnumerable<TSource> source, IEnumerable<TResult> other)
+        {
+            return source.SelectMany(_ => other);
+        }
+
+        /// <summary>
+        /// Binds a sequence to a parameter variable, allowing it to be used multiple times. Does not prevent side effects.
+        /// </summary>
+        /// <typeparam name="TSource">The type of elements in the source sequence.</typeparam>
+        /// <typeparam name="TResult">The type of elements in the resulting sequence.</typeparam>
+        /// <param name="source">The source sequence, which is passed to the <paramref name="binder"/> delegate.</param>
+        /// <param name="binder">The delegate which acts as a binding; the source sequence is passed to this delegate as a parameter.</param>
+        /// <returns>The result of the <paramref name="binder"/> delegate when applied to the <paramref name="source"/> sequence.</returns>
+        public static IEnumerable<TResult> Let<TSource, TResult>(this IEnumerable<TSource> source, Func<IEnumerable<TSource>, IEnumerable<TResult>> binder)
+        {
+            return binder(source);
+        }
+
+        /// <summary>
+        /// Applies an accumulator delegate over a sequence, yielding each intermediate result. The first element of the returned sequence is the first element of the source sequence. Each element of the source sequence is only evaluated once.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="source">The source sequence.</param>
+        /// <param name="accumulator">The accumulator delegate. The first parameter passed to the accumulator delegate is the previous intermediate result; the second parameter is the current element of the source sequence.</param>
+        /// <returns>The results of the accumulator delegate.</returns>
+        public static IEnumerable<T> Scan<T>(this IEnumerable<T> source, Func<T, T, T> accumulator)
+        {
+            return EnumerableExtensions.Defer(() =>
+                {
+                    T current = default(T);
+                    bool currentValid = false;
+
+                    return source.Select(x =>
+                        {
+                            if (currentValid)
+                            {
+                                current = accumulator(current, x);
+                            }
+                            else
+                            {
+                                currentValid = true;
+                                current = x;
+                            }
+
+                            return current;
+                        });
+                });
+        }
+
+        /// <summary>
+        /// Applies an accumulator delegate over a sequence starting with a given seed value, yielding each intermediate result. The <paramref name="seed"/> value is the first element of the source sequence. Each element of the source sequence is only evaluated once.
+        /// </summary>
+        /// <typeparam name="TSource">The type of elements in the source sequence.</typeparam>
+        /// <typeparam name="TResult">The type of elements in the resulting sequence.</typeparam>
+        /// <param name="source">The source sequence.</param>
+        /// <param name="seed">The initial seed value.</param>
+        /// <param name="accumulator">The accumulator delegate. The first parameter passed to the accumulator delegate is the previous intermediate result; the second parameter is the current element of the source sequence.</param>
+        /// <returns>The results of the accumulator delegate.</returns>
+        public static IEnumerable<TResult> Scan<TSource, TResult>(this IEnumerable<TSource> source, TResult seed, Func<TResult, TSource, TResult> accumulator)
+        {
+            IEnumerable<TResult> scan = EnumerableExtensions.Defer(() =>
+                {
+                    TResult current = seed;
+                    return source.Select(x => current = accumulator(seed, x));
+                });
+
+            return EnumerableExtensions.Return(seed).Concat(scan);
         }
 #endif
 
