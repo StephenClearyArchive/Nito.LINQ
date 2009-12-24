@@ -73,7 +73,7 @@ namespace UnitTests
         public void Enumerable_Run_ExecutesSequence()
         {
             int value = 0;
-            IEnumerable<int> source = EnumerableExtensions.Generate(0, i => i != 10, _ => ++value, i => i + 1);
+            IEnumerable<int> source = EnumerableSource.Generate(0, i => i != 10, _ => ++value, i => i + 1);
             source.Run();
             Assert.AreEqual(10, value, "Run should evaluate the sequence.");
         }
@@ -102,7 +102,7 @@ namespace UnitTests
         public void Enumerable_Return_EnumeratesSingleItem()
         {
             int source = 13;
-            var result = EnumerableExtensions.Return(source);
+            var result = EnumerableSource.Return(source);
             Assert.IsTrue(result.SequenceEqual(new[] { 13 }), "Item should be enumerated.");
         }
 
@@ -110,7 +110,7 @@ namespace UnitTests
         public void Enumerable_RepeatValue_EnumeratesRepeatedItem()
         {
             int source = 13;
-            var result = EnumerableExtensions.Repeat(source, 3);
+            var result = EnumerableSource.Repeat(source, 3);
             Assert.IsTrue(result.SequenceEqual(new[] { 13, 13, 13 }), "Item should be repeated.");
         }
 
@@ -118,7 +118,7 @@ namespace UnitTests
         public void Enumerable_RepeatValue_NegativeTimes_EnumeratesEmptySequence()
         {
             int source = 13;
-            var result = EnumerableExtensions.Repeat(source, -1);
+            var result = EnumerableSource.Repeat(source, -1);
             Assert.IsTrue(result.SequenceEqual(new int[] { }), "Item should not be repeated.");
         }
 
@@ -126,7 +126,7 @@ namespace UnitTests
         public void Enumerable_RepeatValue_Infinitely_EnumeratesRepeatedItem()
         {
             int source = 13;
-            var result = EnumerableExtensions.Repeat(source).Take(3);
+            var result = EnumerableSource.Repeat(source).Take(3);
             Assert.IsTrue(result.SequenceEqual(new[] { 13, 13, 13 }), "Item should be repeated.");
         }
 

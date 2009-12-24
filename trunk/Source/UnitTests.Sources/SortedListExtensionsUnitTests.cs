@@ -20,14 +20,14 @@ namespace UnitTests
         [TestMethod]
         public void SortedList_Empty_RemembersComparer()
         {
-            var result = SortedListExtensions.Empty<string>(StringComparer.InvariantCultureIgnoreCase);
+            var result = SortedListSource.Empty<string>(StringComparer.InvariantCultureIgnoreCase);
             Assert.AreEqual(StringComparer.InvariantCultureIgnoreCase, result.Comparer, "Empty should remember its comparison object.");
         }
 
         [TestMethod]
         public void SortedList_Empty_IsEmpty()
         {
-            var result = SortedListExtensions.Empty<string>();
+            var result = SortedListSource.Empty<string>();
             Assert.IsTrue(result.SequenceEqual(new string[] { }), "Empty should be empty.");
         }
 
@@ -1353,7 +1353,7 @@ namespace UnitTests
         public void SortedList_Return_EnumeratesSingleItem()
         {
             int source = 13;
-            ISortedList<int> result = SortedListExtensions.Return(source);
+            ISortedList<int> result = SortedListSource.Return(source);
             Assert.IsTrue(result.SequenceEqual(new[] { 13 }), "Item should be enumerated.");
         }
 
@@ -1361,7 +1361,7 @@ namespace UnitTests
         public void SortedList_Repeat_EnumeratesRepeatedItem()
         {
             int source = 13;
-            ISortedList<int> result = SortedListExtensions.Repeat(source, 3);
+            ISortedList<int> result = SortedListSource.Repeat(source, 3);
             Assert.IsTrue(result.SequenceEqual(new[] { 13, 13, 13 }), "Item should be repeated.");
         }
 

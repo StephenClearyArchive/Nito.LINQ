@@ -55,6 +55,9 @@
     <Compile Include="..\Sources\EnumerableExtensions.cs">
       <Link>EnumerableExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\Sources\EnumerableSource.cs">
+      <Link>EnumerableSource.cs</Link>
+    </Compile>
     <Compile Include="..\Sources\Implementation.ListBase.cs">
       <Link>Implementation.ListBase.cs</Link>
     </Compile>
@@ -79,9 +82,6 @@
     <Compile Include="..\Sources\ListExtensions.cs">
       <Link>ListExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\Sources\ListExtensions.GenerateList.cs">
-      <Link>ListExtensions.GenerateList.cs</Link>
-    </Compile>
     <Compile Include="..\Sources\ListExtensions.ProjectList.cs">
       <Link>ListExtensions.ProjectList.cs</Link>
     </Compile>
@@ -103,8 +103,14 @@
     <Compile Include="..\Sources\ListExtensions.Swappable.cs">
       <Link>ListExtensions.Swappable.cs</Link>
     </Compile>
-    <Compile Include="..\Sources\ListExtensions.ValueList.cs">
-      <Link>ListExtensions.ValueList.cs</Link>
+    <Compile Include="..\Sources\ListSource.cs">
+      <Link>ListSource.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListSource.GenerateList.cs">
+      <Link>ListSource.GenerateList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListSource.ValueList.cs">
+      <Link>ListSource.ValueList.cs</Link>
     </Compile>
     <Compile Include="..\Sources\Properties\AssemblySharedInfo.cs">
       <Link>Properties\AssemblySharedInfo.cs</Link>
@@ -115,8 +121,14 @@
     <Compile Include="..\Sources\SortedEnumerableExtensions.cs">
       <Link>SortedEnumerableExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\Sources\SortedEnumerableSource.cs">
+      <Link>SortedEnumerableSource.cs</Link>
+    </Compile>
     <Compile Include="..\Sources\SortedListExtensions.cs">
       <Link>SortedListExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\SortedListSource.cs">
+      <Link>SortedListSource.cs</Link>
     </Compile>
     <Compile Include="..\Sources\StringExtensions.cs">
       <Link>StringExtensions.cs</Link>

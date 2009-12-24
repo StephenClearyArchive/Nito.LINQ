@@ -1,4 +1,4 @@
-﻿// <copyright file="ListExtensions.GenerateList.cs" company="Nito Programs">
+﻿// <copyright file="ListSource.GenerateList.cs" company="Nito Programs">
 //     Copyright (c) 2009 Nito Programs.
 // </copyright>
 
@@ -8,9 +8,9 @@ namespace Nito
     using System.Collections.Generic;
 
     /// <summary>
-    /// Provides useful extension methods for the <see cref="List{T}"/> class.
+    /// List sources.
     /// </summary>
-    public static partial class ListExtensions
+    public static partial class ListSource
     {
         /// <summary>
         /// A list that generates its elements on demand.
