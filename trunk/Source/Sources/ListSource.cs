@@ -16,10 +16,10 @@ namespace Nito
         /// Returns an empty list.
         /// </summary>
         /// <typeparam name="T">The type of elements contained in the list.</typeparam>
-        /// <returns>An empty list.</returns>
+        /// <returns>An empty read-only list.</returns>
         public static IList<T> Empty<T>()
         {
-            return Repeat(default(T), 0);
+            return new GenerateList<T>(null, 0);
         }
 
         /// <summary>
@@ -27,10 +27,10 @@ namespace Nito
         /// </summary>
         /// <typeparam name="T">The type of the value.</typeparam>
         /// <param name="source">The value.</param>
-        /// <returns>A list containing a single element, <paramref name="source"/>.</returns>
+        /// <returns>A read-only list containing a single element, <paramref name="source"/>.</returns>
         public static IList<T> Return<T>(T source)
         {
-            return new ValueList<T>(source, 1);
+            return new GenerateList<T>(_ => source, 1);
         }
 
         /// <summary>
@@ -39,36 +39,34 @@ namespace Nito
         /// <typeparam name="T">The type of the value.</typeparam>
         /// <param name="source">The value.</param>
         /// <param name="count">The number of times <paramref name="source"/> is repeated. If <paramref name="count"/> is less than or equal to 0, an empty list is returned.</param>
-        /// <returns>A list containing <paramref name="count"/> elements, all equal to <paramref name="source"/>.</returns>
+        /// <returns>A read-only list containing <paramref name="count"/> elements, all equal to <paramref name="source"/>.</returns>
         public static IList<T> Repeat<T>(T source, int count)
         {
-            return new ValueList<T>(source, count);
+            return new GenerateList<T>(_ => source, count);
         }
 
         /// <summary>
         /// Returns a read-only list that generates its elements when they are read.
         /// </summary>
         /// <typeparam name="T">The type of elements in the list.</typeparam>
-        /// <param name="count">The number of elements in the list. Must be greater than or equal to 0.</param>
-        /// <param name="generator">The delegate that is used to generate the elements.</param>
+        /// <param name="generator">The delegate that is used to generate the elements. This may be <c>null</c> if <paramref name="count"/> is less than or equal to 0.</param>
+        /// <param name="count">The number of elements in the list. If <paramref name="count"/> is less than or equal to 0, an empty list is returned.</param>
         /// <returns>A read-only list that generates its elements on demand.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="count"/> is less than 0.</exception>
-        public static IList<T> Generate<T>(int count, Func<T> generator)
+        public static IList<T> Generate<T>(Func<T> generator, int count)
         {
-            return new GenerateList<T>(count, _ => generator());
+            return new GenerateList<T>(_ => generator(), count);
         }
 
         /// <summary>
         /// Returns a read-only list that generates its elements when they are read, passing the element's index to the generator delegate.
         /// </summary>
         /// <typeparam name="T">The type of elements in the list.</typeparam>
-        /// <param name="count">The number of elements in the list. Must be greater than or equal to 0.</param>
-        /// <param name="generator">The delegate that is used to generate the elements.</param>
+        /// <param name="generator">The delegate that is used to generate the elements. This may be <c>null</c> if <paramref name="count"/> is less than or equal to 0.</param>
+        /// <param name="count">The number of elements in the list. If <paramref name="count"/> is less than or equal to 0, an empty list is returned.</param>
         /// <returns>A read-only list that generates its elements on demand.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="count"/> is less than 0.</exception>
-        public static IList<T> Generate<T>(int count, Func<int, T> generator)
+        public static IList<T> Generate<T>(Func<int, T> generator, int count)
         {
-            return new GenerateList<T>(count, generator);
+            return new GenerateList<T>(generator, count);
         }
     }
 }

@@ -64,7 +64,6 @@
     <Compile Include="ListExtensions.SliceList.cs" />
     <Compile Include="ListExtensions.ProjectList.cs" />
     <Compile Include="ListExtensions.StepList.cs" />
-    <Compile Include="ListSource.ValueList.cs" />
     <Compile Include="SortedListExtensions.cs" />
     <Compile Include="Properties\AssemblySharedInfo.cs" />
     <Compile Include="StringExtensions.cs" />

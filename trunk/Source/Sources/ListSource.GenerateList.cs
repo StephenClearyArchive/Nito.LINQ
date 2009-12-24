@@ -31,17 +31,12 @@ namespace Nito
             /// <summary>
             /// Initializes a new instance of the <see cref="GenerateList&lt;T&gt;"/> class.
             /// </summary>
-            /// <param name="count">The number of elements in this list.</param>
-            /// <param name="generator">The delegate that is used to generate the elements.</param>
+            /// <param name="generator">The delegate that is used to generate the elements. May be <c>null</c> if <paramref name="count"/> is less than or equal to zero.</param>
+            /// <param name="count">The number of elements in this list. If less than or equal to 0, then this is an empty list.</param>
             /// <exception cref="ArgumentOutOfRangeException"><paramref name="count"/> is less than 0.</exception>
-            public GenerateList(int count, Func<int, T> generator)
+            public GenerateList(Func<int, T> generator, int count)
             {
-                if (count < 0)
-                {
-                    throw new ArgumentOutOfRangeException("count", "Generated list must have a count of at least 0");
-                }
-
-                this.count = count;
+                this.count = Math.Max(count, 0);
                 this.generator = generator;
             }
 

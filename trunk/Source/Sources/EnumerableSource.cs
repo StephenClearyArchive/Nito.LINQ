@@ -43,7 +43,7 @@ namespace Nito
         /// </summary>
         /// <typeparam name="T">The type of the value.</typeparam>
         /// <param name="source">The value.</param>
-        /// <param name="count">The number of times <paramref name="source"/> is repeated. If <paramref name="count"/> is less than or equal to 0, an empty list is returned.</param>
+        /// <param name="count">The number of times <paramref name="source"/> is repeated. If <paramref name="count"/> is less than or equal to 0, an empty sequence is returned.</param>
         /// <returns>A sequence containing <paramref name="count"/> elements, all equal to <paramref name="source"/>.</returns>
         public static IEnumerable<T> Repeat<T>(T source, int count)
         {
@@ -89,7 +89,7 @@ namespace Nito
 #if WITHRX
             return EnumerableEx.Generate(initialState, resultSelector, iterate);
 #else
-            return Generate(initialState, x => true, resultSelector, iterate);
+            return Generate<TState, IEnumerable<TResult>>(initialState, x => true, resultSelector, iterate).Flatten();
 #endif
         }
 
@@ -152,14 +152,14 @@ namespace Nito
         }
 
         /// <summary>
-        /// Generates a sequence of integers. Identical to <see cref="Enumerable.Range"/>.
+        /// Generates a sequence of integers. Similar to <see cref="Enumerable.Range"/>, except that this method will return an empty sequence if <paramref name="count"/> is less than 0.
         /// </summary>
         /// <param name="start">The first integer in the returned sequence.</param>
-        /// <param name="count">The number of integers in the returned sequence.</param>
+        /// <param name="count">The number of integers in the returned sequence. If <paramref name="count"/> is less than or equal to 0, an empty sequence is returned.</param>
         /// <returns>A sequence of integers.</returns>
         public static IEnumerable<int> Range(int start, int count)
         {
-            return Enumerable.Range(start, count);
+            return Enumerable.Range(start, Math.Max(count, 0));
         }
 
         /// <summary>
@@ -174,6 +174,33 @@ namespace Nito
             {
                 yield return generator();
             }
+        }
+
+        /// <summary>
+        /// Generates a sequence of a specified length.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="generator">The generator delegate that generates each value in the sequence. This may be <c>null</c> if <paramref name="count"/> is less than or equal to 0.</param>
+        /// <param name="count">The number of elements in the resulting sequence. If <paramref name="count"/> is less than or equal to 0, an empty sequence is returned.</param>
+        /// <returns>A generated sequence.</returns>
+        public static IEnumerable<T> Generate<T>(Func<int, T> generator, int count)
+        {
+            for (int i = 0; i < count; ++i)
+            {
+                yield return generator(i);
+            }
+        }
+
+        /// <summary>
+        /// Generates a sequence of a specified length.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="generator">The generator delegate that generates each value in the sequence. This may be <c>null</c> if <paramref name="count"/> is less than or equal to 0.</param>
+        /// <param name="count">The number of elements in the resulting sequence. If <paramref name="count"/> is less than or equal to 0, an empty sequence is returned.</param>
+        /// <returns>A generated sequence.</returns>
+        public static IEnumerable<T> Generate<T>(Func<T> generator, int count)
+        {
+            return Generate(_ => generator(), count);
         }
     }
 }

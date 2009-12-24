@@ -118,9 +118,6 @@
     <Compile Include="..\Sources\ListSource.GenerateList.cs">
       <Link>ListSource.GenerateList.cs</Link>
     </Compile>
-    <Compile Include="..\Sources\ListSource.ValueList.cs">
-      <Link>ListSource.ValueList.cs</Link>
-    </Compile>
     <Compile Include="..\Sources\Properties\AssemblySharedInfo.cs">
       <Link>Properties\AssemblySharedInfo.cs</Link>
     </Compile>
