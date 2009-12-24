@@ -1,5 +1,5 @@
 . Verify all comment restrictions, e.g., SortedListExtensions.Take.count, and also propogate all exception notes.
-. Split out all non-extension methods and extension methods for collections of collections, and place them in separate EnumerableSource/ListSource/SortedEnumerableSource/SortedListSource classes.
+. Experiment with AnonymousList.
 . Consider: ArgumentNullException checks
 
 . Document compilation #defs:

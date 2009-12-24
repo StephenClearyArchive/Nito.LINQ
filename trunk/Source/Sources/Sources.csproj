@@ -56,7 +56,7 @@
     <Compile Include="Implementation.ListHelper.cs" />
     <Compile Include="Implementation.ReadOnlyListBase.cs" />
     <Compile Include="ListExtensions.ConcatList.cs" />
-    <Compile Include="ListExtensions.GenerateList.cs" />
+    <Compile Include="ListSource.GenerateList.cs" />
     <Compile Include="ListExtensions.ReadWriteProjectList.cs" />
     <Compile Include="ListExtensions.cs" />
     <Compile Include="ListExtensions.RepeatList.cs" />
@@ -64,7 +64,7 @@
     <Compile Include="ListExtensions.SliceList.cs" />
     <Compile Include="ListExtensions.ProjectList.cs" />
     <Compile Include="ListExtensions.StepList.cs" />
-    <Compile Include="ListExtensions.ValueList.cs" />
+    <Compile Include="ListSource.ValueList.cs" />
     <Compile Include="SortedListExtensions.cs" />
     <Compile Include="Properties\AssemblySharedInfo.cs" />
     <Compile Include="StringExtensions.cs" />
@@ -72,12 +72,16 @@
   <ItemGroup>
     <Compile Include="AnonymousComparer.cs" />
     <Compile Include="AnonymousEnumerable.cs" />
+    <Compile Include="EnumerableSource.cs" />
+    <Compile Include="ListSource.cs" />
     <Compile Include="Properties\AssemblyVersion.cs" />
     <Compile Include="LexicographicalComparer.cs" />
     <Compile Include="IndirectList.cs" />
     <Compile Include="LinkedListExtensions.cs" />
     <Compile Include="ListExtensions.Swappable.cs" />
     <Compile Include="SortedEnumerableExtensions.cs" />
+    <Compile Include="SortedEnumerableSource.cs" />
+    <Compile Include="SortedListSource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

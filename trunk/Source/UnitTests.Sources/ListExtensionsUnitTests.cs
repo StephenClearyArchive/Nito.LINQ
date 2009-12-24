@@ -20,7 +20,7 @@ namespace UnitTests
         [TestMethod]
         public void List_Empty_IsEmpty()
         {
-            var result = ListExtensions.Empty<int>();
+            var result = ListSource.Empty<int>();
             Assert.AreEqual(0, result.Count, "Empty should be empty.");
         }
 
@@ -740,7 +740,7 @@ namespace UnitTests
         public void List_Return_EnumeratesSingleItem()
         {
             int source = 13;
-            var result = ListExtensions.Return(source);
+            var result = ListSource.Return(source);
             Assert.IsTrue(result.SequenceEqual(new[] { 13 }), "Item should be enumerated.");
         }
 
@@ -748,7 +748,7 @@ namespace UnitTests
         public void List_Return_IsReadOnly()
         {
             int source = 13;
-            var result = ListExtensions.Return(source);
+            var result = ListSource.Return(source);
             Assert.IsTrue(result.IsReadOnly, "List should be read-only.");
         }
 
@@ -756,7 +756,7 @@ namespace UnitTests
         public void List_Repeat_IsReadOnly()
         {
             int source = 13;
-            var result = ListExtensions.Repeat(source, 3);
+            var result = ListSource.Repeat(source, 3);
             Assert.IsTrue(result.IsReadOnly, "List should be read-only.");
         }
 
@@ -764,7 +764,7 @@ namespace UnitTests
         public void List_Repeat_EnumeratesRepeatedItem()
         {
             int source = 13;
-            var result = ListExtensions.Repeat(source, 3);
+            var result = ListSource.Repeat(source, 3);
             Assert.IsTrue(result.SequenceEqual(new[] { 13, 13, 13 }), "Item should be repeated.");
         }
 
@@ -772,7 +772,7 @@ namespace UnitTests
         public void List_RepeatSingleValue_NegativeTimes_EnumeratesEmptySequence()
         {
             int source = 13;
-            var result = ListExtensions.Repeat(source, -1);
+            var result = ListSource.Repeat(source, -1);
             Assert.IsTrue(result.SequenceEqual(new int[] { }), "Item should not be repeated.");
         }
 
@@ -1183,14 +1183,14 @@ namespace UnitTests
         [TestMethod]
         public void List_GenerateWithIndex_GeneratesItems()
         {
-            IList<int> source = ListExtensions.Generate(3, i => i);
+            IList<int> source = ListSource.Generate(3, i => i);
             Assert.IsTrue(source.SequenceEqual(new[] { 0, 1, 2 }), "Generate should generate a sequence.");
         }
 
         [TestMethod]
         public void List_GenerateWithIndex_WithZeroCount_GeneratesEmptySequence()
         {
-            IList<int> source = ListExtensions.Generate(0, i => i);
+            IList<int> source = ListSource.Generate(0, i => i);
             Assert.IsTrue(source.SequenceEqual(new int[] { }), "Generate should generate a sequence.");
         }
 
@@ -1198,20 +1198,20 @@ namespace UnitTests
         [ExpectedException(typeof(ArgumentOutOfRangeException), "Generate should not generate a sequence of negative count.")]
         public void List_GenerateWithIndex_WithNegativeCount_IsRejected()
         {
-            IList<int> source = ListExtensions.Generate(-1, i => i);
+            IList<int> source = ListSource.Generate(-1, i => i);
         }
 
         [TestMethod]
         public void List_GenerateWithoutIndex_GeneratesItems()
         {
-            IList<int> source = ListExtensions.Generate(3, () => 13);
+            IList<int> source = ListSource.Generate(3, () => 13);
             Assert.IsTrue(source.SequenceEqual(new[] { 13, 13, 13 }), "Generate should generate a sequence.");
         }
 
         [TestMethod]
         public void List_GenerateWithoutIndex_WithZeroCount_GeneratesEmptySequence()
         {
-            IList<int> source = ListExtensions.Generate(0, () => 13);
+            IList<int> source = ListSource.Generate(0, () => 13);
             Assert.IsTrue(source.SequenceEqual(new int[] { }), "Generate should generate a sequence.");
         }
 
@@ -1219,7 +1219,7 @@ namespace UnitTests
         [ExpectedException(typeof(ArgumentOutOfRangeException), "Generate should not generate a sequence of negative count.")]
         public void List_GenerateWithoutIndex_WithNegativeCount_IsRejected()
         {
-            IList<int> source = ListExtensions.Generate(-1, () => 13);
+            IList<int> source = ListSource.Generate(-1, () => 13);
         }
 
         [TestMethod]

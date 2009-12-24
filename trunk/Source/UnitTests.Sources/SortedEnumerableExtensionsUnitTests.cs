@@ -61,14 +61,14 @@ namespace UnitTests
         [TestMethod]
         public void SortedEnumerable_Empty_IsEmpty()
         {
-            ISortedEnumerable<string> sorted = SortedEnumerableExtensions.Empty<string>();
+            ISortedEnumerable<string> sorted = SortedEnumerableSource.Empty<string>();
             Assert.IsTrue(sorted.SequenceEqual(new string[] { }), "Empty should be empty.");
         }
 
         [TestMethod]
         public void SortedEnumerable_Empty_RemembersComparer()
         {
-            ISortedEnumerable<string> sorted = SortedEnumerableExtensions.Empty<string>(StringComparer.InvariantCultureIgnoreCase);
+            ISortedEnumerable<string> sorted = SortedEnumerableSource.Empty<string>(StringComparer.InvariantCultureIgnoreCase);
             Assert.AreEqual(StringComparer.InvariantCultureIgnoreCase, sorted.Comparer, "Empty should remember its comparison object.");
         }
 
@@ -99,7 +99,7 @@ namespace UnitTests
         public void SortedEnumerable_Return_EnumeratesSingleItem()
         {
             int source = 13;
-            ISortedEnumerable<int> result = SortedEnumerableExtensions.Return(source);
+            ISortedEnumerable<int> result = SortedEnumerableSource.Return(source);
             Assert.IsTrue(result.SequenceEqual(new[] { 13 }), "Item should be enumerated.");
         }
 
@@ -107,7 +107,7 @@ namespace UnitTests
         public void SortedEnumerable_Repeat_EnumeratesRepeatedItem()
         {
             int source = 13;
-            ISortedEnumerable<int> result = SortedEnumerableExtensions.Repeat(source, 3);
+            ISortedEnumerable<int> result = SortedEnumerableSource.Repeat(source, 3);
             Assert.IsTrue(result.SequenceEqual(new[] { 13, 13, 13 }), "Item should be repeated.");
         }
 
@@ -115,7 +115,7 @@ namespace UnitTests
         public void SortedEnumerable_Repeat_NegativeTimes_EnumeratesEmptySequence()
         {
             int source = 13;
-            var result = SortedEnumerableExtensions.Repeat(source, -1);
+            var result = SortedEnumerableSource.Repeat(source, -1);
             Assert.IsTrue(result.SequenceEqual(new int[] { }), "Item should not be repeated.");
         }
 
@@ -123,7 +123,7 @@ namespace UnitTests
         public void SortedEnumerable_Repeat_Infinitely_EnumeratesRepeatedItem()
         {
             int source = 13;
-            var result = SortedEnumerableExtensions.Repeat(source).Take(3);
+            var result = SortedEnumerableSource.Repeat(source).Take(3);
             Assert.IsTrue(result.SequenceEqual(new[] { 13, 13, 13 }), "Item should be repeated.");
         }
 
