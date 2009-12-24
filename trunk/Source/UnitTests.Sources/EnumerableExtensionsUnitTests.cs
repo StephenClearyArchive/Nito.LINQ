@@ -10,6 +10,27 @@ namespace UnitTests
     public partial class Tests
     {
         [TestMethod]
+        public void Enumerable_Range_GeneratesRange()
+        {
+            IEnumerable<int> result = EnumerableSource.Range(3, 4);
+            Assert.IsTrue(result.SequenceEqual(new[] { 3, 4, 5, 6 }), "Range should return the requested range.");
+        }
+
+        [TestMethod]
+        public void Enumerable_Range_ZeroCount_GeneratesEmptyRange()
+        {
+            IEnumerable<int> result = EnumerableSource.Range(3, 0);
+            Assert.IsTrue(result.SequenceEqual(new int[] { }), "Range should return an empty range.");
+        }
+
+        [TestMethod]
+        public void Enumerable_Range_NegativeCount_GeneratesEmptyRange()
+        {
+            IEnumerable<int> result = EnumerableSource.Range(3, -1);
+            Assert.IsTrue(result.SequenceEqual(new int[] { }), "Range should return an empty range.");
+        }
+
+        [TestMethod]
         public void Enumerable_Zip_ZipsElements()
         {
             IEnumerable<int> source1 = new List<int> { 13, 7 };
