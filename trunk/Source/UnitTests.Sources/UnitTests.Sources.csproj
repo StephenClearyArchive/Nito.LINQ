@@ -42,6 +42,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnonymousUnitTests.cs" />
     <Compile Include="EnumerableExtensionsUnitTests.cs" />
     <Compile Include="LexicographicalComparerUnitTests.cs" />
     <Compile Include="LinkedListExtensionsUnitTests.cs" />

@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\UnitTests.Sources\AnonymousUnitTests.cs">
+      <Link>AnonymousUnitTests.cs</Link>
+    </Compile>
     <Compile Include="..\UnitTests.Sources\EnumerableExtensionsUnitTests.cs">
       <Link>EnumerableExtensionsUnitTests.cs</Link>
     </Compile>
