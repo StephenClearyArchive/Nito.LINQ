@@ -166,6 +166,11 @@ namespace Nito
         /// <returns>A list containing the source list repeated the specified number of times.</returns>
         public static IList<T> Repeat<T>(this IList<T> list, int count)
         {
+            if (count <= 0)
+            {
+                return ListSource.Empty<T>();
+            }
+
             return new Implementation.AnonymousReadOnlyList<T>(i => list[i % list.Count], () => list.Count * count);
         }
 

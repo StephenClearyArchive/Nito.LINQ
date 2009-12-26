@@ -42,6 +42,11 @@ namespace Nito
         /// <returns>A read-only list containing <paramref name="count"/> elements, all equal to <paramref name="source"/>.</returns>
         public static IList<T> Repeat<T>(T source, int count)
         {
+            if (count <= 0)
+            {
+                return ListSource.Empty<T>();
+            }
+
             return new Implementation.AnonymousReadOnlyList<T>(_ => source, () => count);
         }
 
@@ -54,6 +59,11 @@ namespace Nito
         /// <returns>A read-only list that generates its elements on demand.</returns>
         public static IList<T> Generate<T>(Func<T> generator, int count)
         {
+            if (count <= 0)
+            {
+                return ListSource.Empty<T>();
+            }
+
             return new Implementation.AnonymousReadOnlyList<T>(_ => generator(), () => count);
         }
 
@@ -66,6 +76,11 @@ namespace Nito
         /// <returns>A read-only list that generates its elements on demand.</returns>
         public static IList<T> Generate<T>(Func<int, T> generator, int count)
         {
+            if (count <= 0)
+            {
+                return ListSource.Empty<T>();
+            }
+
             return new Implementation.AnonymousReadOnlyList<T>(generator, () => count);
         }
     }
