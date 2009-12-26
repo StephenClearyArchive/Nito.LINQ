@@ -2,7 +2,7 @@
 //     Copyright (c) 2009 Nito Programs.
 // </copyright>
 
-namespace Nito
+namespace Nito.Linq
 {
     using System.Collections.Generic;
     using System.Linq;
