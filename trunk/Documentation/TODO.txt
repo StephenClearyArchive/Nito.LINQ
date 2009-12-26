@@ -1,5 +1,6 @@
 . Verify all comment restrictions, e.g., SortedListExtensions.Take.count, and also propogate all exception notes.
 . Experiment with AnonymousList.
+. Finish unit tests.
 . Consider: ArgumentNullException checks
 
 . Document compilation #defs:

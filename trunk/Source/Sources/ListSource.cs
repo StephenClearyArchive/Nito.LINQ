@@ -19,7 +19,7 @@ namespace Nito
         /// <returns>An empty read-only list.</returns>
         public static IList<T> Empty<T>()
         {
-            return new GenerateList<T>(null, 0);
+            return new Implementation.AnonymousReadOnlyList<T>(null, () => 0);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Nito
         /// <returns>A read-only list containing a single element, <paramref name="source"/>.</returns>
         public static IList<T> Return<T>(T source)
         {
-            return new GenerateList<T>(_ => source, 1);
+            return new Implementation.AnonymousReadOnlyList<T>(_ => source, () => 1);
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Nito
         /// <returns>A read-only list containing <paramref name="count"/> elements, all equal to <paramref name="source"/>.</returns>
         public static IList<T> Repeat<T>(T source, int count)
         {
-            return new GenerateList<T>(_ => source, count);
+            return new Implementation.AnonymousReadOnlyList<T>(_ => source, () => count);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Nito
         /// <returns>A read-only list that generates its elements on demand.</returns>
         public static IList<T> Generate<T>(Func<T> generator, int count)
         {
-            return new GenerateList<T>(_ => generator(), count);
+            return new Implementation.AnonymousReadOnlyList<T>(_ => generator(), () => count);
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace Nito
         /// <returns>A read-only list that generates its elements on demand.</returns>
         public static IList<T> Generate<T>(Func<int, T> generator, int count)
         {
-            return new GenerateList<T>(generator, count);
+            return new Implementation.AnonymousReadOnlyList<T>(generator, () => count);
         }
     }
 }

@@ -46,7 +46,7 @@ namespace Nito
         /// <returns>The projected list.</returns>
         public static IList<TResult> Select<TSource, TResult>(this IList<TSource> list, Func<TSource, TResult> selector)
         {
-            return new ProjectList<TSource, TResult>(list, (item, index) => selector(item));
+            return new Implementation.AnonymousReadOnlyList<TResult>(i => selector(list[i]), () => list.Count);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Nito
         /// <returns>The projected list.</returns>
         public static IList<TResult> Select<TSource, TResult>(this IList<TSource> list, Func<TSource, int, TResult> selector)
         {
-            return new ProjectList<TSource, TResult>(list, selector);
+            return new Implementation.AnonymousReadOnlyList<TResult>(i => selector(list[i], i), () => list.Count);
         }
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace Nito
         /// <returns>A list containing the source list repeated the specified number of times.</returns>
         public static IList<T> Repeat<T>(this IList<T> list, int count)
         {
-            return new RepeatList<T>(list, count);
+            return new Implementation.AnonymousReadOnlyList<T>(i => list[i % list.Count], () => list.Count * count);
         }
 
         /// <summary>
@@ -218,8 +218,7 @@ namespace Nito
         /// <returns>The combined list.</returns>
         public static IList<TResult> Zip<TFirst, TSecond, TResult>(this IList<TFirst> first, IList<TSecond> second, Func<TFirst, TSecond, TResult> zipper)
         {
-            int listSize = Math.Min(first.Count, second.Count);
-            return new ProjectList<TFirst, TResult>(first.Take(listSize), (a, index) => zipper(a, second[index]));
+            return new Implementation.AnonymousReadOnlyList<TResult>(i => zipper(first[i], second[i]), () => Math.Min(first.Count, second.Count));
         }
 
         /// <summary>
@@ -236,8 +235,7 @@ namespace Nito
         /// <returns>The combined list.</returns>
         public static IList<TResult> Zip<TFirst, TSecond, TThird, TResult>(this IList<TFirst> first, IList<TSecond> second, IList<TThird> third, Func<TFirst, TSecond, TThird, TResult> zipper)
         {
-            int listSize = Math.Min(Math.Min(first.Count, second.Count), third.Count);
-            return new ProjectList<TFirst, TResult>(first.Take(listSize), (a, index) => zipper(a, second[index], third[index]));
+            return new Implementation.AnonymousReadOnlyList<TResult>(i => zipper(first[i], second[i], third[i]), () => Math.Min(Math.Min(first.Count, second.Count), third.Count));
         }
 
         /// <summary>

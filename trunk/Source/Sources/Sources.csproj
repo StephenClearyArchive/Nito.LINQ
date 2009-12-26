@@ -56,13 +56,10 @@
     <Compile Include="Implementation.ListHelper.cs" />
     <Compile Include="Implementation.ReadOnlyListBase.cs" />
     <Compile Include="ListExtensions.ConcatList.cs" />
-    <Compile Include="ListSource.GenerateList.cs" />
     <Compile Include="ListExtensions.ReadWriteProjectList.cs" />
     <Compile Include="ListExtensions.cs" />
-    <Compile Include="ListExtensions.RepeatList.cs" />
     <Compile Include="ListExtensions.ReverseList.cs" />
     <Compile Include="ListExtensions.SliceList.cs" />
-    <Compile Include="ListExtensions.ProjectList.cs" />
     <Compile Include="ListExtensions.StepList.cs" />
     <Compile Include="SortedListExtensions.cs" />
     <Compile Include="Properties\AssemblySharedInfo.cs" />
@@ -81,6 +78,9 @@
     <Compile Include="SortedEnumerableExtensions.cs" />
     <Compile Include="SortedEnumerableSource.cs" />
     <Compile Include="SortedListSource.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Implementation.AnonymousReadOnlyList.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
