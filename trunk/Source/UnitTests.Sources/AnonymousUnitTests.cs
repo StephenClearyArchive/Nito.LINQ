@@ -36,7 +36,11 @@ namespace UnitTests
             int invokeCount = 0;
             IEnumerable<int> source = new[] { 13 };
             IEnumerable test = new AnonymousEnumerable<int> { GetEnumerator = () => { ++invokeCount; return source.GetEnumerator(); } };
-            Assert.IsTrue(test.Cast<int>().SequenceEqual(source), "AnonymousEnumerable should use GetEnumerator to implement IEnumerable.");
+            foreach (int result in test)
+            {
+                Assert.AreEqual(source.First(), result, "AnonymousEnumerable should use GetEnumerator to implement IEnumerable.");
+            }
+
             Assert.AreEqual(1, invokeCount, "AnonymousEnumerable should use GetEnumerator to implement IEnumerable.");
         }
     }
