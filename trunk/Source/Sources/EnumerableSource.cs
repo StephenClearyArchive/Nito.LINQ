@@ -113,6 +113,20 @@ namespace Nito.Linq
         }
 
         /// <summary>
+        /// Generates an infinite sequence by iterating from an initial state; for each state, a single value is generated.
+        /// </summary>
+        /// <typeparam name="TState">The type of the state.</typeparam>
+        /// <typeparam name="TResult">The type of elements in the sequence.</typeparam>
+        /// <param name="initialState">The starting value of the state.</param>
+        /// <param name="resultSelector">The generator delegate that generates a sequence value from a state value.</param>
+        /// <param name="iterate">The iterator delegate that moves the state from one value to the next.</param>
+        /// <returns>A generated sequence.</returns>
+        public static IEnumerable<TResult> Generate<TState, TResult>(TState initialState, Func<TState, TResult> resultSelector, Func<TState, TState> iterate)
+        {
+            return Generate<TState, TResult>(initialState, x => true, resultSelector, iterate);
+        }
+
+        /// <summary>
         /// Generates a sequence by iterating from an initial state until the condition delegate returns <c>false</c>; for each state, a single value is generated.
         /// </summary>
         /// <typeparam name="TState">The type of the state.</typeparam>
@@ -173,6 +187,20 @@ namespace Nito.Linq
             while (true)
             {
                 yield return generator();
+            }
+        }
+
+        /// <summary>
+        /// Generates an infinite sequence.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="generator">The generator delegate that generates each value in the sequence.</param>
+        /// <returns>A generated sequence.</returns>
+        public static IEnumerable<T> Generate<T>(Func<int, T> generator)
+        {
+            for (int i = 0; ; i = unchecked(i + 1))
+            {
+                yield return generator(i);
             }
         }
 
