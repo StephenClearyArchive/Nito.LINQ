@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿// <copyright file="SortedListSource.cs" company="Nito Programs">
+//     Copyright (c) 2009 Nito Programs.
+// </copyright>
 
 namespace Nito
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Sorted list sources.
     /// </summary>
@@ -18,7 +19,7 @@ namespace Nito
         /// <returns>An empty sorted list.</returns>
         public static ISortedList<T> Empty<T>(IComparer<T> comparer)
         {
-            return new SortedListExtensions.AnonymousSortedList<T>(ListSource.Empty<T>(), comparer);
+            return new Implementation.SortedListWrapper<T>(ListSource.Empty<T>(), comparer);
         }
 
         /// <summary>
@@ -40,7 +41,7 @@ namespace Nito
         /// <returns>A sorted list containing a single element, <paramref name="source"/>.</returns>
         public static ISortedList<T> Return<T>(T source, IComparer<T> comparer)
         {
-            return new SortedListExtensions.AnonymousSortedList<T>(ListSource.Return(source), comparer);
+            return new Implementation.SortedListWrapper<T>(ListSource.Return(source), comparer);
         }
 
         /// <summary>
@@ -64,7 +65,7 @@ namespace Nito
         /// <returns>A sorted list containing <paramref name="count"/> elements, all equal to <paramref name="source"/>.</returns>
         public static ISortedList<T> Repeat<T>(T source, IComparer<T> comparer, int count)
         {
-            return new SortedListExtensions.AnonymousSortedList<T>(ListSource.Repeat(source, count), comparer);
+            return new Implementation.SortedListWrapper<T>(ListSource.Repeat(source, count), comparer);
         }
 
         /// <summary>

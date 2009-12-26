@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿// <copyright file="SortedEnumerableSource.cs" company="Nito Programs">
+//     Copyright (c) 2009 Nito Programs.
+// </copyright>
 
 namespace Nito
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     /// <summary>
     /// Sorted sequence sources.
     /// </summary>
@@ -18,7 +20,7 @@ namespace Nito
         /// <returns>The sorted, empty sequence.</returns>
         public static ISortedEnumerable<T> Empty<T>(IComparer<T> comparer)
         {
-            return new SortedEnumerableExtensions.AnonymousSortedEnumerable<T>(Enumerable.Empty<T>(), comparer);
+            return new Implementation.SortedEnumerableWrapper<T>(Enumerable.Empty<T>(), comparer);
         }
 
         /// <summary>
@@ -40,7 +42,7 @@ namespace Nito
         /// <returns>A sorted sequence containing a single element, <paramref name="source"/>.</returns>
         public static ISortedEnumerable<T> Return<T>(T source, IComparer<T> comparer)
         {
-            return new SortedEnumerableExtensions.AnonymousSortedEnumerable<T>(EnumerableSource.Return(source), comparer);
+            return new Implementation.SortedEnumerableWrapper<T>(EnumerableSource.Return(source), comparer);
         }
 
         /// <summary>
@@ -64,7 +66,7 @@ namespace Nito
         /// <returns>A sorted sequence containing <paramref name="count"/> elements, all equal to <paramref name="source"/>.</returns>
         public static ISortedEnumerable<T> Repeat<T>(T source, IComparer<T> comparer, int count)
         {
-            return new SortedEnumerableExtensions.AnonymousSortedEnumerable<T>(EnumerableSource.Repeat(source, count), comparer);
+            return new Implementation.SortedEnumerableWrapper<T>(EnumerableSource.Repeat(source, count), comparer);
         }
 
         /// <summary>
@@ -88,7 +90,7 @@ namespace Nito
         /// <returns>A sorted sequence containing an infinite number of elements, all equal to <paramref name="source"/>.</returns>
         public static ISortedEnumerable<T> Repeat<T>(T source, IComparer<T> comparer)
         {
-            return new SortedEnumerableExtensions.AnonymousSortedEnumerable<T>(EnumerableSource.Repeat(source), comparer);
+            return new Implementation.SortedEnumerableWrapper<T>(EnumerableSource.Repeat(source), comparer);
         }
 
         /// <summary>

@@ -70,6 +70,12 @@
     <Compile Include="..\Sources\Implementation.ReadOnlyListBase.cs">
       <Link>Implementation.ReadOnlyListBase.cs</Link>
     </Compile>
+    <Compile Include="..\Sources\Implementation.SortedEnumerableWrapper.cs">
+      <Link>Implementation.SortedEnumerableWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Implementation.SortedListWrapper.cs">
+      <Link>Implementation.SortedListWrapper.cs</Link>
+    </Compile>
     <Compile Include="..\Sources\IndirectList.cs">
       <Link>IndirectList.cs</Link>
     </Compile>
