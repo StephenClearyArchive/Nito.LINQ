@@ -86,7 +86,7 @@ namespace Nito
         /// <returns>The sorted sequence.</returns>
         public static ISortedEnumerable<T> AsSorted<T>(this IEnumerable<T> source, IComparer<T> comparer)
         {
-            return new AnonymousSortedEnumerable<T>(source, comparer);
+            return new Implementation.SortedEnumerableWrapper<T>(source, comparer);
         }
 
         /// <summary>
@@ -377,7 +377,7 @@ namespace Nito
         /// <returns>A sequence that skips the first <paramref name="offset"/> elements of the source sequence.</returns>
         public static ISortedEnumerable<T> Skip<T>(this ISortedEnumerable<T> source, int offset)
         {
-            return new AnonymousSortedEnumerable<T>(Enumerable.Skip(source, offset), source.Comparer);
+            return new Implementation.SortedEnumerableWrapper<T>(Enumerable.Skip(source, offset), source.Comparer);
         }
 
         /// <summary>
@@ -389,7 +389,7 @@ namespace Nito
         /// <returns>The stepped sequence.</returns>
         public static ISortedEnumerable<T> Step<T>(this ISortedEnumerable<T> source, int step)
         {
-            return new AnonymousSortedEnumerable<T>(EnumerableExtensions.Step(source, step), source.Comparer);
+            return new Implementation.SortedEnumerableWrapper<T>(EnumerableExtensions.Step(source, step), source.Comparer);
         }
 
         /// <summary>
@@ -401,7 +401,7 @@ namespace Nito
         /// <returns>A sequence that includes the first <paramref name="count"/> elements of the source sequence.</returns>
         public static ISortedEnumerable<T> Take<T>(this ISortedEnumerable<T> source, int count)
         {
-            return new AnonymousSortedEnumerable<T>(Enumerable.Take(source, count), source.Comparer);
+            return new Implementation.SortedEnumerableWrapper<T>(Enumerable.Take(source, count), source.Comparer);
         }
 
         /// <summary>
@@ -569,7 +569,7 @@ namespace Nito
         public static ISortedEnumerable<T> ExceptWithDuplicates<T>(this ISortedEnumerable<T> source, ISortedEnumerable<T> other)
         {
             IComparer<T> comparer = source.Comparer;
-            return new AnonymousSortedEnumerable<T>(ExceptCore(source, other, comparer), comparer);
+            return new Implementation.SortedEnumerableWrapper<T>(ExceptCore(source, other, comparer), comparer);
         }
 
         /// <summary>
@@ -593,7 +593,7 @@ namespace Nito
         public static ISortedEnumerable<T> Distinct<T>(this ISortedEnumerable<T> source)
         {
             IComparer<T> comparer = source.Comparer;
-            return new AnonymousSortedEnumerable<T>(DistinctCore(source, comparer), comparer);
+            return new Implementation.SortedEnumerableWrapper<T>(DistinctCore(source, comparer), comparer);
         }
 
         /// <summary>
@@ -634,7 +634,7 @@ namespace Nito
         /// <returns>The union of the source sequences, as a sorted sequence.</returns>
         private static ISortedEnumerable<T> UnionCore<T>(IEnumerable<ISortedEnumerable<T>> sources, IComparer<T> comparer)
         {
-            return new AnonymousSortedEnumerable<T>(sources.Cast<IEnumerable<T>>().Aggregate((x, y) => UnionCore(x, y, comparer)), comparer);
+            return new Implementation.SortedEnumerableWrapper<T>(sources.Cast<IEnumerable<T>>().Aggregate((x, y) => UnionCore(x, y, comparer)), comparer);
         }
 
         /// <summary>
@@ -698,7 +698,7 @@ namespace Nito
         /// <returns>The merging of the source sequences, as a sorted sequence.</returns>
         private static ISortedEnumerable<T> MergeCore<T>(IEnumerable<ISortedEnumerable<T>> sources, IComparer<T> comparer)
         {
-            return new AnonymousSortedEnumerable<T>(sources.Cast<IEnumerable<T>>().Aggregate((x, y) => MergeCore(x, y, comparer)), comparer);
+            return new Implementation.SortedEnumerableWrapper<T>(sources.Cast<IEnumerable<T>>().Aggregate((x, y) => MergeCore(x, y, comparer)), comparer);
         }
 
         /// <summary>
@@ -756,7 +756,7 @@ namespace Nito
         /// <returns>The intersection of the source sequences, as a sorted sequence.</returns>
         private static ISortedEnumerable<T> IntersectCore<T>(IEnumerable<ISortedEnumerable<T>> sources, IComparer<T> comparer)
         {
-            return new AnonymousSortedEnumerable<T>(sources.Cast<IEnumerable<T>>().Aggregate((x, y) => IntersectCore(x, y, comparer)), comparer);
+            return new Implementation.SortedEnumerableWrapper<T>(sources.Cast<IEnumerable<T>>().Aggregate((x, y) => IntersectCore(x, y, comparer)), comparer);
         }
 
         /// <summary>
@@ -902,56 +902,6 @@ namespace Nito
             public void Dispose()
             {
                 this.source.Dispose();
-            }
-        }
-
-        /// <summary>
-        /// Wraps a source sequence and comparison object.
-        /// </summary>
-        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
-        internal sealed class AnonymousSortedEnumerable<T> : ISortedEnumerable<T>
-        {
-            /// <summary>
-            /// The source sequence.
-            /// </summary>
-            private IEnumerable<T> source;
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="AnonymousSortedEnumerable&lt;T&gt;"/> class with the specified source sequence and comparison object.
-            /// </summary>
-            /// <param name="source">The source sequence.</param>
-            /// <param name="comparer">The comparison object.</param>
-            public AnonymousSortedEnumerable(IEnumerable<T> source, IComparer<T> comparer)
-            {
-                this.source = source;
-                this.Comparer = comparer;
-            }
-
-            /// <summary>
-            /// Gets a comparison object that defines how this sequence is sorted.
-            /// </summary>
-            public IComparer<T> Comparer { get; private set; }
-
-            /// <summary>
-            /// Returns an enumerator that iterates through the collection.
-            /// </summary>
-            /// <returns>
-            /// A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
-            /// </returns>
-            public IEnumerator<T> GetEnumerator()
-            {
-                return this.source.GetEnumerator();
-            }
-
-            /// <summary>
-            /// Returns an enumerator that iterates through a collection.
-            /// </summary>
-            /// <returns>
-            /// An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
-            /// </returns>
-            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-            {
-                return this.GetEnumerator();
             }
         }
     }
