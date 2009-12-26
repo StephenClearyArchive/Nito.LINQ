@@ -8,7 +8,7 @@ namespace Nito.Linq
     using System.Collections.Generic;
 
     /// <summary>
-    /// An object that implements <see cref="IComparer{T}"/> using a delegate.
+    /// An object that implements <see cref="IComparer{T}"/> using a delegate. <see cref="Compare"/> must be set before using an instance of this class.
     /// </summary>
     /// <typeparam name="T">The type of items to compare.</typeparam>
     public sealed class AnonymousComparer<T> : IComparer<T>

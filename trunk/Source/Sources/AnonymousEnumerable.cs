@@ -8,7 +8,7 @@ namespace Nito.Linq
     using System.Collections.Generic;
 
     /// <summary>
-    /// An object that implements <see cref="IEnumerable{T}"/> using a delegate.
+    /// An object that implements <see cref="IEnumerable{T}"/> using a delegate. <see cref="GetEnumerator"/> must be set before using an instance of this class.
     /// </summary>
     /// <typeparam name="T">The type of elements in the sequence.</typeparam>
     public sealed class AnonymousEnumerable<T> : IEnumerable<T>
