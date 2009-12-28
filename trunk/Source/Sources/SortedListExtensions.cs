@@ -420,8 +420,8 @@ namespace Nito.Linq
             {
                 int mid = begin + ((end - begin) / 2);
 #if DEBUG
-                Debug.Assert(mid >= begin, "mid must be in the range [begin, end)");
-                Debug.Assert(mid < end, "mid must be in the range [begin, end)");
+                System.Diagnostics.Debug.Assert(mid >= begin, "mid must be in the range [begin, end)");
+                System.Diagnostics.Debug.Assert(mid < end, "mid must be in the range [begin, end)");
 #endif
 
                 int test = finder(list[mid]);
@@ -456,8 +456,8 @@ namespace Nito.Linq
             {
                 int mid = begin + ((end - begin) / 2);
 #if DEBUG
-                Debug.Assert(mid >= begin, "mid must be in the range [begin, end)");
-                Debug.Assert(mid < end, "mid must be in the range [begin, end)");
+                System.Diagnostics.Debug.Assert(mid >= begin, "mid must be in the range [begin, end)");
+                System.Diagnostics.Debug.Assert(mid < end, "mid must be in the range [begin, end)");
 #endif
 
                 int test = finder(list[mid]);
@@ -468,7 +468,7 @@ namespace Nito.Linq
                 else
                 {
 #if DEBUG
-                    Debug.Assert(test > 0, "No elements in the range [begin, end) may be larger than the match");
+                    System.Diagnostics.Debug.Assert(test > 0, "No elements in the range [begin, end) may be larger than the match");
 #endif
 
                     begin = mid + 1;
@@ -490,8 +490,8 @@ namespace Nito.Linq
             {
                 int mid = begin + ((end - begin) / 2);
 #if DEBUG
-                Debug.Assert(mid >= begin, "mid must be in the range [begin, end)");
-                Debug.Assert(mid < end, "mid must be in the range [begin, end)");
+                System.Diagnostics.Debug.Assert(mid >= begin, "mid must be in the range [begin, end)");
+                System.Diagnostics.Debug.Assert(mid < end, "mid must be in the range [begin, end)");
 #endif
 
                 int test = finder(list[mid]);
@@ -502,7 +502,7 @@ namespace Nito.Linq
                 else
                 {
 #if DEBUG
-                    Debug.Assert(test < 0, "No elements in the range [begin, end) may be smaller than the match");
+                    System.Diagnostics.Debug.Assert(test < 0, "No elements in the range [begin, end) may be smaller than the match");
 #endif
 
                     end = mid;
