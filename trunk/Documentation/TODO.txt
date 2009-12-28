@@ -1,5 +1,5 @@
 . Finish unit tests.
-. Change all operations to be indirect, renaming existing ISwappable ops to *InPlace as necessary.
+. Change all operations to be indirect, renaming existing ISwappable ops to *InPlace as necessary. (keep unit test names in sync)
 . Verify all comment restrictions, e.g., SortedListExtensions.Take.count, and also propogate all exception notes.
 . Document for every list/sorted list operator which resulting lists support insertion/sorted-insertion (sorted only)/removal/updating.
 . Consider: ArgumentNullException checks
