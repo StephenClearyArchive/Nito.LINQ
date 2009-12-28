@@ -244,3 +244,46 @@ Rx adds (for IEnumerable):
  Zip
 Rx observable-like operations for IEnumerable: Amb, Asynchronous, Merge, Synchronize
 Dematerialize, Materialize - Converts OnNext/OnError/OnDone -> OnNext, OnNext -> OnNext/OnError/OnDone (helpful for implementing operators)
+
+
+
+New C++0x algorithms:
+bool all_of(Iter first, Iter last, Pred pred);
+	bool any_of(Iter first, Iter last, Pred pred);
+	bool none_of(Iter first, Iter last, Pred pred);
+
+	Iter find_if_not(Iter first, Iter last, Pred pred);
+
+	OutIter copy_if(InIter first, InIter last, OutIter result, Pred pred);
+	OutIter copy_n(InIter first, InIter::difference_type n, OutIter result);
+
+	OutIter move(InIter first, InIter last, OutIter result);
+	OutIter move_backward(InIter first, InIter last, OutIter result);
+
+	pair<OutIter1, OutIter2> partition_copy(InIter first, InIter last, OutIter1 out_true, OutIter2 out_false, Pred pred);
+	Iter partition_point(Iter first, Iter last, Pred pred);
+
+	RAIter partial_sort_copy(InIter first, InIter last, RAIter result_first, RAIter result_last);
+	RAIter partial_sort_copy(InIter first, InIter last, RAIter result_first, RAIter result_last, Compare comp);
+	bool is_sorted(Iter first, Iter last);
+	bool is_sorted(Iter first, Iter last, Compare comp);
+	Iter is_sorted_until(Iter first, Iter last);
+	Iter is_sorted_until(Iter first, Iter last, Compare comp);
+
+	bool is_heap(Iter first, Iter last);
+	bool is_heap(Iter first, Iter last, Compare comp);
+	Iter is_heap_until(Iter first, Iter last);
+	Iter is_heap_until(Iter first, Iter last, Compare comp);
+
+	T min(initializer_list<T> t);
+	T min(initializer_list<T> t, Compare comp);
+	T max(initializer_list<T> t);
+	T max(initializer_list<T> t, Compare comp);
+	pair<const T&, const T&> minmax(const T& a, const T& b);
+	pair<const T&, const T&> minmax(const T& a, const T& b, Compare comp);
+	pair<const T&, const T&> minmax(initializer_list<T> t);
+	pair<const T&, const T&> minmax(initializer_list<T> t, Compare comp);
+	pair<Iter, Iter> minmax_element(Iter first, Iter last);
+	pair<Iter, Iter> minmax_element(Iter first, Iter last, Compare comp);
+
+	void iota(Iter first, Iter last, T value);	// For each element referred to by the iterator i in the range [first,last), assigns *i = value and increments value as if by ++value
