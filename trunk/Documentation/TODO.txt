@@ -1,6 +1,6 @@
 . Finish unit tests.
+. Change all operations to be indirect, renaming existing ISwappable ops to *InPlace as necessary.
 . Verify all comment restrictions, e.g., SortedListExtensions.Take.count, and also propogate all exception notes.
-. Conversions to/from IList. Cast/ToConcreteIList (ToObjectIList?). Optional parameters for IsFixedSize/IsReadOnly as necessary.
 . Document for every list/sorted list operator which resulting lists support insertion/sorted-insertion (sorted only)/removal/updating.
 . Consider: ArgumentNullException checks
 . Rename LexicographicalComparer to SequenceComparer and add a SequenceCompare algorithm (with IComparer<T> overload).
@@ -14,3 +14,6 @@
 
 Conceptual documentation:
 . SequenceEqual/SequenceCompare vs IStructuralEquatable/IStructuralComparable
+
+Next phase:
+. Create an IBoundList<T> that implements each algorithm and also notifies of updates via INotifyCollectionChanged.

@@ -97,8 +97,14 @@
     <Compile Include="..\Sources\ListExtensions.ConcatList.cs">
       <Link>ListExtensions.ConcatList.cs</Link>
     </Compile>
+    <Compile Include="..\Sources\ListExtensions.ConcreteList.cs">
+      <Link>ListExtensions.ConcreteList.cs</Link>
+    </Compile>
     <Compile Include="..\Sources\ListExtensions.cs">
       <Link>ListExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.GenericList.cs">
+      <Link>ListExtensions.GenericList.cs</Link>
     </Compile>
     <Compile Include="..\Sources\ListExtensions.ReadWriteProjectList.cs">
       <Link>ListExtensions.ReadWriteProjectList.cs</Link>

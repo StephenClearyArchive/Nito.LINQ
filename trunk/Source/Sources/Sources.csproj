@@ -85,6 +85,8 @@
   <ItemGroup>
     <Compile Include="Implementation.SortedEnumerableWrapper.cs" />
     <Compile Include="Implementation.SortedListWrapper.cs" />
+    <Compile Include="ListExtensions.ConcreteList.cs" />
+    <Compile Include="ListExtensions.GenericList.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
