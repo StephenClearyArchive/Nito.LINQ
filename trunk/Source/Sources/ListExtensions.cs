@@ -25,6 +25,67 @@ namespace Nito.Linq
         }
 
         /// <summary>
+        /// Casts or converts a non-generic <see cref="System.Collections.IList"/> object into a strongly-typed list.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the list.</typeparam>
+        /// <param name="list">The non-generic source list to cast or wrap.</param>
+        /// <param name="isReadOnly">Whether the wrapper should return <c>true</c> for <see cref="IList{T}.IsReadOnly"/>, if a wrapper is used.</param>
+        /// <returns>The source list, if it implements <see cref="IList{T}"/>; otherwise, a wrapper around the source list.</returns>
+        public static IList<T> AsList<T>(this System.Collections.IList list, bool isReadOnly)
+        {
+            IList<T> ret = list as IList<T>;
+            if (ret != null)
+            {
+                return ret;
+            }
+
+            return new GenericList<T>(list, isReadOnly);
+        }
+
+        /// <summary>
+        /// Casts or converts a non-generic <see cref="System.Collections.IList"/> object into a strongly-typed list. If a wrapper is used, then the wrapper will return <c>true</c> for <see cref="IList{T}.IsReadOnly"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the list.</typeparam>
+        /// <param name="list">The non-generic source list to cast or wrap.</param>
+        /// <returns>The source list, if it implements <see cref="IList{T}"/>; otherwise, a wrapper around the source list.</returns>
+        public static IList<T> AsList<T>(this System.Collections.IList list)
+        {
+            return list.AsList<T>(true);
+        }
+
+        /// <summary>
+        /// Casts or converts a generic <see cref="IList{T}"/> into a non-generic <see cref="System.Collections.IList"/> object.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the list.</typeparam>
+        /// <param name="list">The generic source list to cast or wrap.</param>
+        /// <param name="isFixedSize">Whether the wrapper should return <c>true</c> for <see cref="System.Collections.IList.IsFixedSize"/>, if a wrapper is used.</param>
+        /// <param name="isReadOnly">Whether the wrapper should return <c>true</c> for <see cref="System.Collections.IList.IsReadOnly"/>, if a wrapper is used.</param>
+        /// <returns>The source list, if it implements <see cref="System.Collections.IList"/>; otherwise, a wrapper around the source list.</returns>
+        public static System.Collections.IList AsConcreteList<T>(this IList<T> list, bool isFixedSize, bool isReadOnly)
+        {
+            System.Collections.IList ret = list as System.Collections.IList;
+            if (ret != null)
+            {
+                return ret;
+            }
+
+            return new ConcreteList<T>(list, isFixedSize, isReadOnly);
+        }
+
+        /// <summary>
+        /// Casts or converts a generic <see cref="IList{T}"/> into a non-generic <see cref="System.Collections.IList"/> object. If a wrapper is used, then the wrapper will return <c>true</c> for <see cref="System.Collections.IList.IsFixedSize"/> and <see cref="System.Collections.IList.IsReadOnly"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the list.</typeparam>
+        /// <param name="list">The generic source list to cast or wrap.</param>
+        /// <param name="isFixedSize">Whether the wrapper should return <c>true</c> for <see cref="System.Collections.IList.IsFixedSize"/>, if a wrapper is used.</param>
+        /// <param name="isReadOnly">Whether the wrapper should return <c>true</c> for <see cref="System.Collections.IList.IsReadOnly"/>, if a wrapper is used.</param>
+        /// <returns>The source list, if it implements <see cref="System.Collections.IList"/>; otherwise, a wrapper around the source list.</returns>
+        public static System.Collections.IList AsConcreteList<T>(this IList<T> list)
+        {
+            return list.AsConcreteList(true, true);
+        }
+
+        /// <summary>
         /// Returns a read-only list wrapper for a given list.
         /// </summary>
         /// <typeparam name="T">The type of elements in the source list.</typeparam>
