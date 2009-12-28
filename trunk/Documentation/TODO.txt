@@ -1,6 +1,7 @@
-. Verify all comment restrictions, e.g., SortedListExtensions.Take.count, and also propogate all exception notes.
-. Experiment with AnonymousList.
 . Finish unit tests.
+. Verify all comment restrictions, e.g., SortedListExtensions.Take.count, and also propogate all exception notes.
+. Conversions to/from IList. Cast/ToConcreteIList (ToObjectIList?). Optional parameters for IsFixedSize/IsReadOnly as necessary.
+. Document for every list/sorted list operator which resulting lists support insertion/sorted-insertion (sorted only)/removal/updating.
 . Consider: ArgumentNullException checks
 
 . Document compilation #defs:

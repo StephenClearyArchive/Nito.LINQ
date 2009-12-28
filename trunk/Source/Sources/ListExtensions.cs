@@ -6,7 +6,6 @@ namespace Nito.Linq
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
 
     /// <summary>
@@ -270,7 +269,7 @@ namespace Nito.Linq
                 int k = randomNumberGenerator(n);
                 --n;
 #if DEBUG
-                Debug.Assert(0 <= k && k <= n, "RNG must return value within the range [0, maxValue)");
+                System.Diagnostics.Debug.Assert(0 <= k && k <= n, "RNG must return value within the range [0, maxValue)");
 #endif
                 list.SwapAll(others, k, n);
             }
