@@ -198,7 +198,7 @@ namespace Nito.Linq
         /// <returns>A generated sequence.</returns>
         public static IEnumerable<T> Generate<T>(Func<int, T> generator)
         {
-            for (int i = 0; ; i = unchecked(i + 1))
+            for (int i = 0; true; i = unchecked(i + 1))
             {
                 yield return generator(i);
             }

@@ -77,8 +77,6 @@ namespace Nito.Linq
         /// </summary>
         /// <typeparam name="T">The type of elements in the list.</typeparam>
         /// <param name="list">The generic source list to cast or wrap.</param>
-        /// <param name="isFixedSize">Whether the wrapper should return <c>true</c> for <see cref="System.Collections.IList.IsFixedSize"/>, if a wrapper is used.</param>
-        /// <param name="isReadOnly">Whether the wrapper should return <c>true</c> for <see cref="System.Collections.IList.IsReadOnly"/>, if a wrapper is used.</param>
         /// <returns>The source list, if it implements <see cref="System.Collections.IList"/>; otherwise, a wrapper around the source list.</returns>
         public static System.Collections.IList AsConcreteList<T>(this IList<T> list)
         {
