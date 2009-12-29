@@ -81,9 +81,6 @@
     <Compile Include="..\Sources\IndirectList.cs">
       <Link>IndirectList.cs</Link>
     </Compile>
-    <Compile Include="..\Sources\LexicographicalComparer.cs">
-      <Link>LexicographicalComparer.cs</Link>
-    </Compile>
     <Compile Include="..\Sources\LinkedListExtensions.cs">
       <Link>LinkedListExtensions.cs</Link>
     </Compile>
@@ -122,6 +119,9 @@
     </Compile>
     <Compile Include="..\Sources\Properties\AssemblyVersion.cs">
       <Link>Properties\AssemblyVersion.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\SequenceComparer.cs">
+      <Link>SequenceComparer.cs</Link>
     </Compile>
     <Compile Include="..\Sources\SortedEnumerableExtensions.cs">
       <Link>SortedEnumerableExtensions.cs</Link>

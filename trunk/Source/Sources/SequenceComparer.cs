@@ -1,4 +1,4 @@
-﻿// <copyright file="LexicographicalComparer.cs" company="Nito Programs">
+﻿// <copyright file="SequenceComparer.cs" company="Nito Programs">
 //     Copyright (c) 2009 Nito Programs.
 // </copyright>
 
@@ -10,21 +10,21 @@ namespace Nito.Linq
     /// A comparison object that performs a lexicographical comparison of sequences.
     /// </summary>
     /// <typeparam name="T">The type of elements in the sequences.</typeparam>
-    public sealed class LexicographicalComparer<T> : IComparer<IEnumerable<T>>
+    public sealed class SequenceComparer<T> : IComparer<IEnumerable<T>>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="LexicographicalComparer&lt;T&gt;"/> class with the specified item comparison object.
+        /// Initializes a new instance of the <see cref="SequenceComparer&lt;T&gt;"/> class with the specified item comparison object.
         /// </summary>
         /// <param name="comparer">The item comparison object, used to compare elements of the sequences.</param>
-        public LexicographicalComparer(IComparer<T> comparer)
+        public SequenceComparer(IComparer<T> comparer)
         {
             this.Comparer = comparer;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LexicographicalComparer&lt;T&gt;"/> class with the default item comparison object.
+        /// Initializes a new instance of the <see cref="SequenceComparer&lt;T&gt;"/> class with the default item comparison object.
         /// </summary>
-        public LexicographicalComparer()
+        public SequenceComparer()
             : this(Comparer<T>.Default)
         {
         }

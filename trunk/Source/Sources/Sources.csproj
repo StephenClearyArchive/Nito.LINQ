@@ -71,7 +71,7 @@
     <Compile Include="EnumerableSource.cs" />
     <Compile Include="ListSource.cs" />
     <Compile Include="Properties\AssemblyVersion.cs" />
-    <Compile Include="LexicographicalComparer.cs" />
+    <Compile Include="SequenceComparer.cs" />
     <Compile Include="IndirectList.cs" />
     <Compile Include="LinkedListExtensions.cs" />
     <Compile Include="ListExtensions.Swappable.cs" />
