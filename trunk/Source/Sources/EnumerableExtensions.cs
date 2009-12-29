@@ -479,6 +479,31 @@ namespace Nito.Linq
         }
 
         /// <summary>
+        /// Compares this sequence with another sequence lexicographically, using the specified comparison object to compare the sequence items. Returns a negative number if this sequence is less than the other sequence, 0 if the sequences are equal, or a positive number if this sequence is greater than the other sequence.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="source">The source sequence to compare.</param>
+        /// <param name="other">The other sequence against which to compare.</param>
+        /// <param name="comparer">The comparison object used to compare the sequence items.</param>
+        /// <returns>A negative number if this sequence is less than the other sequence, 0 if the sequences are equal, or a positive number if this sequence is greater than the other sequence.</returns>
+        public static int SequenceCompare<T>(this IEnumerable<T> source, IEnumerable<T> other, IComparer<T> comparer)
+        {
+            return new SequenceComparer<T>(comparer).Compare(source, other);
+        }
+
+        /// <summary>
+        /// Compares this sequence with another sequence lexicographically, using the default comparison object to compare the sequence items. Returns a negative number if this sequence is less than the other sequence, 0 if the sequences are equal, or a positive number if this sequence is greater than the other sequence.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="source">The source sequence to compare.</param>
+        /// <param name="other">The other sequence against which to compare.</param>
+        /// <returns>A negative number if this sequence is less than the other sequence, 0 if the sequences are equal, or a positive number if this sequence is greater than the other sequence.</returns>
+        public static int SequenceCompare<T>(this IEnumerable<T> source, IEnumerable<T> other)
+        {
+            return new SequenceComparer<T>().Compare(source, other);
+        }
+
+        /// <summary>
         /// Steps through a sequence using a specified step size. The first element of the resulting sequence is the first element of the source sequence.
         /// </summary>
         /// <typeparam name="T">The type of elements in the sequence.</typeparam>
