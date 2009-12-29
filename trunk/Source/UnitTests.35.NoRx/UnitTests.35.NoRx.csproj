@@ -46,9 +46,6 @@
     <Compile Include="..\UnitTests.Sources\EnumerableExtensionsUnitTests.cs">
       <Link>EnumerableExtensionsUnitTests.cs</Link>
     </Compile>
-    <Compile Include="..\UnitTests.Sources\LexicographicalComparerUnitTests.cs">
-      <Link>LexicographicalComparerUnitTests.cs</Link>
-    </Compile>
     <Compile Include="..\UnitTests.Sources\LinkedListExtensionsUnitTests.cs">
       <Link>LinkedListExtensionsUnitTests.cs</Link>
     </Compile>
@@ -57,6 +54,9 @@
     </Compile>
     <Compile Include="..\UnitTests.Sources\ListExtensionsUnitTests.cs">
       <Link>ListExtensionsUnitTests.cs</Link>
+    </Compile>
+    <Compile Include="..\UnitTests.Sources\SequenceComparerUnitTests.cs">
+      <Link>SequenceComparerUnitTests.cs</Link>
     </Compile>
     <Compile Include="..\UnitTests.Sources\SortedEnumerableExtensionsUnitTests.cs">
       <Link>SortedEnumerableExtensionsUnitTests.cs</Link>
