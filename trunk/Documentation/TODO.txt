@@ -1,9 +1,9 @@
 . Finish unit tests.
 . Change all operations to be indirect, renaming existing ISwappable ops to *InPlace as necessary. (keep unit test names in sync)
+  . Consider *copying* instead of *indirect*. Leave IndirectList in the dll, for the rare "large struct" situations.
 . Verify all comment restrictions, e.g., SortedListExtensions.Take.count, and also propogate all exception notes.
 . Document for every list/sorted list operator which resulting lists support insertion/sorted-insertion (sorted only)/removal/updating.
 . Consider: ArgumentNullException checks
-. Rename LexicographicalComparer to SequenceComparer and add a SequenceCompare algorithm (with IComparer<T> overload).
 
 . Document compilation #defs:
   . SILVERLIGHT3 - for SL3
