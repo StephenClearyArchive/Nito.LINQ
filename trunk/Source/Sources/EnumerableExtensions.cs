@@ -252,11 +252,11 @@ namespace Nito.Linq
         /// Flattens a sequence of sequences into one long sequence.
         /// </summary>
         /// <typeparam name="T">The type of elements in the resulting sequence.</typeparam>
-        /// <param name="list">The sequence of sequences.</param>
+        /// <param name="source">The sequence of sequences.</param>
         /// <returns>The flattened sequence.</returns>
-        public static IEnumerable<T> Flatten<T>(this IEnumerable<IEnumerable<T>> list)
+        public static IEnumerable<T> Flatten<T>(this IEnumerable<IEnumerable<T>> source)
         {
-            return list.SelectMany(x => x);
+            return source.SelectMany(x => x);
         }
 
         /// <summary>
