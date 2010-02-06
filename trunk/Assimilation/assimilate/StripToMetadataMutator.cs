@@ -69,6 +69,33 @@ namespace assimilate
                 this.parent = parent;
             }
 
+            public override List<INamespaceMember> Visit(List<INamespaceMember> namespaceMembers)
+            {
+                return base.Visit(namespaceMembers.Where(x => 
+                    {
+                        INamespaceTypeDefinition type = x as INamespaceTypeDefinition;
+                        return type == null || type.IsExposed();
+                    }).ToList());
+            }
+
+            public override List<INestedTypeDefinition> Visit(List<INestedTypeDefinition> nestedTypeDefinitions)
+            {
+                // Strip private or internal nested types
+                return base.Visit(nestedTypeDefinitions.Where(x => x.IsExposed() && x.ContainingType.ResolvedType.IsExposed()).ToList());
+            }
+
+            public override List<ITypeReference> Visit(List<ITypeReference> typeReferences)
+            {
+                // Remove references to private/internal types from type references
+                return base.Visit(typeReferences.Where(x => x.ResolvedType.IsExposed()).ToList());
+            }
+
+            public override List<ICustomAttribute> Visit(List<ICustomAttribute> customAttributes)
+            {
+                // Remove references to private/internal types from custom attributes
+                return base.Visit(customAttributes.Where(x => x.Type.ResolvedType.IsExposed()).ToList());
+            }
+
             public override List<ILocalDefinition> Visit(List<ILocalDefinition> locals)
             {
                 // Strip local variables
