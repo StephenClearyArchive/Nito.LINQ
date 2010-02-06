@@ -11,6 +11,7 @@ namespace assimilate
     {
         private readonly IMetadataHost host;
         private readonly List<IMethodDefinition> requiredMethods;
+        private IMethodDefinition entryPoint;
 
         public StripToMetadata(IMetadataHost host)
         {
@@ -18,12 +19,12 @@ namespace assimilate
             this.requiredMethods = new List<IMethodDefinition>();
         }
 
-        public static Module Run(IMetadataHost host, IModule module)
+        public static Assembly Run(IMetadataHost host, IAssembly assembly)
         {
-            Module mutableModule = module as Module;
+            Assembly mutableModule = assembly as Assembly;
             if (mutableModule == null)
             {
-                return Run(host, new MetadataMutator(host).Visit(module));
+                return Run(host, new MetadataMutator(host).Visit(assembly));
             }
             else
             {
@@ -31,12 +32,12 @@ namespace assimilate
             }
         }
 
-        public static Module Run(IMetadataHost host, Module module)
+        public static Assembly Run(IMetadataHost host, Assembly assembly)
         {
             var parent = new StripToMetadata(host);
-            module = new Pass1(parent).Visit(module);
-            module = new Pass2(parent).Visit(module);
-            return module;
+            assembly = new Pass1(parent).Visit(assembly);
+            assembly = new Pass2(parent).Visit(assembly);
+            return assembly;
         }
 
         private static string DumpStack()
@@ -69,19 +70,32 @@ namespace assimilate
                 this.parent = parent;
             }
 
+            public override Module Visit(Module module)
+            {
+                this.parent.entryPoint = module.EntryPoint.ResolvedMethod;
+                return base.Visit(module);
+            }
+
+            public override List<IResourceReference> Visit(List<IResourceReference> resourceReferences)
+            {
+                // Remove all references to resources
+                return base.Visit(new List<IResourceReference>(0));
+            }
+
             public override List<INamespaceMember> Visit(List<INamespaceMember> namespaceMembers)
             {
+                // Strip private/internal non-nested types
                 return base.Visit(namespaceMembers.Where(x => 
                     {
                         INamespaceTypeDefinition type = x as INamespaceTypeDefinition;
-                        return type == null || type.IsExposed();
+                        return type == null || type.IsExposed() || TypeContainsEntryPoint(type, this.parent.entryPoint);
                     }).ToList());
             }
 
             public override List<INestedTypeDefinition> Visit(List<INestedTypeDefinition> nestedTypeDefinitions)
             {
-                // Strip private or internal nested types
-                return base.Visit(nestedTypeDefinitions.Where(x => x.IsExposed() && x.ContainingType.ResolvedType.IsExposed()).ToList());
+                // Strip private/internal nested types
+                return base.Visit(nestedTypeDefinitions.Where(x => x.IsExposed() || TypeContainsEntryPoint(x, this.parent.entryPoint)).ToList());
             }
 
             public override List<ITypeReference> Visit(List<ITypeReference> typeReferences)
@@ -98,7 +112,7 @@ namespace assimilate
 
             public override List<ILocalDefinition> Visit(List<ILocalDefinition> locals)
             {
-                // Strip local variables
+                // Strip all local variables
                 return base.Visit(new List<ILocalDefinition>(0));
             }
 
@@ -116,32 +130,39 @@ namespace assimilate
 
             public override List<IFieldDefinition> Visit(List<IFieldDefinition> fieldDefinitions)
             {
-                // Strip private or internal fields
+                // Strip private/internal fields
                 return base.Visit(fieldDefinitions.Where(x => x.IsExposed()).ToList());
             }
 
             public override List<IPropertyDefinition> Visit(List<IPropertyDefinition> propertyDefinitions)
             {
-                // Strip private or internal properties
+                // Strip private/internal properties
                 return base.Visit(propertyDefinitions.Where(x => x.IsExposed()).ToList());
             }
 
             public override PropertyDefinition Visit(PropertyDefinition propertyDefinition)
             {
+                // Mark property accessors as required
                 this.parent.requiredMethods.AddRange(propertyDefinition.Accessors.Select(x => x.ResolvedMethod));
                 return base.Visit(propertyDefinition);
             }
 
             public override List<IEventDefinition> Visit(List<IEventDefinition> eventDefinitions)
             {
-                // Strip private or internal events
+                // Strip private/internal events
                 return base.Visit(eventDefinitions.Where(x => x.IsExposed()).ToList());
             }
 
             public override EventDefinition Visit(EventDefinition eventDefinition)
             {
+                // Mark event accessors as required
                 this.parent.requiredMethods.AddRange(eventDefinition.Accessors.Select(x => x.ResolvedMethod));
                 return base.Visit(eventDefinition);
+            }
+
+            private static bool TypeContainsEntryPoint(ITypeDefinition type, IMethodDefinition entryPoint)
+            {
+                return type.ContainingTypesAndSelf().Contains(entryPoint.ContainingTypeDefinition);
             }
         }
 
@@ -150,18 +171,10 @@ namespace assimilate
         {
             private readonly StripToMetadata parent;
 
-            private IMethodDefinition entryPoint;
-
             public Pass2(StripToMetadata parent)
                 : base(parent.host, true)
             {
                 this.parent = parent;
-            }
-
-            public override Module Visit(IModule module)
-            {
-                this.entryPoint = module.EntryPoint.ResolvedMethod;
-                return base.Visit(module);
             }
 
             public override List<IMethodDefinition> Visit(List<IMethodDefinition> methodDefinitions)
@@ -175,7 +188,7 @@ namespace assimilate
                 return base.Visit(methodDefinitions.Where(x =>
                     x.IsExposed() ||
                     // Allow the module entry point to be private
-                    x == this.entryPoint ||
+                    x == this.parent.entryPoint ||
                     // Allow important methods to remain
                     this.parent.requiredMethods.Contains(x)
                     ).ToList());

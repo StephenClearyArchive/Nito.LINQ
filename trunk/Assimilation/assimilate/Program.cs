@@ -66,16 +66,16 @@ namespace assimilate
         {
             var host = new PeReader.DefaultHost();
 
-            var module = host.LoadUnitFrom(originalAssembly) as IModule;
-            if (module == null || module == Dummy.Module || module == Dummy.Assembly)
+            var assembly = host.LoadUnitFrom(originalAssembly) as IAssembly;
+            if (assembly == null || assembly == Dummy.Module || assembly == Dummy.Assembly)
             {
                 Console.WriteLine(originalAssembly + " is not a .NET assembly");
             }
 
-            module = StripToMetadata.Run(host, module);
+            assembly = StripToMetadata.Run(host, assembly);
             using (var peStream = File.Create(metadataAssembly))
             {
-                PeWriter.WritePeToStream(module, host, peStream);
+                PeWriter.WritePeToStream(assembly, host, peStream);
             }
 
             return 0;
