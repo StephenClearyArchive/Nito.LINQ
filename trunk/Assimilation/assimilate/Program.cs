@@ -6,6 +6,8 @@ using Microsoft.Cci;
 using System.IO;
 using System.Diagnostics;
 using Microsoft.Cci.MutableCodeModel;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace assimilate
 {
@@ -78,7 +80,41 @@ namespace assimilate
                 PeWriter.WritePeToStream(assembly, host, peStream);
             }
 
+            string xmlFileName = Path.ChangeExtension(originalAssembly, "xml");
+            string newXmlFileName = Path.ChangeExtension(metadataAssembly, "xml");
+            if (File.Exists(xmlFileName))
+            {
+                RedirectToXmlDoc(xmlFileName, newXmlFileName);
+            }
+            else
+            {
+                string originalAssemblyDirectory = Path.GetDirectoryName(originalAssembly);
+                string originalAssemblyFileName = Path.GetFileName(originalAssembly);
+                foreach (var subdir in Directory.GetDirectories(originalAssemblyDirectory))
+                {
+                    string localizedXmlFileName = Path.ChangeExtension(Path.Combine(subdir, originalAssemblyFileName), "xml");
+                    if (File.Exists(localizedXmlFileName))
+                    {
+                        RedirectToXmlDoc(localizedXmlFileName, newXmlFileName);
+                        break;
+                    }
+                }
+            }
+
             return 0;
+        }
+
+        private static void RedirectToXmlDoc(string xmlFileName, string newXmlFileName)
+        {
+            // Visual Studio (as of 2008) cannot redirect through a redirected xml doc file, so we just have to copy it if it is already redirected
+            if (XDocument.Load(xmlFileName).Root.Attributes("redirect").FirstOrDefault() == null)
+            {
+                new XElement("doc", new XAttribute("redirect", Path.GetFullPath(xmlFileName))).Save(newXmlFileName);
+            }
+            else
+            {
+                File.Copy(xmlFileName, newXmlFileName, true);
+            }
         }
     }
 }
