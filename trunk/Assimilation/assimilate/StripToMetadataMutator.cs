@@ -11,7 +11,6 @@ namespace assimilate
     {
         private readonly IMetadataHost host;
         private readonly List<IMethodDefinition> requiredMethods;
-        private IMethodDefinition entryPoint;
 
         public StripToMetadata(IMetadataHost host)
         {
@@ -56,6 +55,7 @@ namespace assimilate
         }
 
         // Pass 1:
+        //   Disable the entry point
         //   Strip non-exposed properties and events
         //   Mark remaining accessors as "important"
         //   Remove method bodies and implementations
@@ -72,7 +72,7 @@ namespace assimilate
 
             public override Module Visit(Module module)
             {
-                this.parent.entryPoint = module.EntryPoint.ResolvedMethod;
+                module.EntryPoint = Dummy.MethodReference;
                 return base.Visit(module);
             }
 
@@ -88,14 +88,14 @@ namespace assimilate
                 return base.Visit(namespaceMembers.Where(x => 
                     {
                         INamespaceTypeDefinition type = x as INamespaceTypeDefinition;
-                        return type == null || type.IsExposed() || TypeContainsEntryPoint(type, this.parent.entryPoint);
+                        return type == null || type.IsExposed();
                     }).ToList());
             }
 
             public override List<INestedTypeDefinition> Visit(List<INestedTypeDefinition> nestedTypeDefinitions)
             {
                 // Strip private/internal nested types
-                return base.Visit(nestedTypeDefinitions.Where(x => x.IsExposed() || TypeContainsEntryPoint(x, this.parent.entryPoint)).ToList());
+                return base.Visit(nestedTypeDefinitions.Where(x => x.IsExposed()).ToList());
             }
 
             public override List<ITypeReference> Visit(List<ITypeReference> typeReferences)
@@ -159,11 +159,6 @@ namespace assimilate
                 this.parent.requiredMethods.AddRange(eventDefinition.Accessors.Select(x => x.ResolvedMethod));
                 return base.Visit(eventDefinition);
             }
-
-            private static bool TypeContainsEntryPoint(ITypeDefinition type, IMethodDefinition entryPoint)
-            {
-                return type.ContainingTypesAndSelf().Contains(entryPoint.ContainingTypeDefinition);
-            }
         }
 
         // Pass 2: remove non-exposed methods, except for the important ones
@@ -184,14 +179,8 @@ namespace assimilate
                     return methodDefinitions;
                 }
 
-                // Strip private or internal methods
-                return base.Visit(methodDefinitions.Where(x =>
-                    x.IsExposed() ||
-                    // Allow the module entry point to be private
-                    x == this.parent.entryPoint ||
-                    // Allow important methods to remain
-                    this.parent.requiredMethods.Contains(x)
-                    ).ToList());
+                // Strip private or internal methods, unless they have been marked as "important"
+                return base.Visit(methodDefinitions.Where(x => x.IsExposed() || this.parent.requiredMethods.Contains(x)).ToList());
             }
         }
     }
