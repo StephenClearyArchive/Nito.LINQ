@@ -8,6 +8,7 @@ using System.Diagnostics;
 using Microsoft.Cci.MutableCodeModel;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using System.Xml;
 
 namespace assimilate
 {
@@ -50,6 +51,14 @@ namespace assimilate
 
                     return GenerateMetadataAssembly(args[1], args[2]);
 
+                case "dump":
+                    if (args.Length != 3)
+                    {
+                        return Usage();
+                    }
+
+                    return DumpAssembly(args[1], args[2]);
+
                 default:
                     return Usage();
             }
@@ -71,7 +80,7 @@ namespace assimilate
             var assembly = host.LoadUnitFrom(originalAssembly) as IAssembly;
             if (assembly == null || assembly == Dummy.Module || assembly == Dummy.Assembly)
             {
-                Console.WriteLine(originalAssembly + " is not a .NET assembly");
+                throw new InvalidOperationException(originalAssembly + " is not a .NET assembly");
             }
 
             assembly = StripToMetadata.Run(host, assembly);
@@ -115,6 +124,35 @@ namespace assimilate
             {
                 File.Copy(xmlFileName, newXmlFileName, true);
             }
+        }
+
+        static int DumpAssembly(string assemblyFileName, string xmlFileName)
+        {
+            var host = new PeReader.DefaultHost();
+
+            var assembly = host.LoadUnitFrom(assemblyFileName) as IAssembly;
+            if (assembly == null || assembly == Dummy.Module || assembly == Dummy.Assembly)
+            {
+                throw new InvalidOperationException(assemblyFileName + " is not a .NET assembly");
+            }
+
+            using (XmlWriter writer = XmlWriter.Create(xmlFileName, new XmlWriterSettings { Indent = true }))
+            {
+                assembly = new MetadataMutator(host).Visit(assembly);
+                assembly = new DumpMutator(host, writer).Visit(assembly);
+            }
+
+            return 0;
+        }
+
+        static int Find(string assemblyFileName, string regex)
+        {
+            return 0;
+        }
+
+        static int FindReference(string assemblyFileName, string regex)
+        {
+            return 0;
         }
     }
 }
