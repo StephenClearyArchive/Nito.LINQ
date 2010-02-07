@@ -9,6 +9,7 @@ using Microsoft.Cci.MutableCodeModel;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using System.Xml;
+using System.Text.RegularExpressions;
 
 namespace assimilate
 {
@@ -59,17 +60,103 @@ namespace assimilate
 
                     return DumpAssembly(args[1], args[2]);
 
+                case "find":
+                    if (args.Length < 3 || args.Length % 2 != 1)
+                    {
+                        return Usage();
+                    }
+
+                    return Find(args[1], args[2], ParseOptions(args, 3));
+
                 default:
                     return Usage();
             }
         }
 
+        static Dictionary<string, string> ParseOptions(IList<string> source, int index)
+        {
+            int count = source.Count - index;
+            if (count % 2 != 0)
+            {
+                throw new InvalidOperationException("Options may only be parsed for an even number of strings");
+            }
+
+            Dictionary<string, string> ret = new Dictionary<string, string>();
+            for (int i = index; i < source.Count; i += 2)
+            {
+                ret.Add(source[i], source[i + 1]);
+            }
+
+            return ret;
+        }
+
         static int Usage()
         {
+            //                 Default console width:
+            //                 12345678901234567890123456789012345678901234567890123456789012345678901234567890
             Console.WriteLine("Usage: assimilate <command> <arguments>");
             Console.WriteLine("Commands:");
-            Console.WriteLine("  meta <existing assembly> <new assembly>");
-            Console.WriteLine("    Generates a metadata assembly from an existing assembly");
+            Console.WriteLine(" meta <existing assembly> <new assembly>");
+            Console.WriteLine("  Generates a metadata assembly from an existing assembly");
+            Console.WriteLine(" find <existing assembly> <regex> [optional parameters]");
+            Console.WriteLine("  Searches metadata in an existing assembly");
+            Console.WriteLine("  -loc [location(s)]  // multiple options may be separated by \"|\"");
+            Console.WriteLine("   NamespaceReference - entities referencing a matching namespace are found");
+            Console.WriteLine("   NamespaceDefinition - matching namespaces are found");
+            Console.WriteLine("   TypeReference - entities referencing a matching type are found");
+            Console.WriteLine("   TypeDefinition - matching types are found (*)");
+            Console.WriteLine("   MemberReference - entities referencing a matching type member are found");
+            Console.WriteLine("   MemberDefinition - matching type members are found (*)");
+            Console.WriteLine("   Namespace = NamespaceReference|NamespaceDefinition");
+            Console.WriteLine("   Type = TypeReference|TypeDefinition");
+            Console.WriteLine("   Member = MemberReference|MemberDefinition");
+            Console.WriteLine("   Reference = NamespaceReference|TypeReference|MemberReference");
+            Console.WriteLine("   Definition = NamespaceDefinition|TypeDefinition|MemberDefinition");
+            Console.WriteLine("   All = Reference|Definition");
+            Console.WriteLine("  -reopt [regular expression option(s)]");
+            Console.WriteLine("   None (*), IgnoreCase, CultureInvariant, etc.");
+            Console.WriteLine("  -findformat [formatting option(s)]");
+            Console.WriteLine("   Each metadata entity is first converted to a string using these options.");
+            Console.WriteLine("   None - remove default formatting");
+            Console.WriteLine("   EmptyTypeParameterList - include type parameter lists even if empty (*)");
+            Console.WriteLine("   MethodConstraints - include type constraints of generic methods");
+            Console.WriteLine("   Modifiers - include modifiers, e.g., \"static\"");
+            Console.WriteLine("   ParameterName - include names of parameters");
+            Console.WriteLine("   ParameterModifiers - include parameter modifiers, e.g., \"ref\"");
+            Console.WriteLine("   ReturnType - include return type in signatures");
+            Console.WriteLine("   Signature - include parameter types, and names if necessary (*)");
+            Console.WriteLine("   TypeConstraints - include type parameter constraints");
+            Console.WriteLine("   TypeParameters - include type parameter names");
+            Console.WriteLine("   Visibility - include visibility, e.g., \"public\"");
+
+            Console.WriteLine("   MemberKind - include the entity kind as a prefix, e.g., \"class\"");
+            Console.WriteLine("   UseGenericTypeNameSuffix - include the number of type parameters as a");
+            Console.WriteLine("     suffix, e.g., \"`1\"");
+
+            Console.WriteLine("   OmitContainingNamespace - exclude containing namespace, for types (*)");
+            Console.WriteLine("   OmitContainingType - exclude containing type, for members (*)");
+            Console.WriteLine("   OmitCustomModifiers - exclude optional and required modifiers (*)");
+            Console.WriteLine("   OmitImplementedInterface - exclude interface name when explicitly impl.");
+            Console.WriteLine("   OmitTypeArguments - exclude type argument names");
+            Console.WriteLine("   OmitWhiteSpaceAfterListDelimiter - exclude spaces from lists");
+            Console.WriteLine("   SupressAttributeSuffix - exclude \"Attribute\" suffix for attributes");
+
+            Console.WriteLine("   ContractNullable - use T? instead of System.Nullable<T> (*)");
+            Console.WriteLine("   DocumentationId - unique string, same as XML documentation files");
+            Console.WriteLine("     DocumentationId (if specified) should be used with no other format options");
+            Console.WriteLine("   EscapeKeyword - use \"@if\" instead of \"if\" (*)");
+            Console.WriteLine("   PreserveSpecialNames - do not translate special names, e.g., \".ctor\"");
+            Console.WriteLine("   UseReflectionStyleForNestedTypeNames - use \"+\" instead of \".\" for");
+            Console.WriteLine("     nested types");
+            Console.WriteLine("   UseTypeKeywords - use \"int\" instead of \"System.Int32\"");
+
+            Console.WriteLine("  -outputformat [formatting option(s)]");
+            Console.WriteLine("   Found entities are displayed using these options.");
+            Console.WriteLine("   The default is EmptyTypeParameterList|ParameterName|ReturnType|Signature|");
+            Console.WriteLine("     MemberKind|OmitCustomModifiers|ContractNullable|EscapeKeyword|");
+            Console.WriteLine("     UseTypeKeywords");
+            Console.WriteLine("(*) - Default parameter value");
+
             return -1;
         }
 
@@ -145,8 +232,84 @@ namespace assimilate
             return 0;
         }
 
-        static int Find(string assemblyFileName, string regex)
+        static int Find(string assemblyFileName, string regex, Dictionary<string, string> options)
         {
+            var loc = FindTraverser.SearchLocation.TypeDefinition | FindTraverser.SearchLocation.MemberDefinition;
+            var reopt = RegexOptions.None;
+            var findformat = NameFormattingOptions.EmptyTypeParameterList | NameFormattingOptions.Signature | NameFormattingOptions.OmitContainingNamespace |
+                NameFormattingOptions.OmitContainingType | NameFormattingOptions.OmitCustomModifiers | NameFormattingOptions.ContractNullable | NameFormattingOptions.EscapeKeyword;
+            var outputformat = NameFormattingOptions.EmptyTypeParameterList | NameFormattingOptions.ParameterName | NameFormattingOptions.ReturnType | NameFormattingOptions.Signature |
+                NameFormattingOptions.MemberKind | NameFormattingOptions.OmitCustomModifiers | NameFormattingOptions.ContractNullable | NameFormattingOptions.EscapeKeyword |
+                NameFormattingOptions.UseTypeKeywords;
+
+            foreach (var option in options)
+            {
+                switch (option.Key)
+                {
+                    case "-loc":
+                        try
+                        {
+                            loc = (FindTraverser.SearchLocation)Enum.Parse(typeof(FindTraverser.SearchLocation), option.Value, true);
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Could not parse -loc parameter: " + option.Value);
+                            return Usage();
+                        }
+                        break;
+
+                    case "-reopt":
+                        try
+                        {
+                            reopt = (RegexOptions)Enum.Parse(typeof(RegexOptions), option.Value, true);
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Could not parse -reopt parameter: " + option.Value);
+                            return Usage();
+                        }
+                        break;
+
+                    case "-findformat":
+                        try
+                        {
+                            findformat = (NameFormattingOptions)Enum.Parse(typeof(NameFormattingOptions), option.Value, true);
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Could not parse -findformat parameter: " + option.Value);
+                            return Usage();
+                        }
+                        break;
+
+                    case "-outputformat":
+                        try
+                        {
+                            outputformat = (NameFormattingOptions)Enum.Parse(typeof(NameFormattingOptions), option.Value, true);
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Could not parse -outputformat parameter: " + option.Value);
+                            return Usage();
+                        }
+                        break;
+
+                    default:
+                        Console.WriteLine("Unrecognized parameter: " + option.Key);
+                        return Usage();
+                }
+            }
+
+            var host = new PeReader.DefaultHost();
+
+            var assembly = host.LoadUnitFrom(assemblyFileName) as IAssembly;
+            if (assembly == null || assembly == Dummy.Module || assembly == Dummy.Assembly)
+            {
+                throw new InvalidOperationException(assemblyFileName + " is not a .NET assembly");
+            }
+
+            new FindTraverser(new Regex(regex, reopt), loc, findformat, outputformat).Visit(assembly);
+
             return 0;
         }
 
