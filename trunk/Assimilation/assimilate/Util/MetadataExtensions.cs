@@ -34,21 +34,9 @@ namespace assimilate
 
         public static bool IsExposed(this ITypeDefinition type)
         {
-            // TODO: use ContainingTypesAndSelf
-            while (type != null)
+            if (type.ContainingTypesAndSelf().Any(x => !x.TypeVisibilityAsTypeMemberVisibility().MayBeExposed()))
             {
-                INestedTypeDefinition nestedType = type as INestedTypeDefinition;
-                if (nestedType == null)
-                {
-                    return type.TypeVisibilityAsTypeMemberVisibility().MayBeExposed();
-                }
-
-                if (!nestedType.TypeVisibilityAsTypeMemberVisibility().MayBeExposed())
-                {
-                    return false;
-                }
-
-                type = nestedType.ContainingType.ResolvedType;
+                return false;
             }
 
             return true;
