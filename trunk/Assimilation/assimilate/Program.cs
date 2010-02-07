@@ -124,7 +124,7 @@ namespace assimilate
             Console.WriteLine("   ParameterName - include names of parameters");
             Console.WriteLine("   ParameterModifiers - include parameter modifiers, e.g., \"ref\"");
             Console.WriteLine("   ReturnType - include return type in signatures");
-            Console.WriteLine("   Signature - include parameter types, and names if necessary (*)");
+            Console.WriteLine("   Signature - include parameter types, and names if necessary");
             Console.WriteLine("   TypeConstraints - include type parameter constraints");
             Console.WriteLine("   TypeParameters - include type parameter names");
             Console.WriteLine("   Visibility - include visibility, e.g., \"public\"");
@@ -236,8 +236,8 @@ namespace assimilate
         {
             var loc = FindTraverser.SearchLocation.TypeDefinition | FindTraverser.SearchLocation.MemberDefinition;
             var reopt = RegexOptions.None;
-            var findformat = NameFormattingOptions.EmptyTypeParameterList | NameFormattingOptions.Signature | NameFormattingOptions.OmitContainingNamespace |
-                NameFormattingOptions.OmitContainingType | NameFormattingOptions.OmitCustomModifiers | NameFormattingOptions.ContractNullable | NameFormattingOptions.EscapeKeyword;
+            var findformat = NameFormattingOptions.EmptyTypeParameterList | NameFormattingOptions.OmitContainingNamespace | NameFormattingOptions.OmitContainingType |
+                NameFormattingOptions.OmitCustomModifiers | NameFormattingOptions.ContractNullable | NameFormattingOptions.EscapeKeyword;
             var outputformat = NameFormattingOptions.EmptyTypeParameterList | NameFormattingOptions.ParameterName | NameFormattingOptions.ReturnType | NameFormattingOptions.Signature |
                 NameFormattingOptions.MemberKind | NameFormattingOptions.OmitCustomModifiers | NameFormattingOptions.ContractNullable | NameFormattingOptions.EscapeKeyword |
                 NameFormattingOptions.UseTypeKeywords;
