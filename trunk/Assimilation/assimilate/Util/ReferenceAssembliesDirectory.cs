@@ -23,6 +23,8 @@ namespace assimilate
 
         private static string silverlight30Directory;
 
+        private static string micro40Directory;
+
         /// <summary>
         /// Gets the 32-bit Program Files directory.
         /// </summary>
@@ -161,6 +163,26 @@ namespace assimilate
                 }
 
                 return silverlight30Directory;
+            }
+        }
+
+        /// <summary>
+        /// Gets the location of the Micro 4.0 reference assemblies. Returns <see cref="string.Empty"/> if they are not installed.
+        /// </summary>
+        public static string Micro40Directory
+        {
+            get
+            {
+                if (micro40Directory == null)
+                {
+                    micro40Directory = Path.Combine(ProgramFiles86, @"Microsoft .NET Micro Framework\v4.0\Assemblies");
+                    if (!File.Exists(Path.Combine(micro40Directory, "mscorlib.dll")))
+                    {
+                        micro40Directory = string.Empty;
+                    }
+                }
+
+                return micro40Directory;
             }
         }
 

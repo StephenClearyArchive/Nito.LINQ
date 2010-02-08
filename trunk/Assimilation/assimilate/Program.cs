@@ -100,7 +100,8 @@ namespace assimilate
             Console.WriteLine(" meta <existing assembly> <new assembly> [optional parameters]");
             Console.WriteLine("  Generates a metadata assembly from an existing assembly");
             Console.WriteLine("  -loc [standard location of reference assembly]");
-            Console.WriteLine("   Desktop20, Desktop30, Desktop35, Compact20, Compact35, or Silverlight30");
+            Console.WriteLine("   Desktop20, Desktop30, Desktop35, Compact20, Compact35, Silverlight30, or");
+            Console.WriteLine("   Micro40");
             Console.WriteLine(" find <existing assembly> <regex> [optional parameters]");
             Console.WriteLine("  Searches metadata in an existing assembly");
             Console.WriteLine("  -loc [location(s)]");
@@ -178,7 +179,7 @@ namespace assimilate
                             loc = ReferenceAssembliesDirectory.Desktop20Directory;
                             if (loc == string.Empty)
                             {
-                                throw new DirectoryNotFoundException("Could not find Desktop .NET Framework 2.0 reference assembly directory.");
+                                throw new DirectoryNotFoundException("Could not find .NET Framework 2.0 reference assembly directory.");
                             }
                         }
                         else if (string.Equals(option.Value, "Desktop30", StringComparison.InvariantCultureIgnoreCase))
@@ -186,7 +187,7 @@ namespace assimilate
                             loc = ReferenceAssembliesDirectory.Desktop30Directory;
                             if (loc == string.Empty)
                             {
-                                throw new DirectoryNotFoundException("Could not find Desktop .NET Framework 3.0 reference assembly directory.");
+                                throw new DirectoryNotFoundException("Could not find .NET Framework 3.0 reference assembly directory.");
                             }
                         }
                         else if (string.Equals(option.Value, "Desktop35", StringComparison.InvariantCultureIgnoreCase))
@@ -194,7 +195,7 @@ namespace assimilate
                             loc = ReferenceAssembliesDirectory.Desktop35Directory;
                             if (loc == string.Empty)
                             {
-                                throw new DirectoryNotFoundException("Could not find Desktop .NET Framework 3.5 reference assembly directory.");
+                                throw new DirectoryNotFoundException("Could not find .NET Framework 3.5 reference assembly directory.");
                             }
                         }
                         else if (string.Equals(option.Value, "Compact20", StringComparison.InvariantCultureIgnoreCase))
@@ -202,7 +203,7 @@ namespace assimilate
                             loc = ReferenceAssembliesDirectory.Compact20Directory;
                             if (loc == string.Empty)
                             {
-                                throw new DirectoryNotFoundException("Could not find Compact .NET Framework 2.0 reference assembly directory.");
+                                throw new DirectoryNotFoundException("Could not find .NET Compact Framework 2.0 reference assembly directory.");
                             }
                         }
                         else if (string.Equals(option.Value, "Compact35", StringComparison.InvariantCultureIgnoreCase))
@@ -210,7 +211,7 @@ namespace assimilate
                             loc = ReferenceAssembliesDirectory.Compact35Directory;
                             if (loc == string.Empty)
                             {
-                                throw new DirectoryNotFoundException("Could not find Compact .NET Framework 3.5 reference assembly directory.");
+                                throw new DirectoryNotFoundException("Could not find .NET Compact Framework 3.5 reference assembly directory.");
                             }
                         }
                         else if (string.Equals(option.Value, "Silverlight30", StringComparison.InvariantCultureIgnoreCase))
@@ -218,7 +219,15 @@ namespace assimilate
                             loc = ReferenceAssembliesDirectory.Silverlight30Directory;
                             if (loc == string.Empty)
                             {
-                                throw new DirectoryNotFoundException("Could not find Silverlight .NET Framework 3.0 reference assembly directory.");
+                                throw new DirectoryNotFoundException("Could not find Silverlight 3.0 reference assembly directory.");
+                            }
+                        }
+                        else if (string.Equals(option.Value, "Micro40", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            loc = ReferenceAssembliesDirectory.Micro40Directory;
+                            if (loc == string.Empty)
+                            {
+                                throw new DirectoryNotFoundException("Could not find .NET Micro Framework 4.0 reference assembly directory.");
                             }
                         }
                         else
