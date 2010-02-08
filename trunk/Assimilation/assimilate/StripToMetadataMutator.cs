@@ -39,21 +39,6 @@ namespace assimilate
             return assembly;
         }
 
-        private static string DumpStack()
-        {
-            var trace = new System.Diagnostics.StackTrace();
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine();
-            foreach (var frame in trace.GetFrames())
-            {
-                var method = frame.GetMethod();
-                if (method.Name.Equals("DumpStack")) continue;
-                sb.AppendLine(method.ToString());
-            }
-
-            return sb.ToString();
-        }
-
         // Pass 1:
         //   Disable the entry point
         //   Strip non-exposed properties and events

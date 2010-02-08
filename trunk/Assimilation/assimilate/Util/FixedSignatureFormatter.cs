@@ -169,21 +169,5 @@ namespace assimilate
 
             return (formattingOptions & NameFormattingOptions.MemberKind) != 0;
         }
-
-        private delegate void FixedDelegate();
-
-        private struct FixedValueType { }
-
-        private class FixedReferenceType { };
-
-        private class FixedGenericType<T> { };
-
-        private event FixedDelegate FixedEvent;
-
-        private int FixedProperty { get; set; }
-
-        private int FixedField;
-
-        ~FixedSignatureFormatter() { }
     }
 }
