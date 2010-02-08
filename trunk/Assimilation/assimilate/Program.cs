@@ -176,26 +176,50 @@ namespace assimilate
                         if (string.Equals(option.Value, "Desktop20", StringComparison.InvariantCultureIgnoreCase))
                         {
                             loc = ReferenceAssembliesDirectory.Desktop20Directory;
+                            if (loc == string.Empty)
+                            {
+                                throw new DirectoryNotFoundException("Could not find Desktop .NET Framework 2.0 reference assembly directory.");
+                            }
                         }
                         else if (string.Equals(option.Value, "Desktop30", StringComparison.InvariantCultureIgnoreCase))
                         {
                             loc = ReferenceAssembliesDirectory.Desktop30Directory;
+                            if (loc == string.Empty)
+                            {
+                                throw new DirectoryNotFoundException("Could not find Desktop .NET Framework 3.0 reference assembly directory.");
+                            }
                         }
                         else if (string.Equals(option.Value, "Desktop35", StringComparison.InvariantCultureIgnoreCase))
                         {
                             loc = ReferenceAssembliesDirectory.Desktop35Directory;
+                            if (loc == string.Empty)
+                            {
+                                throw new DirectoryNotFoundException("Could not find Desktop .NET Framework 3.5 reference assembly directory.");
+                            }
                         }
                         else if (string.Equals(option.Value, "Compact20", StringComparison.InvariantCultureIgnoreCase))
                         {
                             loc = ReferenceAssembliesDirectory.Compact20Directory;
+                            if (loc == string.Empty)
+                            {
+                                throw new DirectoryNotFoundException("Could not find Compact .NET Framework 2.0 reference assembly directory.");
+                            }
                         }
                         else if (string.Equals(option.Value, "Compact35", StringComparison.InvariantCultureIgnoreCase))
                         {
                             loc = ReferenceAssembliesDirectory.Compact35Directory;
+                            if (loc == string.Empty)
+                            {
+                                throw new DirectoryNotFoundException("Could not find Compact .NET Framework 3.5 reference assembly directory.");
+                            }
                         }
                         else if (string.Equals(option.Value, "Silverlight30", StringComparison.InvariantCultureIgnoreCase))
                         {
                             loc = ReferenceAssembliesDirectory.Silverlight30Directory;
+                            if (loc == string.Empty)
+                            {
+                                throw new DirectoryNotFoundException("Could not find Silverlight .NET Framework 3.0 reference assembly directory.");
+                            }
                         }
                         else
                         {
