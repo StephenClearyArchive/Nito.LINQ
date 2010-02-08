@@ -99,23 +99,23 @@ namespace assimilate
             Console.WriteLine("Commands:");
             Console.WriteLine(" meta <existing assembly> <new assembly> [optional parameters]");
             Console.WriteLine("  Generates a metadata assembly from an existing assembly");
-            Console.WriteLine("  -loc [standard location of existing assembly]");
-            Console.WriteLine("   Desktop20, Desktop30, Desktop35, Compact20, Compact35, Silverlight30");
+            Console.WriteLine("  -loc [standard location of reference assembly]");
+            Console.WriteLine("   Desktop20, Desktop30, Desktop35, Compact20, Compact35, or Silverlight30");
             Console.WriteLine(" find <existing assembly> <regex> [optional parameters]");
             Console.WriteLine("  Searches metadata in an existing assembly");
-            Console.WriteLine("  -loc [location(s)]  // multiple options may be separated by \"|\"");
+            Console.WriteLine("  -loc [location(s)]");
             Console.WriteLine("   NamespaceReference - entities referencing a matching namespace are found");
             Console.WriteLine("   NamespaceDefinition - matching namespaces are found");
             Console.WriteLine("   TypeReference - entities referencing a matching type are found");
             Console.WriteLine("   TypeDefinition - matching types are found (*)");
             Console.WriteLine("   MemberReference - entities referencing a matching type member are found");
             Console.WriteLine("   MemberDefinition - matching type members are found (*)");
-            Console.WriteLine("   Namespace = NamespaceReference|NamespaceDefinition");
-            Console.WriteLine("   Type = TypeReference|TypeDefinition");
-            Console.WriteLine("   Member = MemberReference|MemberDefinition");
-            Console.WriteLine("   Reference = NamespaceReference|TypeReference|MemberReference");
-            Console.WriteLine("   Definition = NamespaceDefinition|TypeDefinition|MemberDefinition");
-            Console.WriteLine("   All = Reference|Definition");
+            Console.WriteLine("   Namespace = NamespaceReference,NamespaceDefinition");
+            Console.WriteLine("   Type = TypeReference,TypeDefinition");
+            Console.WriteLine("   Member = MemberReference,MemberDefinition");
+            Console.WriteLine("   Reference = NamespaceReference,TypeReference,MemberReference");
+            Console.WriteLine("   Definition = NamespaceDefinition,TypeDefinition,MemberDefinition");
+            Console.WriteLine("   All = Reference,Definition");
             Console.WriteLine("  -reopt [regular expression option(s)]");
             Console.WriteLine("   None (*), IgnoreCase, CultureInvariant, etc.");
             Console.WriteLine("  -findformat [formatting option(s)]");
@@ -151,14 +151,15 @@ namespace assimilate
             Console.WriteLine("   PreserveSpecialNames - do not translate special names, e.g., \".ctor\"");
             Console.WriteLine("   UseReflectionStyleForNestedTypeNames - use \"+\" instead of \".\" for");
             Console.WriteLine("     nested types");
-            Console.WriteLine("   UseTypeKeywords - use \"int\" instead of \"System.Int32\"");
+            Console.WriteLine("   UseTypeKeywords - e.g., use \"int\" instead of \"System.Int32\"");
 
             Console.WriteLine("  -outputformat [formatting option(s)]");
             Console.WriteLine("   Found entities are displayed using these options.");
-            Console.WriteLine("   The default is EmptyTypeParameterList|ParameterName|ReturnType|Signature|");
-            Console.WriteLine("     MemberKind|OmitCustomModifiers|ContractNullable|EscapeKeyword|");
+            Console.WriteLine("   The default is EmptyTypeParameterList,ParameterName,ReturnType,Signature,");
+            Console.WriteLine("     MemberKind,OmitCustomModifiers,ContractNullable,EscapeKeyword,");
             Console.WriteLine("     UseTypeKeywords");
             Console.WriteLine("(*) - Default parameter value");
+            Console.WriteLine("When passing multiple parameters to an option, separate them with a comma.");
 
             return -1;
         }
