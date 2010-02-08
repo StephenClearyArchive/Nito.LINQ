@@ -54,6 +54,7 @@
     <Compile Include="Util\FixedSignatureFormatter.cs" />
     <Compile Include="Util\FixedTypeNameFormatter.cs" />
     <Compile Include="Util\MetadataExtensions.cs" />
+    <Compile Include="Util\ReferenceAssembliesDirectory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\External\ccimetadata\Sources\MetadataHelper\MetadataHelper.csproj">

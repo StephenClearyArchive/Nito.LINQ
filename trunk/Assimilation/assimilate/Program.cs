@@ -10,6 +10,7 @@ using System.Xml.Linq;
 using System.Xml.XPath;
 using System.Xml;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace assimilate
 {
@@ -45,12 +46,12 @@ namespace assimilate
             switch (args[0])
             {
                 case "meta":
-                    if (args.Length != 3)
+                    if (args.Length < 3 || args.Length % 2 != 1)
                     {
                         return Usage();
                     }
 
-                    return GenerateMetadataAssembly(args[1], args[2]);
+                    return GenerateMetadataAssembly(args[1], args[2], ParseOptions(args, 3));
 
                 case "dump":
                     if (args.Length != 3)
@@ -96,8 +97,10 @@ namespace assimilate
             //                 12345678901234567890123456789012345678901234567890123456789012345678901234567890
             Console.WriteLine("Usage: assimilate <command> <arguments>");
             Console.WriteLine("Commands:");
-            Console.WriteLine(" meta <existing assembly> <new assembly>");
+            Console.WriteLine(" meta <existing assembly> <new assembly> [optional parameters]");
             Console.WriteLine("  Generates a metadata assembly from an existing assembly");
+            Console.WriteLine("  -loc [standard location of existing assembly]");
+            Console.WriteLine("   Desktop20, Desktop30, Desktop35, Compact20, Compact35, Silverlight30");
             Console.WriteLine(" find <existing assembly> <regex> [optional parameters]");
             Console.WriteLine("  Searches metadata in an existing assembly");
             Console.WriteLine("  -loc [location(s)]  // multiple options may be separated by \"|\"");
@@ -160,10 +163,54 @@ namespace assimilate
             return -1;
         }
 
-        static int GenerateMetadataAssembly(string originalAssembly, string metadataAssembly)
+        static int GenerateMetadataAssembly(string originalAssembly, string metadataAssembly, Dictionary<string, string> options)
         {
-            var host = new PeReader.DefaultHost();
+            string loc = string.Empty;
 
+            foreach (var option in options)
+            {
+                switch (option.Key)
+                {
+                    case "-loc":
+                        if (string.Equals(option.Value, "Desktop20", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            loc = ReferenceAssembliesDirectory.Desktop20Directory;
+                        }
+                        else if (string.Equals(option.Value, "Desktop30", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            loc = ReferenceAssembliesDirectory.Desktop30Directory;
+                        }
+                        else if (string.Equals(option.Value, "Desktop35", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            loc = ReferenceAssembliesDirectory.Desktop35Directory;
+                        }
+                        else if (string.Equals(option.Value, "Compact20", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            loc = ReferenceAssembliesDirectory.Compact20Directory;
+                        }
+                        else if (string.Equals(option.Value, "Compact35", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            loc = ReferenceAssembliesDirectory.Compact35Directory;
+                        }
+                        else if (string.Equals(option.Value, "Silverlight30", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            loc = ReferenceAssembliesDirectory.Silverlight30Directory;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Could not parse -loc parameter: " + option.Value);
+                            return Usage();
+                        }
+                        break;
+                }
+            }
+
+            if (loc != string.Empty)
+            {
+                originalAssembly = Path.Combine(loc, originalAssembly);
+            }
+
+            var host = new PeReader.DefaultHost();
             var assembly = host.LoadUnitFrom(originalAssembly) as IAssembly;
             if (assembly == null || assembly == Dummy.Module || assembly == Dummy.Assembly)
             {
