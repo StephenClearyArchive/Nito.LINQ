@@ -69,6 +69,14 @@ namespace assimilate
 
                     return Find(args[1], args[2], ParseOptions(args, 3));
 
+                case "merge":
+                    if (args.Length != 3)
+                    {
+                        return Usage();
+                    }
+
+                    return MergeAssembly(args[1], args[2]);
+
                 default:
                     return Usage();
             }
@@ -394,8 +402,31 @@ namespace assimilate
             return 0;
         }
 
-        static int FindReference(string assemblyFileName, string regex)
+        static int MergeAssembly(string baseAssemblyName, string addedAssemblyName)
         {
+            var host = new PeReader.DefaultHost();
+            var baseAssembly = host.LoadUnitFrom(baseAssemblyName) as IAssembly;
+            if (baseAssembly == null || baseAssembly == Dummy.Module || baseAssembly == Dummy.Assembly)
+            {
+                throw new InvalidOperationException(baseAssemblyName + " is not a .NET assembly");
+            }
+
+            var addedAssembly = host.LoadUnitFrom(addedAssemblyName) as IAssembly;
+            if (addedAssembly == null || addedAssembly == Dummy.Module || addedAssembly == Dummy.Assembly)
+            {
+                throw new InvalidOperationException(addedAssemblyName + " is not a .NET assembly");
+            }
+
+            baseAssembly = MergeAssemblies.Run(host, baseAssembly, addedAssembly);
+#if NO
+            using (var peStream = File.Create(baseAssemblyName))
+            {
+                PeWriter.WritePeToStream(baseAssembly, host, peStream);
+            }
+#endif
+
+            // TODO: merge XML documentation, too
+
             return 0;
         }
     }
