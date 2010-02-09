@@ -336,6 +336,7 @@ namespace assimilate
         private sealed class FindDifferences : BaseMetadataTraverser
         {
             private readonly MergeAssemblies parent;
+            private bool ignore;
 
             public FindDifferences(MergeAssemblies parent)
             {
@@ -344,6 +345,12 @@ namespace assimilate
 
             public override void Visit(INamespaceDefinition namespaceDefinition)
             {
+                if (this.ignore)
+                {
+                    base.Visit(namespaceDefinition);
+                    return;
+                }
+
                 INestedUnitNamespace nestedUnitNamespace = namespaceDefinition as INestedUnitNamespace;
                 if (nestedUnitNamespace == null)
                 {
@@ -356,6 +363,9 @@ namespace assimilate
                 {
                     if (this.parent.mergeInstructions.ContainsKey(name))
                     {
+                        this.ignore = true;
+                        base.Visit(namespaceDefinition);
+                        this.ignore = false;
                         return;
                     }
 
@@ -370,6 +380,10 @@ namespace assimilate
                         AddedAssemblyDefinition = nestedUnitNamespace,
                         BaseAssemblyInjectionPoint = this.parent.baseAssemblyDefinitions[containingNamespaceName],
                     });
+
+                    this.ignore = true;
+                    base.Visit(namespaceDefinition);
+                    this.ignore = false;
                 }
                 else
                 {
@@ -379,11 +393,20 @@ namespace assimilate
 
             public override void Visit(ITypeDefinition typeDefinition)
             {
+                if (this.ignore)
+                {
+                    base.Visit(typeDefinition);
+                    return;
+                }
+
                 string name = this.parent.typeNameFormatter.GetTypeName(typeDefinition, NameFormattingOptions.DocumentationId);
                 if (!this.parent.baseAssemblyDefinitions.ContainsKey(name))
                 {
                     if (this.parent.mergeInstructions.ContainsKey(name))
                     {
+                        this.ignore = true;
+                        base.Visit(typeDefinition);
+                        this.ignore = false;
                         return;
                     }
 
@@ -426,6 +449,10 @@ namespace assimilate
                         AddedAssemblyDefinition = typeDefinition,
                         BaseAssemblyInjectionPoint = injectionPoint,
                     });
+
+                    this.ignore = true;
+                    base.Visit(typeDefinition);
+                    this.ignore = false;
                 }
                 else
                 {
@@ -435,11 +462,20 @@ namespace assimilate
 
             public override void Visit(ITypeDefinitionMember typeDefinitionMember)
             {
+                if (this.ignore)
+                {
+                    base.Visit(typeDefinitionMember);
+                    return;
+                }
+
                 string name = this.parent.signatureFormatter.GetMemberSignature(typeDefinitionMember, NameFormattingOptions.DocumentationId);
                 if (!this.parent.baseAssemblyDefinitions.ContainsKey(name))
                 {
                     if (this.parent.mergeInstructions.ContainsKey(name))
                     {
+                        this.ignore = true;
+                        base.Visit(typeDefinitionMember);
+                        this.ignore = false;
                         return;
                     }
 
@@ -454,6 +490,10 @@ namespace assimilate
                         AddedAssemblyDefinition = typeDefinitionMember,
                         BaseAssemblyInjectionPoint = this.parent.baseAssemblyDefinitions[containingTypeName],
                     });
+
+                    this.ignore = true;
+                    base.Visit(typeDefinitionMember);
+                    this.ignore = false;
                 }
                 else
                 {

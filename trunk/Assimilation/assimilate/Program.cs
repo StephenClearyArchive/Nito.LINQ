@@ -70,12 +70,12 @@ namespace assimilate
                     return Find(args[1], args[2], ParseOptions(args, 3));
 
                 case "merge":
-                    if (args.Length != 4)
+                    if (args.Length < 4)
                     {
                         return Usage();
                     }
 
-                    return MergeAssembly(args[1], args[2], args[3]);
+                    return MergeAssembly(args[1], new List<string>(args.Skip(2)));
 
                 default:
                     return Usage();
@@ -110,8 +110,8 @@ namespace assimilate
             Console.WriteLine("  -loc [standard location of reference assembly]");
             Console.WriteLine("   Desktop20, Desktop30, Desktop35, Compact20, Compact35, Silverlight30, or");
             Console.WriteLine("   Micro40");
-            Console.WriteLine(" merge <output assembly> <existing assembly 1> <existing assembly 2>");
-            Console.WriteLine("  Merges two metadata assemblies into an output assembly");
+            Console.WriteLine(" merge <output assembly> <existing assemblies>");
+            Console.WriteLine("  Merges existing metadata assemblies into an output assembly");
             Console.WriteLine(" find <existing assembly> <regex> [optional parameters]");
             Console.WriteLine("  Searches metadata in an existing assembly");
             Console.WriteLine("  -loc [location(s)]");
@@ -404,25 +404,31 @@ namespace assimilate
             return 0;
         }
 
-        static int MergeAssembly(string outputAssemblyName, string baseAssemblyName, string addedAssemblyName)
+        static int MergeAssembly(string outputAssemblyName, IList<string> assembliesToMerge)
         {
             var host = new PeReader.DefaultHost();
-            var baseAssembly = host.LoadUnitFrom(baseAssemblyName) as IAssembly;
+            var baseAssembly = host.LoadUnitFrom(assembliesToMerge[0]) as IAssembly;
             if (baseAssembly == null || baseAssembly == Dummy.Module || baseAssembly == Dummy.Assembly)
             {
-                throw new InvalidOperationException(baseAssemblyName + " is not a .NET assembly");
+                throw new InvalidOperationException(assembliesToMerge[0] + " is not a .NET assembly");
             }
 
-            var addedAssembly = host.LoadUnitFrom(addedAssemblyName) as IAssembly;
-            if (addedAssembly == null || addedAssembly == Dummy.Module || addedAssembly == Dummy.Assembly)
+            Assembly mergedAssembly = new MetadataMutator(host).Visit(baseAssembly);
+            for (int i = 1; i < assembliesToMerge.Count; ++i)
             {
-                throw new InvalidOperationException(addedAssemblyName + " is not a .NET assembly");
+                var mergeHost = new PeReader.DefaultHost(host.NameTable);
+                var addedAssembly = mergeHost.LoadUnitFrom(assembliesToMerge[i]) as IAssembly;
+                if (addedAssembly == null || addedAssembly == Dummy.Module || addedAssembly == Dummy.Assembly)
+                {
+                    throw new InvalidOperationException(assembliesToMerge[i] + " is not a .NET assembly");
+                }
+
+                mergedAssembly = MergeAssemblies.Run(mergeHost, mergedAssembly, addedAssembly);
             }
 
-            baseAssembly = MergeAssemblies.Run(host, baseAssembly, addedAssembly);
             using (var peStream = File.Create(outputAssemblyName))
             {
-                PeWriter.WritePeToStream(baseAssembly, host, peStream);
+                PeWriter.WritePeToStream(mergedAssembly, host, peStream);
             }
 
             // TODO: merge XML documentation, too
