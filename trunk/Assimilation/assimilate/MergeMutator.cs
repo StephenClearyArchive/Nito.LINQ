@@ -50,15 +50,16 @@ namespace assimilate
             }
         }
 
-        public static Assembly Run(IMetadataHost host, Assembly baseAssembly, IAssembly addedAssembly)
+        public static Assembly Run(IMetadataHost host, Assembly baseAssembly, IAssembly addedAssemblyReadOnly)
         {
             var parent = new MergeAssemblies(host);
+            Assembly addedAssembly = new MetadataMutator(host).Visit(addedAssemblyReadOnly);
             new ReadDefinitions(parent.baseAssemblyDefinitions, parent.typeNameFormatter, parent.signatureFormatter, NameFormattingOptions.DocumentationId).Visit(baseAssembly);
             new FindDifferences(parent).Visit(addedAssembly);
             parent.Merge(baseAssembly, addedAssembly, parent);
             baseAssembly = new MetadataMutator(parent.host).Visit(baseAssembly);
 
-#if DEBUG
+#if NO
             // Verify that the merge picked up all definitions
             Dictionary<string, object> addedAssemblyDefinitions = new Dictionary<string, object>();
             Dictionary<string, object> mergedDefinitions = new Dictionary<string, object>();
@@ -93,7 +94,13 @@ namespace assimilate
                 UnitNamespace unitNamespaceInjectionPoint = kvp.Value.BaseAssemblyInjectionPoint as UnitNamespace;
                 if (unitNamespaceInjectionPoint != null)
                 {
-                    unitNamespaceInjectionPoint.Members.Add((INamespaceMember)this.Duplicate(kvp.Value.AddedAssemblyDefinition, unitNamespaceInjectionPoint));
+                    INamespaceMember obj = (INamespaceMember)this.Duplicate(kvp.Value.AddedAssemblyDefinition, unitNamespaceInjectionPoint);
+                    unitNamespaceInjectionPoint.Members.Add(obj);
+                    NamespaceTypeDefinition type = obj as NamespaceTypeDefinition;
+                    if (type != null)
+                    {
+                        baseAssembly.AllTypes.Add(type);
+                    }
                 }
                 else
                 {
@@ -105,7 +112,17 @@ namespace assimilate
 
                     if (kvp.Value.AddedAssemblyDefinition is IEventDefinition)
                     {
-                        typeDefinitionInjectionPoint.Events.Add((IEventDefinition)this.Duplicate(kvp.Value.AddedAssemblyDefinition, typeDefinitionInjectionPoint));
+                        EventDefinition eventDefinition = (EventDefinition)this.Duplicate(kvp.Value.AddedAssemblyDefinition, typeDefinitionInjectionPoint);
+                        List<IMethodReference> accessors = new List<IMethodReference>();
+                        foreach (var accessor in eventDefinition.Accessors)
+                        {
+                            MethodDefinition accessorDefinition = (MethodDefinition)this.Duplicate(accessor.ResolvedMethod, typeDefinitionInjectionPoint);
+                            typeDefinitionInjectionPoint.Methods.Add(accessorDefinition);
+                            accessors.Add(accessorDefinition);
+                        }
+
+                        eventDefinition.Accessors = accessors;
+                        typeDefinitionInjectionPoint.Events.Add(eventDefinition);
                     }
                     else if (kvp.Value.AddedAssemblyDefinition is IFieldDefinition)
                     {
@@ -117,11 +134,23 @@ namespace assimilate
                     }
                     else if (kvp.Value.AddedAssemblyDefinition is INestedTypeDefinition)
                     {
-                        typeDefinitionInjectionPoint.NestedTypes.Add((INestedTypeDefinition)this.Duplicate(kvp.Value.AddedAssemblyDefinition, typeDefinitionInjectionPoint));
+                        INestedTypeDefinition type = (INestedTypeDefinition)this.Duplicate(kvp.Value.AddedAssemblyDefinition, typeDefinitionInjectionPoint);
+                        typeDefinitionInjectionPoint.NestedTypes.Add(type);
+                        baseAssembly.AllTypes.Add(type);
                     }
                     else if (kvp.Value.AddedAssemblyDefinition is IPropertyDefinition)
                     {
-                        typeDefinitionInjectionPoint.Properties.Add((IPropertyDefinition)this.Duplicate(kvp.Value.AddedAssemblyDefinition, typeDefinitionInjectionPoint));
+                        PropertyDefinition propertyDefinition = (PropertyDefinition)this.Duplicate(kvp.Value.AddedAssemblyDefinition, typeDefinitionInjectionPoint);
+                        List<IMethodReference> accessors = new List<IMethodReference>();
+                        foreach (var accessor in propertyDefinition.Accessors)
+                        {
+                            MethodDefinition accessorDefinition = (MethodDefinition)this.Duplicate(accessor.ResolvedMethod, typeDefinitionInjectionPoint);
+                            typeDefinitionInjectionPoint.Methods.Add(accessorDefinition);
+                            accessors.Add(accessorDefinition);
+                        }
+
+                        propertyDefinition.Accessors = accessors;
+                        typeDefinitionInjectionPoint.Properties.Add(propertyDefinition);
                     }
                     else
                     {
@@ -136,7 +165,7 @@ namespace assimilate
         /// </summary>
         /// <param name="source">The original definition from the added assembly. This must be an INestedUnitNamespace, ITypeDefinition, or ITypeDefinitionMember.</param>
         /// <param name="newContainer">The definition's new container in the base assembly. This must be a UnitNamespace or TypeDefinition.</param>
-        /// <returns>The new definition, ready to be added to the base assembly. This is an INamespaceMember if <paramref name="newContainer"/> was a UnitNamespace, and this is an ITypeDefinitionMember if <paramref name="newContainer"/> was a TypeDefinition.</returns>
+        /// <returns>The new definition, ready to be added to the base assembly. This is a NestedUnitNamespace or NamespaceTypeDefinition if <paramref name="newContainer"/> was a UnitNamespace, and this is an ITypeDefinitionMember if <paramref name="newContainer"/> was a TypeDefinition.</returns>
         private object Duplicate(object source, object newContainer)
         {
             INestedUnitNamespace nestedUnitNamespace = source as INestedUnitNamespace;
@@ -151,7 +180,6 @@ namespace assimilate
                 NestedUnitNamespace ret = new NestedUnitNamespace();
                 ret.Copy(nestedUnitNamespace, this.host.InternFactory);
                 ret.ContainingUnitNamespace = containingNamespace;
-                ret.Locations = new List<ILocation>();
                 return ret;
             }
             else
@@ -171,7 +199,6 @@ namespace assimilate
                         NamespaceTypeDefinition ret = new NamespaceTypeDefinition();
                         ret.Copy(namespaceTypeDefinition, this.host.InternFactory);
                         ret.ContainingUnitNamespace = containingNamespace;
-                        ret.Locations = new List<ILocation>();
                         return ret;
                     }
                     else
@@ -191,7 +218,6 @@ namespace assimilate
                         NestedTypeDefinition ret = new NestedTypeDefinition();
                         ret.Copy(nestedTypeDefinition, this.host.InternFactory);
                         ret.ContainingTypeDefinition = containingType;
-                        ret.Locations = new List<ILocation>();
                         return ret;
                     }
                 }
@@ -215,7 +241,6 @@ namespace assimilate
                         EventDefinition ret = new EventDefinition();
                         ret.Copy(eventDefinition, this.host.InternFactory);
                         ret.ContainingTypeDefinition = containingType;
-                        ret.Locations = new List<ILocation>();
                         return ret;
                     }
                     else
@@ -226,7 +251,6 @@ namespace assimilate
                             FieldDefinition ret = new FieldDefinition();
                             ret.Copy(fieldDefinition, this.host.InternFactory);
                             ret.ContainingTypeDefinition = containingType;
-                            ret.Locations = new List<ILocation>();
                             return ret;
                         }
                         else
@@ -237,7 +261,6 @@ namespace assimilate
                                 MethodDefinition ret = new MethodDefinition();
                                 ret.Copy(methodDefinition, this.host.InternFactory);
                                 ret.ContainingTypeDefinition = containingType;
-                                ret.Locations = new List<ILocation>();
                                 return ret;
                             }
                             else
@@ -248,7 +271,6 @@ namespace assimilate
                                     NestedTypeDefinition ret = new NestedTypeDefinition();
                                     ret.Copy(nestedTypeDefinition, this.host.InternFactory);
                                     ret.ContainingTypeDefinition = containingType;
-                                    ret.Locations = new List<ILocation>();
                                     return ret;
                                 }
                                 else
@@ -262,7 +284,6 @@ namespace assimilate
                                     PropertyDefinition ret = new PropertyDefinition();
                                     ret.Copy(propertyDefinition, this.host.InternFactory);
                                     ret.ContainingTypeDefinition = containingType;
-                                    ret.Locations = new List<ILocation>();
                                     return ret;
                                 }
                             }
@@ -460,6 +481,7 @@ namespace assimilate
                 }
             }
 
+#if NO
             public override void Visit(ITypeDefinitionMember typeDefinitionMember)
             {
                 if (this.ignore)
@@ -500,6 +522,8 @@ namespace assimilate
                     base.Visit(typeDefinitionMember);
                 }
             }
+#endif
+
         }
     }
 }
