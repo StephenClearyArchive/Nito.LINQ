@@ -82,6 +82,10 @@
       <Project>{4B0054FD-124A-4037-9965-BDB55E6BF389}</Project>
       <Name>SourceModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Test\Test.csproj">
+      <Project>{6ACFA919-6664-44C9-9083-7E0524780409}</Project>
+      <Name>Test</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Type Definitions.cd" />
