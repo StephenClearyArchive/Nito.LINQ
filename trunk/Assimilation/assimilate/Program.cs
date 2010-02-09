@@ -70,12 +70,12 @@ namespace assimilate
                     return Find(args[1], args[2], ParseOptions(args, 3));
 
                 case "merge":
-                    if (args.Length != 3)
+                    if (args.Length != 4)
                     {
                         return Usage();
                     }
 
-                    return MergeAssembly(args[1], args[2]);
+                    return MergeAssembly(args[1], args[2], args[3]);
 
                 default:
                     return Usage();
@@ -110,6 +110,8 @@ namespace assimilate
             Console.WriteLine("  -loc [standard location of reference assembly]");
             Console.WriteLine("   Desktop20, Desktop30, Desktop35, Compact20, Compact35, Silverlight30, or");
             Console.WriteLine("   Micro40");
+            Console.WriteLine(" merge <output assembly> <existing assembly 1> <existing assembly 2>");
+            Console.WriteLine("  Merges two metadata assemblies into an output assembly");
             Console.WriteLine(" find <existing assembly> <regex> [optional parameters]");
             Console.WriteLine("  Searches metadata in an existing assembly");
             Console.WriteLine("  -loc [location(s)]");
@@ -402,7 +404,7 @@ namespace assimilate
             return 0;
         }
 
-        static int MergeAssembly(string baseAssemblyName, string addedAssemblyName)
+        static int MergeAssembly(string outputAssemblyName, string baseAssemblyName, string addedAssemblyName)
         {
             var host = new PeReader.DefaultHost();
             var baseAssembly = host.LoadUnitFrom(baseAssemblyName) as IAssembly;
@@ -418,12 +420,10 @@ namespace assimilate
             }
 
             baseAssembly = MergeAssemblies.Run(host, baseAssembly, addedAssembly);
-#if NO
-            using (var peStream = File.Create(baseAssemblyName))
+            using (var peStream = File.Create(outputAssemblyName))
             {
                 PeWriter.WritePeToStream(baseAssembly, host, peStream);
             }
-#endif
 
             // TODO: merge XML documentation, too
 
