@@ -459,5 +459,90 @@ namespace assimilate
         {
             return MemberHelper.IsVolatile(field);
         }
+
+        /// <summary>
+        /// Returns the Assembly identity for the assembly name.
+        /// </summary>
+        /// <param name="assemblyName"></param>
+        /// <param name="metadataHost"></param>
+        /// <returns></returns>
+        public static AssemblyIdentity GetAssemblyIdentity(this System.Reflection.AssemblyName assemblyName, IMetadataHost metadataHost)
+        {
+            return UnitHelper.GetAssemblyIdentity(assemblyName, metadataHost);
+        }
+
+        /// <summary>
+        /// Allocates an object that identifies a .NET assembly, using the IAssembly object
+        /// </summary>
+        /// <param name="assembly"></param>
+        public static AssemblyIdentity GetAssemblyIdentity(this IAssembly assembly)
+        {
+            return UnitHelper.GetAssemblyIdentity(assembly);
+        }
+
+        /// <summary>
+        /// Constructs module identity for the given module
+        /// </summary>
+        /// <param name="module">Module for which the identity is desired.</param>
+        /// <returns>The module identity corresponding to the passed module.</returns>
+        public static ModuleIdentity GetModuleIdentity(this IModule module)
+        {
+            return UnitHelper.GetModuleIdentity(module);
+        }
+
+        /// <summary>
+        /// Computes the public key token for the given public key
+        /// </summary>
+        /// <param name="publicKey"></param>
+        /// <returns></returns>
+        public static byte[] ComputePublicKeyToken(this IEnumerable<byte> publicKey)
+        {
+            return UnitHelper.ComputePublicKeyToken(publicKey);
+        }
+
+        /// <summary>
+        /// Computes the string representing the strong name of the given assembly reference.
+        /// </summary>
+        public static string StrongName(this IAssemblyReference assemblyReference)
+        {
+            return UnitHelper.StrongName(assemblyReference);
+        }
+
+        /// <summary>
+        /// Finds a type in the given module using the given type name, expressed in C# notation with dots separating both namespaces and types.
+        /// If no such type can be found Dummy.NamespaceTypeDefinition is returned.
+        /// </summary>
+        /// <param name="nameTable">A collection of IName instances that represent names that are commonly used during compilation.
+        /// This is a provided as a parameter to the host environment in order to allow more than one host
+        /// environment to co-exist while agreeing on how to map strings to IName instances.</param>
+        /// <param name="unit">The unit of metadata to search for the type.</param>
+        /// <param name="typeName">A string containing the fully qualified type name, using C# formatting conventions.</param>
+        public static INamedTypeDefinition FindType(this IUnit unit, INameTable nameTable, string typeName)
+        {
+            return UnitHelper.FindType(nameTable, unit, typeName);
+        }
+
+        /// <summary>
+        /// Finds a type in the given module using the given type name, expressed in C# notation with dots separating both namespaces and types.
+        /// If no such type can be found Dummy.NamespaceTypeDefinition is returned.
+        /// </summary>
+        /// <param name="nameTable">A collection of IName instances that represent names that are commonly used during compilation.
+        /// This is a provided as a parameter to the host environment in order to allow more than one host
+        /// environment to co-exist while agreeing on how to map strings to IName instances.</param>
+        /// <param name="unit">The unit of metadata to search for the type.</param>
+        /// <param name="typeName">A string containing the fully qualified type name, using C# formatting conventions.</param>
+        /// <param name="genericParameterCount">The number of generic parameters the returned type should have.</param>
+        public static INamedTypeDefinition FindType(this IUnit unit, INameTable nameTable, string typeName, int genericParameterCount)
+        {
+            return UnitHelper.FindType(nameTable, unit, typeName, genericParameterCount);
+        }
+
+        /// <summary>
+        /// Searches for the resource with given name in the given assembly.
+        /// </summary>
+        public static IResourceReference FindResourceNamed(this IAssembly assembly, IName resourceName)
+        {
+            return UnitHelper.FindResourceNamed(assembly, resourceName);
+        }
     }
 }
