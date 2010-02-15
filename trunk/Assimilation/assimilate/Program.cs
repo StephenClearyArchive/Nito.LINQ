@@ -254,7 +254,7 @@ namespace assimilate
                 originalAssembly = Path.Combine(loc, originalAssembly);
             }
 
-            var host = new PeReader.DefaultHost();
+            var host = new Host(Platforms.Default);
             var assembly = host.LoadUnitFrom(originalAssembly) as IAssembly;
             if (assembly == null || assembly == Dummy.Module || assembly == Dummy.Assembly)
             {
@@ -306,7 +306,7 @@ namespace assimilate
 
         static int DumpAssembly(string assemblyFileName, string xmlFileName)
         {
-            var host = new PeReader.DefaultHost();
+            var host = new Host(Platforms.Default);
 
             var assembly = host.LoadUnitFrom(assemblyFileName) as IAssembly;
             if (assembly == null || assembly == Dummy.Module || assembly == Dummy.Assembly)
@@ -391,7 +391,7 @@ namespace assimilate
                 }
             }
 
-            var host = new PeReader.DefaultHost();
+            var host = new Host(Platforms.Default);
 
             var assembly = host.LoadUnitFrom(assemblyFileName) as IAssembly;
             if (assembly == null || assembly == Dummy.Module || assembly == Dummy.Assembly)
@@ -406,7 +406,7 @@ namespace assimilate
 
         static int MergeAssembly(string outputAssemblyName, IList<string> assembliesToMerge)
         {
-            var host = new PeReader.DefaultHost();
+            var host = new Host(Platforms.Default);
             var baseAssembly = host.LoadUnitFrom(assembliesToMerge[0]) as IAssembly;
             if (baseAssembly == null || baseAssembly == Dummy.Module || baseAssembly == Dummy.Assembly)
             {
@@ -416,7 +416,7 @@ namespace assimilate
             Assembly mergedAssembly = new MetadataMutator(host).Visit(baseAssembly);
             for (int i = 1; i < assembliesToMerge.Count; ++i)
             {
-                var mergeHost = new PeReader.DefaultHost(host.NameTable);
+                var mergeHost = new Host(Platforms.Default, host.NameTable);
                 var addedAssembly = mergeHost.LoadUnitFrom(assembliesToMerge[i]) as IAssembly;
                 if (addedAssembly == null || addedAssembly == Dummy.Module || addedAssembly == Dummy.Assembly)
                 {
@@ -434,6 +434,90 @@ namespace assimilate
             // TODO: merge XML documentation, too
 
             return 0;
+        }
+
+        private static IEnumerable<string> ParsePlatform(string option)
+        {
+            if (string.Equals(option, "None", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return Platforms.None;
+            }
+            else if (string.Equals(option, "Default", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return Platforms.Default;
+            }
+            else if (string.Equals(option, "Desktop20", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return Platforms.Desktop20;
+            }
+            else if (string.Equals(option, "Desktop30", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return Platforms.Desktop30;
+            }
+            else if (string.Equals(option, "Desktop35", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return Platforms.Desktop35;
+            }
+            else if (string.Equals(option, "Compact20", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return Platforms.Compact20;
+            }
+            else if (string.Equals(option, "Compact35", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return Platforms.Compact35;
+            }
+            else if (string.Equals(option, "Silverlight30", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return Platforms.Silverlight30;
+            }
+            else if (string.Equals(option, "Micro40", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return Platforms.Micro40;
+            }
+            else
+            {
+                throw new ArgumentException("Unknown platform " + option + ".");
+            }
+        }
+
+        private static string InterpretLocationString(string location)
+        {
+            if (location.Contains("$(20)"))
+            {
+                location = location.Replace("$(20)", ReferenceAssembliesDirectory.Desktop20Directory);
+            }
+
+            if (location.Contains("$(30)"))
+            {
+                location = location.Replace("$(30)", ReferenceAssembliesDirectory.Desktop30Directory);
+            }
+
+            if (location.Contains("$(35)"))
+            {
+                location = location.Replace("$(35)", ReferenceAssembliesDirectory.Desktop35Directory);
+            }
+
+            if (location.Contains("$(CF20)"))
+            {
+                location = location.Replace("$(CF20)", ReferenceAssembliesDirectory.Compact20Directory);
+            }
+
+            if (location.Contains("$(CF35)"))
+            {
+                location = location.Replace("$(CF35)", ReferenceAssembliesDirectory.Compact35Directory);
+            }
+
+            if (location.Contains("$(SL30)"))
+            {
+                location = location.Replace("$(SL30)", ReferenceAssembliesDirectory.Silverlight30Directory);
+            }
+
+            if (location.Contains("$(u40)"))
+            {
+                location = location.Replace("$(u40)", ReferenceAssembliesDirectory.Micro40Directory);
+            }
+
+            return location;
         }
     }
 }

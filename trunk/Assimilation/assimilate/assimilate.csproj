@@ -56,7 +56,9 @@
     <Compile Include="Util\DumpMutator.cs" />
     <Compile Include="Util\FixedSignatureFormatter.cs" />
     <Compile Include="Util\FixedTypeNameFormatter.cs" />
+    <Compile Include="Util\Host.cs" />
     <Compile Include="Util\MetadataExtensions.cs" />
+    <Compile Include="Util\Platforms.cs" />
     <Compile Include="Util\ReferenceAssembliesDirectory.cs" />
   </ItemGroup>
   <ItemGroup>

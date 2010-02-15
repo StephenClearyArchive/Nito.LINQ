@@ -49,7 +49,7 @@ namespace assimilate
         }
 
         /// <summary>
-        /// Gets the location of the Desktop .NET 2.0 reference assemblies. Returns <see cref="string.Empty"/> if they are not installed.
+        /// Gets the location of the Desktop .NET 2.0 reference assemblies.
         /// </summary>
         public static string Desktop20Directory
         {
@@ -58,6 +58,10 @@ namespace assimilate
                 if (desktop20Directory == null)
                 {
                     desktop20Directory = GetDesktop20Directory();
+                    if (desktop20Directory == null)
+                    {
+                        throw new InvalidOperationException("Could not find Desktop 2.0 reference assemblies.");
+                    }
                 }
 
                 return desktop20Directory;
@@ -65,7 +69,7 @@ namespace assimilate
         }
 
         /// <summary>
-        /// Gets the location of the Desktop .NET 3.5 reference assemblies. Returns <see cref="string.Empty"/> if they are not installed.
+        /// Gets the location of the Desktop .NET 3.5 reference assemblies.
         /// </summary>
         public static string Desktop30Directory
         {
@@ -77,7 +81,7 @@ namespace assimilate
                     desktop30Directory = Path.Combine(ProgramFiles86, @"Reference Assemblies\Microsoft\Framework\v3.0");
                     if (!File.Exists(Path.Combine(desktop30Directory, "WindowsBase.dll")))
                     {
-                        desktop30Directory = string.Empty;
+                        throw new InvalidOperationException("Could not find Desktop 3.0 reference assemblies.");
                     }
                 }
 
@@ -86,7 +90,7 @@ namespace assimilate
         }
 
         /// <summary>
-        /// Gets the location of the Desktop .NET 3.5 reference assemblies. Returns <see cref="string.Empty"/> if they are not installed.
+        /// Gets the location of the Desktop .NET 3.5 reference assemblies.
         /// </summary>
         public static string Desktop35Directory
         {
@@ -98,7 +102,7 @@ namespace assimilate
                     desktop35Directory = Path.Combine(ProgramFiles86, @"Reference Assemblies\Microsoft\Framework\v3.5");
                     if (!File.Exists(Path.Combine(desktop35Directory, "System.Core.dll")))
                     {
-                        desktop35Directory = string.Empty;
+                        throw new InvalidOperationException("Could not find Desktop 3.5 reference assemblies.");
                     }
                 }
 
@@ -107,7 +111,7 @@ namespace assimilate
         }
 
         /// <summary>
-        /// Gets the location of the Compact Framework 2.0 reference assemblies. Returns <see cref="string.Empty"/> if they are not installed.
+        /// Gets the location of the Compact Framework 2.0 reference assemblies.
         /// </summary>
         public static string Compact20Directory
         {
@@ -118,7 +122,7 @@ namespace assimilate
                     compact20Directory = Path.Combine(ProgramFiles86, @"Microsoft.NET\SDK\CompactFramework\v2.0\WindowsCE");
                     if (!File.Exists(Path.Combine(compact20Directory, "mscorlib.dll")))
                     {
-                        compact20Directory = string.Empty;
+                        throw new InvalidOperationException("Could not find Compact 2.0 reference assemblies.");
                     }
                 }
 
@@ -127,7 +131,7 @@ namespace assimilate
         }
 
         /// <summary>
-        /// Gets the location of the Compact Framework 3.5 reference assemblies. Returns <see cref="string.Empty"/> if they are not installed.
+        /// Gets the location of the Compact Framework 3.5 reference assemblies.
         /// </summary>
         public static string Compact35Directory
         {
@@ -138,7 +142,7 @@ namespace assimilate
                     compact35Directory = Path.Combine(ProgramFiles86, @"Microsoft.NET\SDK\CompactFramework\v3.5\WindowsCE");
                     if (!File.Exists(Path.Combine(compact35Directory, "mscorlib.dll")))
                     {
-                        compact35Directory = string.Empty;
+                        throw new InvalidOperationException("Could not find Compact 3.5 reference assemblies.");
                     }
                 }
 
@@ -147,7 +151,7 @@ namespace assimilate
         }
 
         /// <summary>
-        /// Gets the location of the Silverlight 3.0 reference assemblies. Returns <see cref="string.Empty"/> if they are not installed.
+        /// Gets the location of the Silverlight 3.0 reference assemblies.
         /// </summary>
         public static string Silverlight30Directory
         {
@@ -158,7 +162,7 @@ namespace assimilate
                     silverlight30Directory = Path.Combine(ProgramFiles86, @"Reference Assemblies\Microsoft\Framework\Silverlight\v3.0");
                     if (!File.Exists(Path.Combine(silverlight30Directory, "mscorlib.dll")))
                     {
-                        silverlight30Directory = string.Empty;
+                        throw new InvalidOperationException("Could not find Silverlight 3.0 reference assemblies.");
                     }
                 }
 
@@ -167,7 +171,7 @@ namespace assimilate
         }
 
         /// <summary>
-        /// Gets the location of the Micro 4.0 reference assemblies. Returns <see cref="string.Empty"/> if they are not installed.
+        /// Gets the location of the Micro 4.0 reference assemblies.
         /// </summary>
         public static string Micro40Directory
         {
@@ -178,7 +182,7 @@ namespace assimilate
                     micro40Directory = Path.Combine(ProgramFiles86, @"Microsoft .NET Micro Framework\v4.0\Assemblies");
                     if (!File.Exists(Path.Combine(micro40Directory, "mscorlib.dll")))
                     {
-                        micro40Directory = string.Empty;
+                        throw new InvalidOperationException("Could not find Micro 4.0 reference assemblies.");
                     }
                 }
 
@@ -193,20 +197,20 @@ namespace assimilate
             {
                 if (reg == null)
                 {
-                    return string.Empty;
+                    return null;
                 }
 
                 string installRoot = reg.GetValue("InstallRoot") as string;
                 if (string.IsNullOrEmpty(installRoot))
                 {
-                    return string.Empty;
+                    return null;
                 }
 
                 using (RegistryKey policies = reg.OpenSubKey(@"policy\v2.0"))
                 {
                     if (policies == null)
                     {
-                        return string.Empty;
+                        return null;
                     }
 
                     var values = policies.GetValueNames().ToList();
@@ -220,7 +224,7 @@ namespace assimilate
                         }
                     }
 
-                    return string.Empty;
+                    return null;
                 }
             }
         }
