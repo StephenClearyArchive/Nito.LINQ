@@ -58,6 +58,16 @@ namespace assimilate
         }
 
         /// <summary>
+        /// Returns the CodeBase of the named assembly (which is a URL), except if the URL has the file scheme.
+        /// In that case the URL is converted to a local file path that can be used by System.IO.Path methods.
+        /// </summary>
+        /// <param name="assemblyName">The name of the assembly whose location is desired.</param>
+        public static string GetLocalPath(this System.Reflection.AssemblyName assemblyName)
+        {
+            return MetadataHostEnvironment.GetLocalPath(assemblyName);
+        }
+
+        /// <summary>
         /// Returns a C#-like string that corresponds to the given namespace definition and that conforms to the specified formatting options.
         /// </summary>
         public static string GetNamespaceName(this IUnitSetNamespace namespaceDefinition, NameFormattingOptions formattingOptions)
