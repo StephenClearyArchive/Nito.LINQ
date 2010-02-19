@@ -1,3 +1,5 @@
+. Put function overloads in for all generic interfaces such as IComparer, etc. (required when working with anonymous types).
+
 . Finish unit tests.
 . Change all operations to be indirect, renaming existing ISwappable ops to *InPlace as necessary. (keep unit test names in sync)
   . Consider *copying* instead of *indirect*. Leave IndirectList in the dll, for the rare "large struct" situations.
