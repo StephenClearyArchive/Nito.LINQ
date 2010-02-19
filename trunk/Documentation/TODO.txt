@@ -1,4 +1,5 @@
 . Put function overloads in for all generic interfaces such as IComparer, etc. (required when working with anonymous types).
+. For efficiency, have Sort pass off to Array.Sort whenever the IList<T> is an array.
 
 . Finish unit tests.
 . Change all operations to be indirect, renaming existing ISwappable ops to *InPlace as necessary. (keep unit test names in sync)
