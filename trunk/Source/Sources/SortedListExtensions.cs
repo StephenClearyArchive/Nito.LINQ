@@ -33,7 +33,7 @@ namespace Nito.Linq
         }
 
         /// <summary>
-        /// Treats a list as though it were already sorted.
+        /// Treats a list as though it were already sorted by the specified comparison object.
         /// </summary>
         /// <typeparam name="T">The type of items in the list.</typeparam>
         /// <param name="list">The list, which is already sorted.</param>
@@ -52,7 +52,19 @@ namespace Nito.Linq
         /// <returns>The sorted list.</returns>
         public static ISortedList<T> AsSorted<T>(this IList<T> list)
         {
-            return list.AsSorted(Comparer<T>.Default);
+            return new Implementation.SortedListWrapper<T>(list, Comparer<T>.Default);
+        }
+
+        /// <summary>
+        /// Treats a list as though it were already sorted by the specified comparison delegate.
+        /// </summary>
+        /// <typeparam name="T">The type of items in the list.</typeparam>
+        /// <param name="list">The list, which is already sorted.</param>
+        /// <param name="comparer">The comparison delegate that defines how the list is sorted.</param>
+        /// <returns>The sorted list.</returns>
+        public static ISortedList<T> AsSorted<T>(this IList<T> list, Func<T, T, int> comparer)
+        {
+            return new Implementation.SortedListWrapper<T>(list, new AnonymousComparer<T> { Compare = comparer });
         }
 
         /// <summary>
@@ -128,18 +140,6 @@ namespace Nito.Linq
         }
 
         /// <summary>
-        /// Sorts a list in-place using the default comparison object.
-        /// </summary>
-        /// <typeparam name="T">The type of items in the list.</typeparam>
-        /// <param name="list">The list to be sorted.</param>
-        /// <param name="others">Other lists to be kept in sync with the sorted list. As <paramref name="list"/> is sorted, the same relative elements are rearranged in these lists.</param>
-        /// <returns>The sorted list.</returns>
-        public static ISortedList<T> Sort<T>(this IList<T> list, params ListExtensions.ISwappable[] others)
-        {
-            return Sort(list, Comparer<T>.Default, others);
-        }
-
-        /// <summary>
         /// Sorts a list in-place using the specified comparison object.
         /// </summary>
         /// <typeparam name="T">The type of items in the list.</typeparam>
@@ -160,6 +160,31 @@ namespace Nito.Linq
 
             QuickSortCore(new SortParameters<T> { List = list, Comparer = comparer, Others = others }, 0, count);
             return list.AsSorted(comparer);
+        }
+
+        /// <summary>
+        /// Sorts a list in-place using the default comparison object.
+        /// </summary>
+        /// <typeparam name="T">The type of items in the list.</typeparam>
+        /// <param name="list">The list to be sorted.</param>
+        /// <param name="others">Other lists to be kept in sync with the sorted list. As <paramref name="list"/> is sorted, the same relative elements are rearranged in these lists.</param>
+        /// <returns>The sorted list.</returns>
+        public static ISortedList<T> Sort<T>(this IList<T> list, params ListExtensions.ISwappable[] others)
+        {
+            return Sort(list, Comparer<T>.Default, others);
+        }
+
+        /// <summary>
+        /// Sorts a list in-place using the specified comparison delegate.
+        /// </summary>
+        /// <typeparam name="T">The type of items in the list.</typeparam>
+        /// <param name="list">The list to be sorted.</param>
+        /// <param name="comparer">The comparison delegate.</param>
+        /// <param name="others">Other lists to be kept in sync with the sorted list. As <paramref name="list"/> is sorted, the same relative elements are rearranged in these lists.</param>
+        /// <returns>The sorted list.</returns>
+        public static ISortedList<T> Sort<T>(this IList<T> list, Func<T, T, int> comparer, params ListExtensions.ISwappable[] others)
+        {
+            return Sort(list, new AnonymousComparer<T> { Compare = comparer }, others);
         }
 
         /// <summary>
@@ -187,6 +212,19 @@ namespace Nito.Linq
         public static ISortedList<T> SortIndirect<T>(this IList<T> list, params ListExtensions.ISwappable[] others)
         {
             return SortIndirect(list, Comparer<T>.Default, others);
+        }
+
+        /// <summary>
+        /// Creates and returns a sorted view of the source list, using the specified comparison delegate.
+        /// </summary>
+        /// <typeparam name="T">The type of items in the list.</typeparam>
+        /// <param name="list">The list to be sorted. As long as the returned view is referenced, the source list should not be modified in any way.</param>
+        /// <param name="comparer">The comparison delegate.</param>
+        /// <param name="others">Other lists to be kept in sync with the sorted view. As the view is sorted, the same relative elements are rearranged in these lists.</param>
+        /// <returns>The sorted view of the source list.</returns>
+        public static ISortedList<T> SortIndirect<T>(this IList<T> list, Func<T, T, int> comparer, params ListExtensions.ISwappable[] others)
+        {
+            return SortIndirect(list, new AnonymousComparer<T> { Compare = comparer }, others);
         }
 
         /// <summary>
