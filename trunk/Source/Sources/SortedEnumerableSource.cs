@@ -7,6 +7,7 @@ namespace Nito.Linq
     using System.Collections.Generic;
     using System.Linq;
     using System;
+    using Nito.Linq.Implementation;
 
     /// <summary>
     /// Sorted sequence sources.
@@ -21,7 +22,7 @@ namespace Nito.Linq
         /// <returns>The sorted, empty sequence.</returns>
         public static ISortedEnumerable<T> Empty<T>(IComparer<T> comparer)
         {
-            return new Implementation.SortedEnumerableWrapper<T>(Enumerable.Empty<T>(), comparer);
+            return new SortedEnumerableWrapper<T>(Enumerable.Empty<T>(), comparer);
         }
 
         /// <summary>
@@ -31,7 +32,7 @@ namespace Nito.Linq
         /// <returns>The sorted, empty sequence.</returns>
         public static ISortedEnumerable<T> Empty<T>()
         {
-            return new Implementation.SortedEnumerableWrapper<T>(Enumerable.Empty<T>(), Comparer<T>.Default);
+            return new SortedEnumerableWrapper<T>(Enumerable.Empty<T>(), Comparer<T>.Default);
         }
 
         /// <summary>
@@ -42,7 +43,7 @@ namespace Nito.Linq
         /// <returns>The sorted, empty sequence.</returns>
         public static ISortedEnumerable<T> Empty<T>(Func<T, T, int> comparer)
         {
-            return new Implementation.SortedEnumerableWrapper<T>(Enumerable.Empty<T>(), new AnonymousComparer<T> { Compare = comparer });
+            return new SortedEnumerableWrapper<T>(Enumerable.Empty<T>(), new AnonymousComparer<T> { Compare = comparer });
         }
 
         /// <summary>
@@ -54,7 +55,7 @@ namespace Nito.Linq
         /// <returns>A sorted sequence containing a single element, <paramref name="source"/>.</returns>
         public static ISortedEnumerable<T> Return<T>(T source, IComparer<T> comparer)
         {
-            return new Implementation.SortedEnumerableWrapper<T>(EnumerableSource.Return(source), comparer);
+            return new SortedEnumerableWrapper<T>(EnumerableSource.Return(source), comparer);
         }
 
         /// <summary>
@@ -65,7 +66,7 @@ namespace Nito.Linq
         /// <returns>A sorted sequence containing a single element, <paramref name="source"/>.</returns>
         public static ISortedEnumerable<T> Return<T>(T source)
         {
-            return new Implementation.SortedEnumerableWrapper<T>(EnumerableSource.Return(source), Comparer<T>.Default);
+            return new SortedEnumerableWrapper<T>(EnumerableSource.Return(source), Comparer<T>.Default);
         }
 
         /// <summary>
@@ -77,7 +78,7 @@ namespace Nito.Linq
         /// <returns>A sorted sequence containing a single element, <paramref name="source"/>.</returns>
         public static ISortedEnumerable<T> Return<T>(T source, Func<T, T, int> comparer)
         {
-            return new Implementation.SortedEnumerableWrapper<T>(EnumerableSource.Return(source), new AnonymousComparer<T> { Compare = comparer });
+            return new SortedEnumerableWrapper<T>(EnumerableSource.Return(source), new AnonymousComparer<T> { Compare = comparer });
         }
 
         /// <summary>
@@ -90,7 +91,7 @@ namespace Nito.Linq
         /// <returns>A sorted sequence containing <paramref name="count"/> elements, all equal to <paramref name="source"/>.</returns>
         public static ISortedEnumerable<T> Repeat<T>(T source, IComparer<T> comparer, int count)
         {
-            return new Implementation.SortedEnumerableWrapper<T>(EnumerableSource.Repeat(source, count), comparer);
+            return new SortedEnumerableWrapper<T>(EnumerableSource.Repeat(source, count), comparer);
         }
 
         /// <summary>
@@ -102,7 +103,7 @@ namespace Nito.Linq
         /// <returns>A sorted sequence containing <paramref name="count"/> elements, all equal to <paramref name="source"/>.</returns>
         public static ISortedEnumerable<T> Repeat<T>(T source, int count)
         {
-            return new Implementation.SortedEnumerableWrapper<T>(EnumerableSource.Repeat(source, count), Comparer<T>.Default);
+            return new SortedEnumerableWrapper<T>(EnumerableSource.Repeat(source, count), Comparer<T>.Default);
         }
 
         /// <summary>
@@ -115,7 +116,7 @@ namespace Nito.Linq
         /// <returns>A sorted sequence containing <paramref name="count"/> elements, all equal to <paramref name="source"/>.</returns>
         public static ISortedEnumerable<T> Repeat<T>(T source, Func<T, T, int> comparer, int count)
         {
-            return new Implementation.SortedEnumerableWrapper<T>(EnumerableSource.Repeat(source, count), new AnonymousComparer<T> { Compare = comparer });
+            return new SortedEnumerableWrapper<T>(EnumerableSource.Repeat(source, count), new AnonymousComparer<T> { Compare = comparer });
         }
 
         /// <summary>
@@ -127,7 +128,7 @@ namespace Nito.Linq
         /// <returns>A sorted sequence containing an infinite number of elements, all equal to <paramref name="source"/>.</returns>
         public static ISortedEnumerable<T> Repeat<T>(T source, IComparer<T> comparer)
         {
-            return new Implementation.SortedEnumerableWrapper<T>(EnumerableSource.Repeat(source), comparer);
+            return new SortedEnumerableWrapper<T>(EnumerableSource.Repeat(source), comparer);
         }
 
         /// <summary>
@@ -138,7 +139,7 @@ namespace Nito.Linq
         /// <returns>A sorted sequence containing an infinite number of elements, all equal to <paramref name="source"/>.</returns>
         public static ISortedEnumerable<T> Repeat<T>(T source)
         {
-            return new Implementation.SortedEnumerableWrapper<T>(EnumerableSource.Repeat(source), Comparer<T>.Default);
+            return new SortedEnumerableWrapper<T>(EnumerableSource.Repeat(source), Comparer<T>.Default);
         }
 
         /// <summary>
@@ -150,7 +151,7 @@ namespace Nito.Linq
         /// <returns>A sorted sequence containing an infinite number of elements, all equal to <paramref name="source"/>.</returns>
         public static ISortedEnumerable<T> Repeat<T>(T source, Func<T, T, int> comparer)
         {
-            return new Implementation.SortedEnumerableWrapper<T>(EnumerableSource.Repeat(source), new AnonymousComparer<T> { Compare = comparer });
+            return new SortedEnumerableWrapper<T>(EnumerableSource.Repeat(source), new AnonymousComparer<T> { Compare = comparer });
         }
     }
 }

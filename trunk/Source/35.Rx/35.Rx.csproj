@@ -49,17 +49,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Sources\AnonymousComparer.cs">
-      <Link>AnonymousComparer.cs</Link>
-    </Compile>
     <Compile Include="..\Sources\EnumerableExtensions.cs">
       <Link>EnumerableExtensions.cs</Link>
     </Compile>
     <Compile Include="..\Sources\EnumerableSource.cs">
       <Link>EnumerableSource.cs</Link>
     </Compile>
+    <Compile Include="..\Sources\Implementation.AnonymousComparer.cs">
+      <Link>Implementation.AnonymousComparer.cs</Link>
+    </Compile>
     <Compile Include="..\Sources\Implementation.AnonymousReadOnlyList.cs">
       <Link>Implementation.AnonymousReadOnlyList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Implementation.IndirectList.cs">
+      <Link>Implementation.IndirectList.cs</Link>
     </Compile>
     <Compile Include="..\Sources\Implementation.ListBase.cs">
       <Link>Implementation.ListBase.cs</Link>
@@ -75,9 +78,6 @@
     </Compile>
     <Compile Include="..\Sources\Implementation.SortedListWrapper.cs">
       <Link>Implementation.SortedListWrapper.cs</Link>
-    </Compile>
-    <Compile Include="..\Sources\IndirectList.cs">
-      <Link>IndirectList.cs</Link>
     </Compile>
     <Compile Include="..\Sources\LinkedListExtensions.cs">
       <Link>LinkedListExtensions.cs</Link>

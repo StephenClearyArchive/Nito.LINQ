@@ -7,6 +7,7 @@ namespace Nito.Linq
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Nito.Linq.Implementation;
 
     /// <summary>
     /// Provides useful extension methods for lists.

@@ -6,6 +6,7 @@ namespace Nito.Linq
 {
     using System.Collections.Generic;
     using System;
+    using Nito.Linq.Implementation;
 
     /// <summary>
     /// Sorted list sources.
@@ -20,7 +21,7 @@ namespace Nito.Linq
         /// <returns>An empty sorted list.</returns>
         public static ISortedList<T> Empty<T>(IComparer<T> comparer)
         {
-            return new Implementation.SortedListWrapper<T>(ListSource.Empty<T>(), comparer);
+            return new SortedListWrapper<T>(ListSource.Empty<T>(), comparer);
         }
 
         /// <summary>
@@ -30,7 +31,7 @@ namespace Nito.Linq
         /// <returns>An empty sorted list.</returns>
         public static ISortedList<T> Empty<T>()
         {
-            return new Implementation.SortedListWrapper<T>(ListSource.Empty<T>(), Comparer<T>.Default);
+            return new SortedListWrapper<T>(ListSource.Empty<T>(), Comparer<T>.Default);
         }
 
         /// <summary>
@@ -41,7 +42,7 @@ namespace Nito.Linq
         /// <returns>An empty sorted list.</returns>
         public static ISortedList<T> Empty<T>(Func<T, T, int> comparer)
         {
-            return new Implementation.SortedListWrapper<T>(ListSource.Empty<T>(), new AnonymousComparer<T> { Compare = comparer });
+            return new SortedListWrapper<T>(ListSource.Empty<T>(), new AnonymousComparer<T> { Compare = comparer });
         }
 
         /// <summary>
@@ -53,7 +54,7 @@ namespace Nito.Linq
         /// <returns>A sorted list containing a single element, <paramref name="source"/>.</returns>
         public static ISortedList<T> Return<T>(T source, IComparer<T> comparer)
         {
-            return new Implementation.SortedListWrapper<T>(ListSource.Return(source), comparer);
+            return new SortedListWrapper<T>(ListSource.Return(source), comparer);
         }
 
         /// <summary>
@@ -64,7 +65,7 @@ namespace Nito.Linq
         /// <returns>A sorted list containing a single element, <paramref name="source"/>.</returns>
         public static ISortedList<T> Return<T>(T source)
         {
-            return new Implementation.SortedListWrapper<T>(ListSource.Return(source), Comparer<T>.Default);
+            return new SortedListWrapper<T>(ListSource.Return(source), Comparer<T>.Default);
         }
 
         /// <summary>
@@ -76,7 +77,7 @@ namespace Nito.Linq
         /// <returns>A sorted list containing a single element, <paramref name="source"/>.</returns>
         public static ISortedList<T> Return<T>(T source, Func<T, T, int> comparer)
         {
-            return new Implementation.SortedListWrapper<T>(ListSource.Return(source), new AnonymousComparer<T> { Compare = comparer });
+            return new SortedListWrapper<T>(ListSource.Return(source), new AnonymousComparer<T> { Compare = comparer });
         }
 
         /// <summary>
@@ -89,7 +90,7 @@ namespace Nito.Linq
         /// <returns>A sorted list containing <paramref name="count"/> elements, all equal to <paramref name="source"/>.</returns>
         public static ISortedList<T> Repeat<T>(T source, IComparer<T> comparer, int count)
         {
-            return new Implementation.SortedListWrapper<T>(ListSource.Repeat(source, count), comparer);
+            return new SortedListWrapper<T>(ListSource.Repeat(source, count), comparer);
         }
 
         /// <summary>
@@ -101,7 +102,7 @@ namespace Nito.Linq
         /// <returns>A sorted list containing <paramref name="count"/> elements, all equal to <paramref name="source"/>.</returns>
         public static ISortedList<T> Repeat<T>(T source, int count)
         {
-            return new Implementation.SortedListWrapper<T>(ListSource.Repeat(source, count), Comparer<T>.Default);
+            return new SortedListWrapper<T>(ListSource.Repeat(source, count), Comparer<T>.Default);
         }
 
         /// <summary>
@@ -114,7 +115,7 @@ namespace Nito.Linq
         /// <returns>A sorted list containing <paramref name="count"/> elements, all equal to <paramref name="source"/>.</returns>
         public static ISortedList<T> Repeat<T>(T source, Func<T, T, int> comparer, int count)
         {
-            return new Implementation.SortedListWrapper<T>(ListSource.Repeat(source, count), new AnonymousComparer<T> { Compare = comparer });
+            return new SortedListWrapper<T>(ListSource.Repeat(source, count), new AnonymousComparer<T> { Compare = comparer });
         }
     }
 }

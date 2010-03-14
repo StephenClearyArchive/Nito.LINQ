@@ -7,6 +7,7 @@ namespace Nito.Linq
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Nito.Linq.Implementation;
 
     /// <summary>
     /// Represents a sequence that is sorted by a single comparison.
@@ -98,7 +99,7 @@ namespace Nito.Linq
         /// <returns>The sorted sequence.</returns>
         public static ISortedEnumerable<T> AsSorted<T>(this IEnumerable<T> source, IComparer<T> comparer)
         {
-            return new Implementation.SortedEnumerableWrapper<T>(source, comparer);
+            return new SortedEnumerableWrapper<T>(source, comparer);
         }
 
         /// <summary>
@@ -109,7 +110,7 @@ namespace Nito.Linq
         /// <returns>The sorted sequence.</returns>
         public static ISortedEnumerable<T> AsSorted<T>(this IEnumerable<T> source)
         {
-            return new Implementation.SortedEnumerableWrapper<T>(source, Comparer<T>.Default);
+            return new SortedEnumerableWrapper<T>(source, Comparer<T>.Default);
         }
 
         /// <summary>
@@ -121,7 +122,7 @@ namespace Nito.Linq
         /// <returns>The sorted sequence.</returns>
         public static ISortedEnumerable<T> AsSorted<T>(this IEnumerable<T> source, Func<T, T, int> comparer)
         {
-            return new Implementation.SortedEnumerableWrapper<T>(source, new AnonymousComparer<T> { Compare = comparer });
+            return new SortedEnumerableWrapper<T>(source, new AnonymousComparer<T> { Compare = comparer });
         }
 
 #if !SILVERLIGHT3 // SL3 does not have SortedList<TKey, TValue>
@@ -401,7 +402,7 @@ namespace Nito.Linq
         /// <returns>A sequence that skips the first <paramref name="offset"/> elements of the source sequence.</returns>
         public static ISortedEnumerable<T> Skip<T>(this ISortedEnumerable<T> source, int offset)
         {
-            return new Implementation.SortedEnumerableWrapper<T>(Enumerable.Skip(source, offset), source.Comparer);
+            return new SortedEnumerableWrapper<T>(Enumerable.Skip(source, offset), source.Comparer);
         }
 
         /// <summary>
@@ -413,7 +414,7 @@ namespace Nito.Linq
         /// <returns>The stepped sequence.</returns>
         public static ISortedEnumerable<T> Step<T>(this ISortedEnumerable<T> source, int step)
         {
-            return new Implementation.SortedEnumerableWrapper<T>(EnumerableExtensions.Step(source, step), source.Comparer);
+            return new SortedEnumerableWrapper<T>(EnumerableExtensions.Step(source, step), source.Comparer);
         }
 
         /// <summary>
@@ -425,7 +426,7 @@ namespace Nito.Linq
         /// <returns>A sequence that includes the first <paramref name="count"/> elements of the source sequence.</returns>
         public static ISortedEnumerable<T> Take<T>(this ISortedEnumerable<T> source, int count)
         {
-            return new Implementation.SortedEnumerableWrapper<T>(Enumerable.Take(source, count), source.Comparer);
+            return new SortedEnumerableWrapper<T>(Enumerable.Take(source, count), source.Comparer);
         }
 
         /// <summary>
@@ -593,7 +594,7 @@ namespace Nito.Linq
         public static ISortedEnumerable<T> ExceptWithDuplicates<T>(this ISortedEnumerable<T> source, ISortedEnumerable<T> other)
         {
             IComparer<T> comparer = source.Comparer;
-            return new Implementation.SortedEnumerableWrapper<T>(ExceptCore(source, other, comparer), comparer);
+            return new SortedEnumerableWrapper<T>(ExceptCore(source, other, comparer), comparer);
         }
 
         /// <summary>
@@ -617,7 +618,7 @@ namespace Nito.Linq
         public static ISortedEnumerable<T> Distinct<T>(this ISortedEnumerable<T> source)
         {
             IComparer<T> comparer = source.Comparer;
-            return new Implementation.SortedEnumerableWrapper<T>(DistinctCore(source, comparer), comparer);
+            return new SortedEnumerableWrapper<T>(DistinctCore(source, comparer), comparer);
         }
 
         /// <summary>
@@ -658,7 +659,7 @@ namespace Nito.Linq
         /// <returns>The union of the source sequences, as a sorted sequence.</returns>
         private static ISortedEnumerable<T> UnionCore<T>(IEnumerable<ISortedEnumerable<T>> sources, IComparer<T> comparer)
         {
-            return new Implementation.SortedEnumerableWrapper<T>(sources.Cast<IEnumerable<T>>().Aggregate((x, y) => UnionCore(x, y, comparer)), comparer);
+            return new SortedEnumerableWrapper<T>(sources.Cast<IEnumerable<T>>().Aggregate((x, y) => UnionCore(x, y, comparer)), comparer);
         }
 
         /// <summary>
@@ -722,7 +723,7 @@ namespace Nito.Linq
         /// <returns>The merging of the source sequences, as a sorted sequence.</returns>
         private static ISortedEnumerable<T> MergeCore<T>(IEnumerable<ISortedEnumerable<T>> sources, IComparer<T> comparer)
         {
-            return new Implementation.SortedEnumerableWrapper<T>(sources.Cast<IEnumerable<T>>().Aggregate((x, y) => MergeCore(x, y, comparer)), comparer);
+            return new SortedEnumerableWrapper<T>(sources.Cast<IEnumerable<T>>().Aggregate((x, y) => MergeCore(x, y, comparer)), comparer);
         }
 
         /// <summary>
@@ -780,7 +781,7 @@ namespace Nito.Linq
         /// <returns>The intersection of the source sequences, as a sorted sequence.</returns>
         private static ISortedEnumerable<T> IntersectCore<T>(IEnumerable<ISortedEnumerable<T>> sources, IComparer<T> comparer)
         {
-            return new Implementation.SortedEnumerableWrapper<T>(sources.Cast<IEnumerable<T>>().Aggregate((x, y) => IntersectCore(x, y, comparer)), comparer);
+            return new SortedEnumerableWrapper<T>(sources.Cast<IEnumerable<T>>().Aggregate((x, y) => IntersectCore(x, y, comparer)), comparer);
         }
 
         /// <summary>
