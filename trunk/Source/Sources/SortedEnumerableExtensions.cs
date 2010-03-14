@@ -67,6 +67,18 @@ namespace Nito.Linq
         }
 
         /// <summary>
+        /// Returns a value indicating whether this sequence is sorted according to the given comparison delegate.
+        /// </summary>
+        /// <typeparam name="T">The type of items in the sequence.</typeparam>
+        /// <param name="source">The source sequence.</param>
+        /// <param name="comparer">The comparison delegate.</param>
+        /// <returns>Whether this sequence is sorted according to the given comparison delegate.</returns>
+        public static bool IsSorted<T>(this IEnumerable<T> source, Func<T, T, int> comparer)
+        {
+            return IsSorted(source, new AnonymousComparer<T> { Compare = comparer });
+        }
+
+        /// <summary>
         /// Returns the source typed as <see cref="ISortedEnumerable{T}"/>. This method has no effect other than to restrict the compile-time type of an object implementing <see cref="ISortedEnumerable{T}"/>.
         /// </summary>
         /// <typeparam name="T">The type of the elements of <paramref name="list"/>.</typeparam>
@@ -97,7 +109,19 @@ namespace Nito.Linq
         /// <returns>The sorted sequence.</returns>
         public static ISortedEnumerable<T> AsSorted<T>(this IEnumerable<T> source)
         {
-            return source.AsSorted(Comparer<T>.Default);
+            return new Implementation.SortedEnumerableWrapper<T>(source, Comparer<T>.Default);
+        }
+
+        /// <summary>
+        /// Treats a sequence as though it were already sorted.
+        /// </summary>
+        /// <typeparam name="T">The type of items in the sequence.</typeparam>
+        /// <param name="source">The sequence, which is already sorted.</param>
+        /// <param name="comparer">The comparison delegate that defines how the sequence is sorted.</param>
+        /// <returns>The sorted sequence.</returns>
+        public static ISortedEnumerable<T> AsSorted<T>(this IEnumerable<T> source, Func<T, T, int> comparer)
+        {
+            return new Implementation.SortedEnumerableWrapper<T>(source, new AnonymousComparer<T> { Compare = comparer });
         }
 
 #if !SILVERLIGHT3 // SL3 does not have SortedList<TKey, TValue>

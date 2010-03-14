@@ -46,7 +46,7 @@ namespace UnitTests
         public void Enumerable_IsSorted_ReverseSortedSequence_IsTrue()
         {
             IEnumerable<int> test = new[] { 1, 1, 0 };
-            bool result = test.IsSorted(new AnonymousComparer<int> { Compare = (x, y) => Comparer<int>.Default.Compare(y, x) });
+            bool result = test.IsSorted((x, y) => Comparer<int>.Default.Compare(y, x));
             Assert.IsTrue(result, "Reverse sorted sequences should be sorted (in reverse).");
         }
 

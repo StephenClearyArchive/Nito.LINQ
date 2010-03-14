@@ -372,7 +372,7 @@ namespace UnitTests
         public void Enumerable_IndexOfMin_WithBackwardsOrderingFunction_ReturnsMaxValue()
         {
             IEnumerable<int> source = new List<int> { 3, 2, 1 };
-            int result = source.IndexOfMin(new AnonymousComparer<int> { Compare = (x, y) => Comparer<int>.Default.Compare(y, x) });
+            int result = source.IndexOfMin((x, y) => Comparer<int>.Default.Compare(y, x));
             Assert.AreEqual(0, result, "Minimum element of a sequence should be found.");
         }
 
@@ -404,7 +404,7 @@ namespace UnitTests
         public void Enumerable_IndexOfMax_WithBackwardsOrderingFunction_ReturnsMinValue()
         {
             IEnumerable<int> source = new List<int> { 3, 2, 1 };
-            int result = source.IndexOfMax(new AnonymousComparer<int> { Compare = (x, y) => Comparer<int>.Default.Compare(y, x) });
+            int result = source.IndexOfMax((x, y) => Comparer<int>.Default.Compare(y, x));
             Assert.AreEqual(2, result, "Maximum element of a sequence should be found.");
         }
 
@@ -436,7 +436,7 @@ namespace UnitTests
         public void Enumerable_Min_WithBackwardsOrderingFunction_ReturnsMaxValue()
         {
             IEnumerable<int> source = new List<int> { 3, 2, 1 };
-            int result = source.Min(new AnonymousComparer<int> { Compare = (x, y) => Comparer<int>.Default.Compare(y, x) });
+            int result = source.Min((x, y) => Comparer<int>.Default.Compare(y, x));
             Assert.AreEqual(3, result, "Minimum element of a sequence should be found.");
         }
 
@@ -468,7 +468,7 @@ namespace UnitTests
         public void Enumerable_Max_WithBackwardsOrderingFunction_ReturnsMinValue()
         {
             IEnumerable<int> source = new List<int> { 3, 2, 1 };
-            int result = source.Max(new AnonymousComparer<int> { Compare = (x, y) => Comparer<int>.Default.Compare(y, x) });
+            int result = source.Max((x, y) => Comparer<int>.Default.Compare(y, x));
             Assert.AreEqual(1, result, "Maximum element of a sequence should be found.");
         }
 

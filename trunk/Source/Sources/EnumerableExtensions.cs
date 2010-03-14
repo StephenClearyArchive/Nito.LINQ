@@ -413,6 +413,18 @@ namespace Nito.Linq
         }
 
         /// <summary>
+        /// Returns the index of the smallest item in a sequence, according to the provided comparison delegate.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="source">The source sequence to search.</param>
+        /// <param name="comparer">The comparison delegate.</param>
+        /// <returns>The index of the smallest item in the sequence, or -1 if the sequence is empty.</returns>
+        public static int IndexOfMin<T>(this IEnumerable<T> source, Func<T, T, int> comparer)
+        {
+            return IndexOfMin(source, new AnonymousComparer<T> { Compare = comparer });
+        }
+
+        /// <summary>
         /// Returns the smallest item in a sequence, according to the provided comparison object.
         /// </summary>
         /// <typeparam name="T">The type of elements in the sequence.</typeparam>
@@ -443,6 +455,18 @@ namespace Nito.Linq
         }
 
         /// <summary>
+        /// Returns the smallest item in a sequence, according to the provided comparison delegate.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="source">The source sequence to search.</param>
+        /// <param name="comparer">The comparison delegate.</param>
+        /// <returns>The smallest item in the sequence, or the default value of <typeparamref name="T"/> if the sequence is empty.</returns>
+        public static T Min<T>(this IEnumerable<T> source, Func<T, T, int> comparer)
+        {
+            return Min(source, new AnonymousComparer<T> { Compare = comparer });
+        }
+
+        /// <summary>
         /// Returns the index of the largest item in a sequence, according to the provided comparison object.
         /// </summary>
         /// <typeparam name="T">The type of elements in the sequence.</typeparam>
@@ -467,6 +491,18 @@ namespace Nito.Linq
         }
 
         /// <summary>
+        /// Returns the index of the largest item in a sequence, according to the provided comparison delegate.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="source">The source sequence to search.</param>
+        /// <param name="comparer">The comparison delegate.</param>
+        /// <returns>The index of the largest item in the sequence, or -1 if the sequence is empty.</returns>
+        public static int IndexOfMax<T>(this IEnumerable<T> source, Func<T, T, int> comparer)
+        {
+            return IndexOfMin(source, new AnonymousComparer<T> { Compare = (x, y) => comparer(y, x) });
+        }
+
+        /// <summary>
         /// Returns the largest item in a sequence, according to the provided comparison object.
         /// </summary>
         /// <typeparam name="T">The type of elements in the sequence.</typeparam>
@@ -476,6 +512,18 @@ namespace Nito.Linq
         public static T Max<T>(this IEnumerable<T> source, IComparer<T> comparer)
         {
             return Min(source, new AnonymousComparer<T> { Compare = (x, y) => comparer.Compare(y, x) });
+        }
+
+        /// <summary>
+        /// Returns the largest item in a sequence, according to the provided comparison delegate.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="source">The source sequence to search.</param>
+        /// <param name="comparer">The comparison delegate.</param>
+        /// <returns>The largest item in the sequence, or the default value of <typeparamref name="T"/> if the sequence is empty.</returns>
+        public static T Max<T>(this IEnumerable<T> source, Func<T, T, int> comparer)
+        {
+            return Min(source, new AnonymousComparer<T> { Compare = (x, y) => comparer(y, x) });
         }
 
         /// <summary>
@@ -501,6 +549,19 @@ namespace Nito.Linq
         public static int SequenceCompare<T>(this IEnumerable<T> source, IEnumerable<T> other)
         {
             return new SequenceComparer<T>().Compare(source, other);
+        }
+
+        /// <summary>
+        /// Compares this sequence with another sequence lexicographically, using the specified comparison delegate to compare the sequence items. Returns a negative number if this sequence is less than the other sequence, 0 if the sequences are equal, or a positive number if this sequence is greater than the other sequence.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="source">The source sequence to compare.</param>
+        /// <param name="other">The other sequence against which to compare.</param>
+        /// <param name="comparer">The comparison delegate used to compare the sequence items.</param>
+        /// <returns>A negative number if this sequence is less than the other sequence, 0 if the sequences are equal, or a positive number if this sequence is greater than the other sequence.</returns>
+        public static int SequenceCompare<T>(this IEnumerable<T> source, IEnumerable<T> other, Func<T, T, int> comparer)
+        {
+            return new SequenceComparer<T>(new AnonymousComparer<T> { Compare = comparer }).Compare(source, other);
         }
 
         /// <summary>

@@ -11,7 +11,7 @@ namespace Nito.Linq
     /// An object that implements <see cref="IComparer{T}"/> using a delegate. <see cref="Compare"/> must be set before using an instance of this class.
     /// </summary>
     /// <typeparam name="T">The type of items to compare.</typeparam>
-    public sealed class AnonymousComparer<T> : IComparer<T>
+    internal sealed class AnonymousComparer<T> : IComparer<T>
     {
         /// <summary>
         /// Gets or sets the Compare delegate, which compares two objects and returns a value less than 0 if its first argument is less than its second argument, 0 if its two arguments are equal, or greater than 0 if its first argument is greater than its second argument.
