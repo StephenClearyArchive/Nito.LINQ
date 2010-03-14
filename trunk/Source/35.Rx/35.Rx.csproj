@@ -79,9 +79,6 @@
     <Compile Include="..\Sources\Implementation.SortedListWrapper.cs">
       <Link>Implementation.SortedListWrapper.cs</Link>
     </Compile>
-    <Compile Include="..\Sources\LinkedListExtensions.cs">
-      <Link>LinkedListExtensions.cs</Link>
-    </Compile>
     <Compile Include="..\Sources\ListExtensions.ConcatList.cs">
       <Link>ListExtensions.ConcatList.cs</Link>
     </Compile>
@@ -132,9 +129,6 @@
     </Compile>
     <Compile Include="..\Sources\SortedListSource.cs">
       <Link>SortedListSource.cs</Link>
-    </Compile>
-    <Compile Include="..\Sources\StringExtensions.cs">
-      <Link>StringExtensions.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
