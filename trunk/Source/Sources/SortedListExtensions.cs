@@ -7,6 +7,7 @@ namespace Nito.Linq
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Nito.Linq.Implementation;
 
     /// <summary>
     /// Represents a list that is sorted by a single comparison.
@@ -41,7 +42,7 @@ namespace Nito.Linq
         /// <returns>The sorted list.</returns>
         public static ISortedList<T> AsSorted<T>(this IList<T> list, IComparer<T> comparer)
         {
-            return new Implementation.SortedListWrapper<T>(list, comparer);
+            return new SortedListWrapper<T>(list, comparer);
         }
 
         /// <summary>
@@ -52,7 +53,7 @@ namespace Nito.Linq
         /// <returns>The sorted list.</returns>
         public static ISortedList<T> AsSorted<T>(this IList<T> list)
         {
-            return new Implementation.SortedListWrapper<T>(list, Comparer<T>.Default);
+            return new SortedListWrapper<T>(list, Comparer<T>.Default);
         }
 
         /// <summary>
@@ -64,7 +65,7 @@ namespace Nito.Linq
         /// <returns>The sorted list.</returns>
         public static ISortedList<T> AsSorted<T>(this IList<T> list, Func<T, T, int> comparer)
         {
-            return new Implementation.SortedListWrapper<T>(list, new AnonymousComparer<T> { Compare = comparer });
+            return new SortedListWrapper<T>(list, new AnonymousComparer<T> { Compare = comparer });
         }
 
         /// <summary>
@@ -75,7 +76,7 @@ namespace Nito.Linq
         /// <returns>The sorted list.</returns>
         public static ISortedList<T> ToSortedList<T>(this ISortedEnumerable<T> source)
         {
-            return new Implementation.SortedListWrapper<T>(source.ToList(), source.Comparer);
+            return new SortedListWrapper<T>(source.ToList(), source.Comparer);
         }
 
         /// <summary>
@@ -87,7 +88,7 @@ namespace Nito.Linq
         public static ISortedList<T> Reverse<T>(this ISortedList<T> list)
         {
             // Reverse the list and its comparison object
-            return new Implementation.SortedListWrapper<T>(ListExtensions.Reverse(list), new AnonymousComparer<T> { Compare = (x, y) => list.Comparer.Compare(y, x) });
+            return new SortedListWrapper<T>(ListExtensions.Reverse(list), new AnonymousComparer<T> { Compare = (x, y) => list.Comparer.Compare(y, x) });
         }
 
         /// <summary>
@@ -99,7 +100,7 @@ namespace Nito.Linq
         /// <returns>A list that is a slice of the source list.</returns>
         public static ISortedList<T> Skip<T>(this ISortedList<T> list, int offset)
         {
-            return new Implementation.SortedListWrapper<T>(ListExtensions.Skip(list, offset), list.Comparer);
+            return new SortedListWrapper<T>(ListExtensions.Skip(list, offset), list.Comparer);
         }
 
         /// <summary>
@@ -112,7 +113,7 @@ namespace Nito.Linq
         /// <returns>A list that is a slice of the source list.</returns>
         public static ISortedList<T> Slice<T>(this ISortedList<T> list, int offset, int count)
         {
-            return new Implementation.SortedListWrapper<T>(ListExtensions.Slice(list, offset, count), list.Comparer);
+            return new SortedListWrapper<T>(ListExtensions.Slice(list, offset, count), list.Comparer);
         }
 
         /// <summary>
@@ -124,7 +125,7 @@ namespace Nito.Linq
         /// <returns>The stepped list.</returns>
         public static ISortedList<T> Step<T>(this ISortedList<T> list, int step)
         {
-            return new Implementation.SortedListWrapper<T>(ListExtensions.Step(list, step), list.Comparer);
+            return new SortedListWrapper<T>(ListExtensions.Step(list, step), list.Comparer);
         }
 
         /// <summary>
@@ -136,7 +137,7 @@ namespace Nito.Linq
         /// <returns>A list that is a slice of the source list.</returns>
         public static ISortedList<T> Take<T>(this ISortedList<T> list, int count)
         {
-            return new Implementation.SortedListWrapper<T>(ListExtensions.Take(list, count), list.Comparer);
+            return new SortedListWrapper<T>(ListExtensions.Take(list, count), list.Comparer);
         }
 
         /// <summary>
