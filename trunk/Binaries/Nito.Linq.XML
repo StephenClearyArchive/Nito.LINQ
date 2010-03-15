@@ -1909,6 +1909,24 @@
             <param name="count">The number of elements in the list. If <paramref name="count"/> is less than or equal to 0, an empty list is returned.</param>
             <returns>A read-only list that generates its elements on demand.</returns>
         </member>
+        <member name="M:Nito.Linq.ListSource.Generate``1(System.Func{``0},System.Func{System.Int32})">
+            <summary>
+            Returns a read-only list of dynamic size that generates its elements when they are read.
+            </summary>
+            <typeparam name="T">The type of elements in the list.</typeparam>
+            <param name="generator">The delegate that is used to generate the elements. This may be <c>null</c> if <paramref name="count"/> is less than or equal to 0.</param>
+            <param name="counter">The delegate that is used to count the number of elements in the list.</param>
+            <returns>A read-only list that generates its elements on demand.</returns>
+        </member>
+        <member name="M:Nito.Linq.ListSource.Generate``1(System.Func{System.Int32,``0},System.Func{System.Int32})">
+            <summary>
+            Returns a read-only list of dynamic size that generates its elements when they are read, passing the element's index to the generator delegate.
+            </summary>
+            <typeparam name="T">The type of elements in the list.</typeparam>
+            <param name="generator">The delegate that is used to generate the elements. This may be <c>null</c> if <paramref name="count"/> is less than or equal to 0.</param>
+            <param name="counter">The delegate that is used to count the number of elements in the list.</param>
+            <returns>A read-only list that generates its elements on demand.</returns>
+        </member>
         <member name="T:Nito.Linq.Implementation.SortedListWrapper`1">
             <summary>
             Wraps a source list and comparison object.
