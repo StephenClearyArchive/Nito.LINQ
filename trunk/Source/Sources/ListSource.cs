@@ -83,5 +83,29 @@ namespace Nito.Linq
 
             return new Implementation.AnonymousReadOnlyList<T>(generator, () => count);
         }
+
+        /// <summary>
+        /// Returns a read-only list of dynamic size that generates its elements when they are read.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the list.</typeparam>
+        /// <param name="generator">The delegate that is used to generate the elements. This may be <c>null</c> if <paramref name="count"/> is less than or equal to 0.</param>
+        /// <param name="counter">The delegate that is used to count the number of elements in the list.</param>
+        /// <returns>A read-only list that generates its elements on demand.</returns>
+        public static IList<T> Generate<T>(Func<T> generator, Func<int> counter)
+        {
+            return new Implementation.AnonymousReadOnlyList<T>(_ => generator(), counter);
+        }
+
+        /// <summary>
+        /// Returns a read-only list of dynamic size that generates its elements when they are read, passing the element's index to the generator delegate.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the list.</typeparam>
+        /// <param name="generator">The delegate that is used to generate the elements. This may be <c>null</c> if <paramref name="count"/> is less than or equal to 0.</param>
+        /// <param name="counter">The delegate that is used to count the number of elements in the list.</param>
+        /// <returns>A read-only list that generates its elements on demand.</returns>
+        public static IList<T> Generate<T>(Func<int, T> generator, Func<int> counter)
+        {
+            return new Implementation.AnonymousReadOnlyList<T>(generator, counter);
+        }
     }
 }
