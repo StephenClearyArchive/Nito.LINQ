@@ -150,6 +150,12 @@ namespace Nito.Linq
         /// <returns>The sorted list.</returns>
         public static ISortedList<T> Sort<T>(this IList<T> list, IComparer<T> comparer, params ListExtensions.ISwappable[] others)
         {
+            if (list.GetType().IsArray && others.Length == 0)
+            {
+                Array.Sort((T[])list, comparer);
+                return list.AsSorted(comparer);
+            }
+
             int count = list.Count;
             foreach (ListExtensions.ISwappable other in others)
             {
