@@ -1,3 +1,5 @@
+. Consider: index overloads for Do and Run
+
 . Put function overloads in for all generic interfaces such as IComparer, etc. (required when working with anonymous types).
 . For efficiency, have Sort pass off to Array.Sort whenever the IList<T> is an array.
 
