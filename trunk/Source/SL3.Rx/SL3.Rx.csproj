@@ -61,6 +61,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>Bin\Release\Nito.Linq.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.CoreEx, Version=1.0.2.5, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
