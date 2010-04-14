@@ -1,65 +1,47 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup Condition="'$(MSBuildToolsVersion)' == '3.5'">
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-  </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E8ACB0BF-C30A-4562-9098-CF189F4DFBC6}</ProjectGuid>
-    <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectGuid>{7A2D6B46-0D70-4868-93BA-DE1FEF492CD1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SL3.Rx</RootNamespace>
+    <RootNamespace>_40.NoRx</RootNamespace>
     <AssemblyName>Nito.Linq</AssemblyName>
-    <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
-    <SilverlightApplication>false</SilverlightApplication>
-    <ValidateXaml>true</ValidateXaml>
-    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
-    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
-    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-    <FileUpgradeFlags>0</FileUpgradeFlags>
-    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>Bin\Debug</OutputPath>
-    <DefineConstants>TRACE;DEBUG;SILVERLIGHT SILVERLIGHT3 WITHRX</DefineConstants>
-    <NoStdLib>true</NoStdLib>
-    <NoConfig>true</NoConfig>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET40</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>Bin\Release</OutputPath>
-    <DefineConstants>TRACE;SILVERLIGHT SILVERLIGHT3 WITHRX</DefineConstants>
-    <NoStdLib>true</NoStdLib>
-    <NoConfig>true</NoConfig>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NET40</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>Bin\Release\Nito.Linq.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Nito.Linq.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System.CoreEx, Version=1.0.2.5, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Interactive, Version=1.0.2.5, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Windows" />
-    <Reference Include="mscorlib" />
-    <Reference Include="system" />
+    <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Net" />
-    <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Sources\AnonymousComparer.cs">
-      <Link>AnonymousComparer.cs</Link>
-    </Compile>
     <Compile Include="..\Sources\AnonymousEnumerable.cs">
       <Link>AnonymousEnumerable.cs</Link>
     </Compile>
@@ -69,8 +51,14 @@
     <Compile Include="..\Sources\EnumerableSource.cs">
       <Link>EnumerableSource.cs</Link>
     </Compile>
+    <Compile Include="..\Sources\Implementation.AnonymousComparer.cs">
+      <Link>Implementation.AnonymousComparer.cs</Link>
+    </Compile>
     <Compile Include="..\Sources\Implementation.AnonymousReadOnlyList.cs">
       <Link>Implementation.AnonymousReadOnlyList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Implementation.IndirectList.cs">
+      <Link>Implementation.IndirectList.cs</Link>
     </Compile>
     <Compile Include="..\Sources\Implementation.ListBase.cs">
       <Link>Implementation.ListBase.cs</Link>
@@ -86,12 +74,6 @@
     </Compile>
     <Compile Include="..\Sources\Implementation.SortedListWrapper.cs">
       <Link>Implementation.SortedListWrapper.cs</Link>
-    </Compile>
-    <Compile Include="..\Sources\IndirectList.cs">
-      <Link>IndirectList.cs</Link>
-    </Compile>
-    <Compile Include="..\Sources\LinkedListExtensions.cs">
-      <Link>LinkedListExtensions.cs</Link>
     </Compile>
     <Compile Include="..\Sources\ListExtensions.ConcatList.cs">
       <Link>ListExtensions.ConcatList.cs</Link>
@@ -144,12 +126,9 @@
     <Compile Include="..\Sources\SortedListSource.cs">
       <Link>SortedListSource.cs</Link>
     </Compile>
-    <Compile Include="..\Sources\StringExtensions.cs">
-      <Link>StringExtensions.cs</Link>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -157,11 +136,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ProjectExtensions>
-    <VisualStudio>
-      <FlavorProperties GUID="{A1591282-1198-4647-A2B1-27E5FF5F6F3B}">
-        <SilverlightProjectProperties />
-      </FlavorProperties>
-    </VisualStudio>
-  </ProjectExtensions>
 </Project>

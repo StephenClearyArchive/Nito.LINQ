@@ -113,6 +113,7 @@ namespace Nito.Linq
             }
         }
 
+#if !NET40
         /// <summary>
         /// Combines two source sequences into a result sequence. If the source sequences are of different lengths, the resulting sequence has a length equal to the smaller of the two. Identical to Rx's <c>EnumerableEx.Zip</c>.
         /// </summary>
@@ -133,6 +134,7 @@ namespace Nito.Linq
                 yield return zipper(firstEnumerator.Current, secondEnumerator.Current);
             }
         }
+#endif
 
         /// <summary>
         /// Repeats another sequence once for each element of this sequence, and flattens the results.
