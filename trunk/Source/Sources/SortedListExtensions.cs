@@ -556,7 +556,7 @@ namespace Nito.Linq
         }
 
         /// <summary>
-        /// Sorts a portion of a list. The range to sort is [<paramref name="left"/>, <paramref name="right"/>).
+        /// Sorts a portion of a list. The range to sort is [<paramref name="begin"/>, <paramref name="end"/>).
         /// </summary>
         /// <typeparam name="T">The type of items in the list.</typeparam>
         /// <param name="parameters">The source list, comparison object, and other lists that must be kept in sync.</param>
