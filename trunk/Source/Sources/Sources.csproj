@@ -15,8 +15,25 @@
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\Certificates\Code.pfx</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
-    <FileUpgradeFlags>0</FileUpgradeFlags>
-    <OldToolsVersion>3.5</OldToolsVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>http://localhost/Nito.Linq.Test/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,6 +71,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="Implementation.AnonymousComparer.cs" />
+    <Compile Include="Implementation.IndirectList.cs" />
     <Compile Include="Implementation.ListBase.cs" />
     <Compile Include="Implementation.ListHelper.cs" />
     <Compile Include="Implementation.ReadOnlyListBase.cs" />
@@ -65,17 +84,13 @@
     <Compile Include="ListExtensions.StepList.cs" />
     <Compile Include="SortedListExtensions.cs" />
     <Compile Include="Properties\AssemblySharedInfo.cs" />
-    <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnonymousComparer.cs" />
     <Compile Include="AnonymousEnumerable.cs" />
     <Compile Include="EnumerableSource.cs" />
     <Compile Include="ListSource.cs" />
     <Compile Include="Properties\AssemblyVersion.cs" />
     <Compile Include="SequenceComparer.cs" />
-    <Compile Include="IndirectList.cs" />
-    <Compile Include="LinkedListExtensions.cs" />
     <Compile Include="ListExtensions.Swappable.cs" />
     <Compile Include="SortedEnumerableExtensions.cs" />
     <Compile Include="SortedEnumerableSource.cs" />
@@ -89,6 +104,23 @@
     <Compile Include="Implementation.SortedListWrapper.cs" />
     <Compile Include="ListExtensions.ConcreteList.cs" />
     <Compile Include="ListExtensions.GenericList.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
