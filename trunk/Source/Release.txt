@@ -2,5 +2,4 @@ To create a new release of Nito.Linq:
 1) Set version number in AssemblyVersion.
 2) Build all binaries in Release mode.
 3) Run all unit tests.
-4) Copy binaries to Binaries folder.
-5) Checkin and create new CodePlex release.
+4) Checkin entire project and create new CodePlex release.
