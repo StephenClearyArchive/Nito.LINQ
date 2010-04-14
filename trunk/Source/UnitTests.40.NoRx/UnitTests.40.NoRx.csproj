@@ -45,23 +45,23 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\UnitTests.Sources\EnumerableExtensionsUnitTests.cs">
-      <Link>EnumerableExtensionsUnitTests.cs</Link>
+    <Compile Include="..\UnitTests.Templates\EnumerableExtensionsUnitTests.NoRx.cs">
+      <Link>EnumerableExtensionsUnitTests.NoRx.cs</Link>
     </Compile>
-    <Compile Include="..\UnitTests.Sources\ListBaseUnitTests.cs">
-      <Link>ListBaseUnitTests.cs</Link>
+    <Compile Include="..\UnitTests.Templates\ListBaseUnitTests.NoRx.cs">
+      <Link>ListBaseUnitTests.NoRx.cs</Link>
     </Compile>
-    <Compile Include="..\UnitTests.Sources\ListExtensionsUnitTests.cs">
-      <Link>ListExtensionsUnitTests.cs</Link>
+    <Compile Include="..\UnitTests.Templates\ListExtensionsUnitTests.NoRx.cs">
+      <Link>ListExtensionsUnitTests.NoRx.cs</Link>
     </Compile>
-    <Compile Include="..\UnitTests.Sources\SequenceComparerUnitTests.cs">
-      <Link>SequenceComparerUnitTests.cs</Link>
+    <Compile Include="..\UnitTests.Templates\SequenceComparerUnitTests.NoRx.cs">
+      <Link>SequenceComparerUnitTests.NoRx.cs</Link>
     </Compile>
-    <Compile Include="..\UnitTests.Sources\SortedEnumerableExtensionsUnitTests.cs">
-      <Link>SortedEnumerableExtensionsUnitTests.cs</Link>
+    <Compile Include="..\UnitTests.Templates\SortedEnumerableExtensionsUnitTests.NoRx.cs">
+      <Link>SortedEnumerableExtensionsUnitTests.NoRx.cs</Link>
     </Compile>
-    <Compile Include="..\UnitTests.Sources\SortedListExtensionsUnitTests.cs">
-      <Link>SortedListExtensionsUnitTests.cs</Link>
+    <Compile Include="..\UnitTests.Templates\SortedListExtensionsUnitTests.NoRx.cs">
+      <Link>SortedListExtensionsUnitTests.NoRx.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
