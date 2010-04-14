@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace UnitTests
 {
-    public class SortedEnumerableExtensionsUnitTests
+    public partial class Tests
     {
         [TestMethod]
         public void Enumerable_IsSorted_EmptySequence_IsTrue()

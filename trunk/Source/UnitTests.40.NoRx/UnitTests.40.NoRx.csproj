@@ -3,20 +3,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>
+    </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{823BDC14-44EF-4947-BA55-17A0A527C34E}</ProjectGuid>
+    <ProjectGuid>{ACD263B7-19EA-4021-9A93-B58A471EFF3E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTests._35.NoRx</RootNamespace>
-    <AssemblyName>UnitTests.35.NoRx</AssemblyName>
+    <RootNamespace>UnitTests._40.NoRx</RootNamespace>
+    <AssemblyName>UnitTests.40.NoRx</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <OldToolsVersion>4.0</OldToolsVersion>
-    <UpgradeBackupLocation />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,18 +38,15 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\UnitTests.Sources\AnonymousUnitTests.cs">
-      <Link>AnonymousUnitTests.cs</Link>
-    </Compile>
+    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
+      <Visible>False</Visible>
+    </CodeAnalysisDependentAssemblyPaths>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="..\UnitTests.Sources\EnumerableExtensionsUnitTests.cs">
       <Link>EnumerableExtensionsUnitTests.cs</Link>
-    </Compile>
-    <Compile Include="..\UnitTests.Sources\LinkedListExtensionsUnitTests.cs">
-      <Link>LinkedListExtensionsUnitTests.cs</Link>
     </Compile>
     <Compile Include="..\UnitTests.Sources\ListBaseUnitTests.cs">
       <Link>ListBaseUnitTests.cs</Link>
@@ -69,16 +63,12 @@
     <Compile Include="..\UnitTests.Sources\SortedListExtensionsUnitTests.cs">
       <Link>SortedListExtensionsUnitTests.cs</Link>
     </Compile>
-    <Compile Include="..\UnitTests.Sources\StringExtensionsUnitTests.cs">
-      <Link>StringExtensionsUnitTests.cs</Link>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestHolder.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\35.NoRx\35.NoRx.csproj">
-      <Project>{63C2D5C8-063B-417F-B612-A8B9FBA69856}</Project>
-      <Name>35.NoRx</Name>
+    <ProjectReference Include="..\40.NoRx\40.NoRx.csproj">
+      <Project>{7A2D6B46-0D70-4868-93BA-DE1FEF492CD1}</Project>
+      <Name>40.NoRx</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

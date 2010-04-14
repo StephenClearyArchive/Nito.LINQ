@@ -2,4 +2,8 @@
 TestResults
 </Value></Property><Property><Name>svn:ignore</Name><Value>*.suo
 TestResults
+</Value></Property><Property><Name>svn:ignore</Name><Value>*.suo
+TestResults
+_ReSharper.Nito.Linq
+*.user
 </Value></Property></Properties></ItemProperties>

@@ -7,6 +7,7 @@ using Nito.Linq;
 
 namespace UnitTests
 {
+    [TestClass]
     public partial class Tests
     {
         [TestMethod]
