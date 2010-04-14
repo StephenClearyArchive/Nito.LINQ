@@ -34,7 +34,7 @@
     <DefineConstants>TRACE;NET35 WITHRX</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Nito.Linq.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Nito.Linq.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
