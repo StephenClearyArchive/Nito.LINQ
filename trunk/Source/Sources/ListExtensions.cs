@@ -30,7 +30,7 @@ namespace Nito.Linq
         /// </summary>
         /// <typeparam name="T">The type of elements in the list.</typeparam>
         /// <param name="list">The non-generic source list to cast or wrap.</param>
-        /// <param name="isReadOnly">Whether the wrapper should return <c>true</c> for <see cref="IList{T}.IsReadOnly"/>, if a wrapper is used.</param>
+        /// <param name="isReadOnly">Whether the wrapper should return <c>true</c> for <see cref="ICollection{T}.IsReadOnly"/>, if a wrapper is used.</param>
         /// <returns>The source list, if it implements <see cref="IList{T}"/>; otherwise, a wrapper around the source list.</returns>
         public static IList<T> AsList<T>(this System.Collections.IList list, bool isReadOnly)
         {
@@ -44,7 +44,7 @@ namespace Nito.Linq
         }
 
         /// <summary>
-        /// Casts or converts a non-generic <see cref="System.Collections.IList"/> object into a strongly-typed list. If a wrapper is used, then the wrapper will return <c>true</c> for <see cref="IList{T}.IsReadOnly"/>.
+        /// Casts or converts a non-generic <see cref="System.Collections.IList"/> object into a strongly-typed list. If a wrapper is used, then the wrapper will return <c>true</c> for <see cref="ICollection{T}.IsReadOnly"/>.
         /// </summary>
         /// <typeparam name="T">The type of elements in the list.</typeparam>
         /// <param name="list">The non-generic source list to cast or wrap.</param>

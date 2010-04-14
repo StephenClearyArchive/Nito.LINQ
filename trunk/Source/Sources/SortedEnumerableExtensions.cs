@@ -82,7 +82,7 @@ namespace Nito.Linq
         /// <summary>
         /// Returns the source typed as <see cref="ISortedEnumerable{T}"/>. This method has no effect other than to restrict the compile-time type of an object implementing <see cref="ISortedEnumerable{T}"/>.
         /// </summary>
-        /// <typeparam name="T">The type of the elements of <paramref name="list"/>.</typeparam>
+        /// <typeparam name="T">The type of the elements of <paramref name="source"/>.</typeparam>
         /// <param name="source">The source sequence.</param>
         /// <returns>The source sequence, typed as <see cref="ISortedEnumerable{T}"/>.</returns>
         public static ISortedEnumerable<T> AsSortedEnumerable<T>(this ISortedEnumerable<T> source)
