@@ -1,4 +1,0 @@
-Nito Linq
-0.2, 2010-03-15
-
-http://nitolinq.codeplex.com/
