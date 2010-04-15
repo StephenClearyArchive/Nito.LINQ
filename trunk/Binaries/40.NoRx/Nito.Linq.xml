@@ -2939,6 +2939,24 @@
             <param name="accumulator">The accumulator delegate. The first parameter passed to the accumulator delegate is the previous intermediate result; the second parameter is the current element of the source sequence.</param>
             <returns>The results of the accumulator delegate.</returns>
         </member>
+        <member name="M:Nito.Linq.EnumerableExtensions.Min``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Returns the smallest item in a sequence, according to the provided comparison object.
+            </summary>
+            <typeparam name="T">The type of elements in the sequence.</typeparam>
+            <param name="source">The source sequence to search.</param>
+            <param name="comparer">The comparison object.</param>
+            <returns>The smallest item in the sequence, or the default value of <typeparamref name="T"/> if the sequence is empty.</returns>
+        </member>
+        <member name="M:Nito.Linq.EnumerableExtensions.Max``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Returns the largest item in a sequence, according to the provided comparison object.
+            </summary>
+            <typeparam name="T">The type of elements in the sequence.</typeparam>
+            <param name="source">The source sequence to search.</param>
+            <param name="comparer">The comparison object.</param>
+            <returns>The largest item in the sequence, or the default value of <typeparamref name="T"/> if the sequence is empty.</returns>
+        </member>
         <member name="M:Nito.Linq.EnumerableExtensions.Concat``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0}[])">
             <summary>
             Concatenates the specified sequences. Similar to <see cref="M:System.Linq.Enumerable.Concat``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})"/>, except this method allows any number of sequences to be concatenated. Similar to Rx's <c>EnumerableEx.Concat</c>, except this method is an extension method.
@@ -3052,15 +3070,6 @@
             <param name="comparer">The comparison delegate.</param>
             <returns>The index of the smallest item in the sequence, or -1 if the sequence is empty.</returns>
         </member>
-        <member name="M:Nito.Linq.EnumerableExtensions.Min``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IComparer{``0})">
-            <summary>
-            Returns the smallest item in a sequence, according to the provided comparison object.
-            </summary>
-            <typeparam name="T">The type of elements in the sequence.</typeparam>
-            <param name="source">The source sequence to search.</param>
-            <param name="comparer">The comparison object.</param>
-            <returns>The smallest item in the sequence, or the default value of <typeparamref name="T"/> if the sequence is empty.</returns>
-        </member>
         <member name="M:Nito.Linq.EnumerableExtensions.Min``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``0,System.Int32})">
             <summary>
             Returns the smallest item in a sequence, according to the provided comparison delegate.
@@ -3095,15 +3104,6 @@
             <param name="source">The source sequence to search.</param>
             <param name="comparer">The comparison delegate.</param>
             <returns>The index of the largest item in the sequence, or -1 if the sequence is empty.</returns>
-        </member>
-        <member name="M:Nito.Linq.EnumerableExtensions.Max``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IComparer{``0})">
-            <summary>
-            Returns the largest item in a sequence, according to the provided comparison object.
-            </summary>
-            <typeparam name="T">The type of elements in the sequence.</typeparam>
-            <param name="source">The source sequence to search.</param>
-            <param name="comparer">The comparison object.</param>
-            <returns>The largest item in the sequence, or the default value of <typeparamref name="T"/> if the sequence is empty.</returns>
         </member>
         <member name="M:Nito.Linq.EnumerableExtensions.Max``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``0,System.Int32})">
             <summary>
