@@ -2936,15 +2936,6 @@
             <param name="comparer">The comparison delegate.</param>
             <returns>The index of the smallest item in the sequence, or -1 if the sequence is empty.</returns>
         </member>
-        <member name="M:Nito.Linq.EnumerableExtensions.Min``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IComparer{``0})">
-            <summary>
-            Returns the smallest item in a sequence, according to the provided comparison object.
-            </summary>
-            <typeparam name="T">The type of elements in the sequence.</typeparam>
-            <param name="source">The source sequence to search.</param>
-            <param name="comparer">The comparison object.</param>
-            <returns>The smallest item in the sequence, or the default value of <typeparamref name="T"/> if the sequence is empty.</returns>
-        </member>
         <member name="M:Nito.Linq.EnumerableExtensions.Min``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``0,System.Int32})">
             <summary>
             Returns the smallest item in a sequence, according to the provided comparison delegate.
@@ -2979,15 +2970,6 @@
             <param name="source">The source sequence to search.</param>
             <param name="comparer">The comparison delegate.</param>
             <returns>The index of the largest item in the sequence, or -1 if the sequence is empty.</returns>
-        </member>
-        <member name="M:Nito.Linq.EnumerableExtensions.Max``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IComparer{``0})">
-            <summary>
-            Returns the largest item in a sequence, according to the provided comparison object.
-            </summary>
-            <typeparam name="T">The type of elements in the sequence.</typeparam>
-            <param name="source">The source sequence to search.</param>
-            <param name="comparer">The comparison object.</param>
-            <returns>The largest item in the sequence, or the default value of <typeparamref name="T"/> if the sequence is empty.</returns>
         </member>
         <member name="M:Nito.Linq.EnumerableExtensions.Max``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``0,System.Int32})">
             <summary>
