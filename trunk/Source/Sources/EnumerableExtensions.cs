@@ -212,6 +212,53 @@ namespace Nito.Linq
 
             return EnumerableSource.Return(seed).Concat(scan);
         }
+
+        /// <summary>
+        /// Returns the smallest item in a sequence, according to the provided comparison object.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="source">The source sequence to search.</param>
+        /// <param name="comparer">The comparison object.</param>
+        /// <returns>The smallest item in the sequence, or the default value of <typeparamref name="T"/> if the sequence is empty.</returns>
+        public static T Min<T>(this IEnumerable<T> source, IComparer<T> comparer)
+        {
+            T min = default(T);
+            bool minHasValue = false;
+            foreach (T item in source)
+            {
+                if (!minHasValue)
+                {
+                    min = item;
+                    minHasValue = true;
+                }
+                else
+                {
+                    if (comparer.Compare(item, min) < 0)
+                    {
+                        min = item;
+                    }
+                }
+            }
+
+            if (!minHasValue)
+            {
+                throw new InvalidOperationException("Cannot take minimum or maximum of empty sequence.");
+            }
+
+            return min;
+        }
+
+        /// <summary>
+        /// Returns the largest item in a sequence, according to the provided comparison object.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="source">The source sequence to search.</param>
+        /// <param name="comparer">The comparison object.</param>
+        /// <returns>The largest item in the sequence, or the default value of <typeparamref name="T"/> if the sequence is empty.</returns>
+        public static T Max<T>(this IEnumerable<T> source, IComparer<T> comparer)
+        {
+            return Min(source, new AnonymousComparer<T> { Compare = (x, y) => comparer.Compare(y, x) });
+        }
 #endif
 
         /// <summary>
@@ -428,36 +475,6 @@ namespace Nito.Linq
         }
 
         /// <summary>
-        /// Returns the smallest item in a sequence, according to the provided comparison object.
-        /// </summary>
-        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
-        /// <param name="source">The source sequence to search.</param>
-        /// <param name="comparer">The comparison object.</param>
-        /// <returns>The smallest item in the sequence, or the default value of <typeparamref name="T"/> if the sequence is empty.</returns>
-        public static T Min<T>(this IEnumerable<T> source, IComparer<T> comparer)
-        {
-            T min = default(T);
-            bool minHasValue = false;
-            foreach (T item in source)
-            {
-                if (!minHasValue)
-                {
-                    min = item;
-                    minHasValue = true;
-                }
-                else
-                {
-                    if (comparer.Compare(item, min) < 0)
-                    {
-                        min = item;
-                    }
-                }
-            }
-
-            return min;
-        }
-
-        /// <summary>
         /// Returns the smallest item in a sequence, according to the provided comparison delegate.
         /// </summary>
         /// <typeparam name="T">The type of elements in the sequence.</typeparam>
@@ -466,7 +483,7 @@ namespace Nito.Linq
         /// <returns>The smallest item in the sequence, or the default value of <typeparamref name="T"/> if the sequence is empty.</returns>
         public static T Min<T>(this IEnumerable<T> source, Func<T, T, int> comparer)
         {
-            return Min(source, new AnonymousComparer<T> { Compare = comparer });
+            return source.Min(new AnonymousComparer<T> { Compare = comparer });
         }
 
         /// <summary>
@@ -506,18 +523,6 @@ namespace Nito.Linq
         }
 
         /// <summary>
-        /// Returns the largest item in a sequence, according to the provided comparison object.
-        /// </summary>
-        /// <typeparam name="T">The type of elements in the sequence.</typeparam>
-        /// <param name="source">The source sequence to search.</param>
-        /// <param name="comparer">The comparison object.</param>
-        /// <returns>The largest item in the sequence, or the default value of <typeparamref name="T"/> if the sequence is empty.</returns>
-        public static T Max<T>(this IEnumerable<T> source, IComparer<T> comparer)
-        {
-            return Min(source, new AnonymousComparer<T> { Compare = (x, y) => comparer.Compare(y, x) });
-        }
-
-        /// <summary>
         /// Returns the largest item in a sequence, according to the provided comparison delegate.
         /// </summary>
         /// <typeparam name="T">The type of elements in the sequence.</typeparam>
@@ -526,7 +531,7 @@ namespace Nito.Linq
         /// <returns>The largest item in the sequence, or the default value of <typeparamref name="T"/> if the sequence is empty.</returns>
         public static T Max<T>(this IEnumerable<T> source, Func<T, T, int> comparer)
         {
-            return Min(source, new AnonymousComparer<T> { Compare = (x, y) => comparer(y, x) });
+            return source.Min(new AnonymousComparer<T> { Compare = (x, y) => comparer(y, x) });
         }
 
         /// <summary>

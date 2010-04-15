@@ -413,11 +413,11 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Enumerable_Min_WithEmptySequence_ReturnsDefaultValue()
+        [ExpectedException(typeof(InvalidOperationException), "Minimum element of an empty sequence should fail.")]
+        public void Enumerable_Min_WithEmptySequence_ThrowsInvalidOperationException()
         {
             IEnumerable<int> source = new List<int> { };
             int result = source.Min(Comparer<int>.Default);
-            Assert.AreEqual(0, result, "Minimum element of an empty sequence should not be found.");
         }
 
         [TestMethod]
@@ -445,11 +445,11 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Enumerable_Max_WithEmptySequence_ReturnsDefaultValue()
+        [ExpectedException(typeof(InvalidOperationException), "Maximum element of an empty sequence should fail.")]
+        public void Enumerable_Max_WithEmptySequence_ThrowsInvalidOperationException()
         {
             IEnumerable<int> source = new List<int> { };
             int result = source.Max(Comparer<int>.Default);
-            Assert.AreEqual(0, result, "Maximum element of an empty sequence should not be found.");
         }
 
         [TestMethod]

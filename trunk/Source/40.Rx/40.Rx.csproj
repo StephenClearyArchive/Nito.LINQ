@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{01B0291D-5426-4A3D-A351-469084B8AFDB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>_40.Rx</RootNamespace>
+    <AssemblyName>Nito.Linq</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET40 WITHRX</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Binaries\40.Rx\</OutputPath>
+    <DefineConstants>TRACE;NET40 WITHRX</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\Binaries\40.Rx\Nito.Linq.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.CoreEx, Version=1.0.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Interactive, Version=1.0.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Sources\AnonymousEnumerable.cs">
+      <Link>AnonymousEnumerable.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\EnumerableExtensions.cs">
+      <Link>EnumerableExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\EnumerableSource.cs">
+      <Link>EnumerableSource.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Implementation.AnonymousComparer.cs">
+      <Link>Implementation.AnonymousComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Implementation.AnonymousReadOnlyList.cs">
+      <Link>Implementation.AnonymousReadOnlyList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Implementation.IndirectList.cs">
+      <Link>Implementation.IndirectList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Implementation.ListBase.cs">
+      <Link>Implementation.ListBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Implementation.ListHelper.cs">
+      <Link>Implementation.ListHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Implementation.ReadOnlyListBase.cs">
+      <Link>Implementation.ReadOnlyListBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Implementation.SortedEnumerableWrapper.cs">
+      <Link>Implementation.SortedEnumerableWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Implementation.SortedListWrapper.cs">
+      <Link>Implementation.SortedListWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.ConcatList.cs">
+      <Link>ListExtensions.ConcatList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.ConcreteList.cs">
+      <Link>ListExtensions.ConcreteList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.cs">
+      <Link>ListExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.GenericList.cs">
+      <Link>ListExtensions.GenericList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.ReadWriteProjectList.cs">
+      <Link>ListExtensions.ReadWriteProjectList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.ReverseList.cs">
+      <Link>ListExtensions.ReverseList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.SliceList.cs">
+      <Link>ListExtensions.SliceList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.StepList.cs">
+      <Link>ListExtensions.StepList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListExtensions.Swappable.cs">
+      <Link>ListExtensions.Swappable.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\ListSource.cs">
+      <Link>ListSource.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Properties\AssemblySharedInfo.cs">
+      <Link>Properties\AssemblySharedInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Properties\AssemblyVersion.cs">
+      <Link>Properties\AssemblyVersion.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\SequenceComparer.cs">
+      <Link>SequenceComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\SortedEnumerableExtensions.cs">
+      <Link>SortedEnumerableExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\SortedEnumerableSource.cs">
+      <Link>SortedEnumerableSource.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\SortedListExtensions.cs">
+      <Link>SortedListExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\SortedListSource.cs">
+      <Link>SortedListSource.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
