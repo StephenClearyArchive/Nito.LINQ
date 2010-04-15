@@ -32,6 +32,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.40.NoRx", "UnitTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.Templates", "UnitTests.Templates\UnitTests.Templates.csproj", "{37DA2064-3C36-4ECB-8591-4A6559D765E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "40.Rx", "40.Rx\40.Rx.csproj", "{01B0291D-5426-4A3D-A351-469084B8AFDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.Rx", "UnitTests.Rx\UnitTests.Rx.csproj", "{42281CB7-6EB1-4F1C-89ED-2B83F957A05A}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Nito.Linq.vsmdi
@@ -77,6 +81,14 @@ Global
 		{37DA2064-3C36-4ECB-8591-4A6559D765E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37DA2064-3C36-4ECB-8591-4A6559D765E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37DA2064-3C36-4ECB-8591-4A6559D765E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01B0291D-5426-4A3D-A351-469084B8AFDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01B0291D-5426-4A3D-A351-469084B8AFDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01B0291D-5426-4A3D-A351-469084B8AFDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01B0291D-5426-4A3D-A351-469084B8AFDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42281CB7-6EB1-4F1C-89ED-2B83F957A05A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42281CB7-6EB1-4F1C-89ED-2B83F957A05A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42281CB7-6EB1-4F1C-89ED-2B83F957A05A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42281CB7-6EB1-4F1C-89ED-2B83F957A05A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -40,6 +40,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="SortedListExtensionsUnitTests.Rx.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SortedListExtensionsUnitTests.Rx.cs</LastGenOutput>
+    </None>
+    <None Include="SortedEnumerableExtensionsUnitTests.Rx.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SortedEnumerableExtensionsUnitTests.Rx.cs</LastGenOutput>
+    </None>
+    <None Include="SequenceComparerUnitTests.Rx.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SequenceComparerUnitTests.Rx.cs</LastGenOutput>
+    </None>
+    <None Include="ListExtensionsUnitTests.Rx.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ListExtensionsUnitTests.Rx.cs</LastGenOutput>
+    </None>
+    <None Include="ListBaseUnitTests.Rx.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ListBaseUnitTests.Rx.cs</LastGenOutput>
+    </None>
+    <None Include="EnumerableExtensionsUnitTests.Rx.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EnumerableExtensionsUnitTests.Rx.cs</LastGenOutput>
+    </None>
     <None Include="SortedListExtensionsUnitTests.NoRx.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -69,6 +93,36 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ListExtensionsUnitTests.NoRx.tt</DependentUpon>
+    </None>
+    <None Include="EnumerableExtensionsUnitTests.Rx.cs">
+      <DependentUpon>EnumerableExtensionsUnitTests.Rx.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </None>
+    <None Include="ListBaseUnitTests.Rx.cs">
+      <DependentUpon>ListBaseUnitTests.Rx.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </None>
+    <None Include="ListExtensionsUnitTests.Rx.cs">
+      <DependentUpon>ListExtensionsUnitTests.Rx.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </None>
+    <None Include="SequenceComparerUnitTests.Rx.cs">
+      <DependentUpon>SequenceComparerUnitTests.Rx.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </None>
+    <None Include="SortedEnumerableExtensionsUnitTests.Rx.cs">
+      <DependentUpon>SortedEnumerableExtensionsUnitTests.Rx.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </None>
+    <None Include="SortedListExtensionsUnitTests.Rx.cs">
+      <DependentUpon>SortedListExtensionsUnitTests.Rx.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </None>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="ListBaseUnitTests.NoRx.tt">
