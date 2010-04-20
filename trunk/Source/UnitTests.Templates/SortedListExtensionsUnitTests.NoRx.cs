@@ -36,6 +36,13 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void SortedList_EmptyWithDelegate_IsEmpty()
+        {
+            var result = SortedListSource.Empty<string>((x, y) => StringComparer.InvariantCultureIgnoreCase.Compare(y, x));
+            Assert.IsTrue(result.SequenceEqual(new string[] { }), "Empty should be empty.");
+        }
+
+        [TestMethod]
         public void SortedList_AsSortedList_ReturnsArgument()
         {
             ISortedList<int> test = new[] { 1, 2, 3, 4 }.AsSorted();
@@ -209,6 +216,15 @@ namespace UnitTests
             var sorted = source.AsSorted();
             int result = sorted.LastIndexOf("A");
             Assert.AreEqual(-1, result, "Item should not be found.");
+        }
+
+        [TestMethod]
+        public void SortedListByDelegate_BinarySearchOn3Items_ItemAt1_FindsItem()
+        {
+            IList<int> source = new[] { 5, 3, 1 };
+            var sorted = source.AsSorted((x, y) => Comparer<int>.Default.Compare(y, x));
+            int result = sorted.BinarySearch(3);
+            Assert.AreEqual(1, result, "BinarySearch should find second item in 3-item list.");
         }
 
         [TestMethod]
@@ -1362,10 +1378,60 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void SortedList_ReturnWithComparer_EnumeratesSingleItem()
+        {
+            int source = 13;
+            ISortedList<int> result = SortedListSource.Return(source, Comparer<int>.Default);
+            Assert.IsTrue(result.SequenceEqual(new[] { 13 }), "Item should be enumerated.");
+        }
+
+        [TestMethod]
+        public void SortedList_ReturnWithComparer_RemembersComparer()
+        {
+            var comparer = Comparer<int>.Default;
+            int source = 13;
+            ISortedList<int> result = SortedListSource.Return(source, Comparer<int>.Default);
+            Assert.AreEqual(comparer, result.Comparer, "Comparer should be remembered.");
+        }
+
+        [TestMethod]
+        public void SortedList_ReturnWithDelegate_EnumeratesSingleItem()
+        {
+            int source = 13;
+            ISortedList<int> result = SortedListSource.Return(source, (x, y) => Comparer<int>.Default.Compare(y, x));
+            Assert.IsTrue(result.SequenceEqual(new[] { 13 }), "Item should be enumerated.");
+        }
+
+        [TestMethod]
         public void SortedList_Repeat_EnumeratesRepeatedItem()
         {
             int source = 13;
             ISortedList<int> result = SortedListSource.Repeat(source, 3);
+            Assert.IsTrue(result.SequenceEqual(new[] { 13, 13, 13 }), "Item should be repeated.");
+        }
+
+        [TestMethod]
+        public void SortedList_RepeatWithComparer_EnumeratesRepeatedItem()
+        {
+            int source = 13;
+            ISortedList<int> result = SortedListSource.Repeat(source, Comparer<int>.Default, 3);
+            Assert.IsTrue(result.SequenceEqual(new[] { 13, 13, 13 }), "Item should be repeated.");
+        }
+
+        [TestMethod]
+        public void SortedList_RepeatWithComparer_RemembersComparer()
+        {
+            var comparer = Comparer<int>.Default;
+            int source = 13;
+            ISortedList<int> result = SortedListSource.Repeat(source, Comparer<int>.Default, 3);
+            Assert.AreEqual(comparer, result.Comparer, "Comparer should be remembered.");
+        }
+
+        [TestMethod]
+        public void SortedList_RepeatWithDelegate_EnumeratesRepeatedItem()
+        {
+            int source = 13;
+            ISortedList<int> result = SortedListSource.Repeat(source, (x, y) => Comparer<int>.Default.Compare(y, x), 3);
             Assert.IsTrue(result.SequenceEqual(new[] { 13, 13, 13 }), "Item should be repeated.");
         }
 
