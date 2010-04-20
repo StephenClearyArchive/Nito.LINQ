@@ -39,7 +39,7 @@ namespace Nito.Linq.Implementation
         /// <returns>The number of elements contained in this list.</returns>
         public override int Count
         {
-            get { return this.count(); }
+            get { return Math.Max(this.count(), 0); }
         }
 
         /// <summary>
