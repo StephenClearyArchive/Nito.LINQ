@@ -77,6 +77,13 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void SortedEnumerable_EmptyWithDelegate_IsEmpty()
+        {
+            ISortedEnumerable<string> sorted = SortedEnumerableSource.Empty<string>((x, y) => StringComparer.InvariantCultureIgnoreCase.Compare(y, x));
+            Assert.IsTrue(sorted.SequenceEqual(new string[] { }), "Empty should be empty.");
+        }
+
+        [TestMethod]
         public void Enumerable_AsSorted_RemembersComparer()
         {
             IEnumerable<string> source = new[] { "a", "b", "c" };
@@ -100,6 +107,38 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void Enumerable_AsSortedWithDelegate_EnumeratesIdenticalSequence()
+        {
+            IEnumerable<string> source = new[] { "a", "b", "c" };
+            var result = source.AsSorted((x, y) => StringComparer.InvariantCultureIgnoreCase.Compare(x, y));
+            Assert.IsTrue(result.SequenceEqual(new[] { "a", "b", "c" }), "AsSorted should not change the sequence.");
+        }
+
+        [TestMethod]
+        public void SortedList_AsSorted_EnumeratesIdenticalSequence()
+        {
+            SortedList<int, string> source = new SortedList<int, string>();
+            source.Add(0, "a");
+            source.Add(1, "c");
+            source.Add(2, "b");
+            ISortedEnumerable<KeyValuePair<int, string>> result = source.AsSorted();
+            Assert.IsTrue(result.SequenceEqual(new[] { new KeyValuePair<int, string>(0, "a"), new KeyValuePair<int, string>(1, "c"), new KeyValuePair<int, string>(2, "b") }), "AsSorted should not change the sequence.");
+            Assert.AreEqual(0, result.IndexOf(new KeyValuePair<int, string>(0, "a")), "Could not find item in sorted list.");
+        }
+
+        [TestMethod]
+        public void SortedDictionary_AsSorted_EnumeratesIdenticalSequence()
+        {
+            SortedDictionary<int, string> source = new SortedDictionary<int, string>();
+            source.Add(0, "a");
+            source.Add(1, "c");
+            source.Add(2, "b");
+            ISortedEnumerable<KeyValuePair<int, string>> result = source.AsSorted();
+            Assert.IsTrue(result.SequenceEqual(new[] { new KeyValuePair<int, string>(0, "a"), new KeyValuePair<int, string>(1, "c"), new KeyValuePair<int, string>(2, "b") }), "AsSorted should not change the sequence.");
+            Assert.AreEqual(0, result.IndexOf(new KeyValuePair<int, string>(0, "a")), "Could not find item in sorted dictionary.");
+        }
+
+        [TestMethod]
         public void SortedEnumerable_Return_EnumeratesSingleItem()
         {
             int source = 13;
@@ -108,10 +147,60 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void SortedEnumerable_ReturnWithComparer_EnumeratesSingleItem()
+        {
+            int source = 13;
+            ISortedEnumerable<int> result = SortedEnumerableSource.Return(source, Comparer<int>.Default);
+            Assert.IsTrue(result.SequenceEqual(new[] { 13 }), "Item should be enumerated.");
+        }
+
+        [TestMethod]
+        public void SortedEnumerable_ReturnWithComparer_RemembersComparer()
+        {
+            var comparer = Comparer<int>.Default;
+            int source = 13;
+            ISortedEnumerable<int> result = SortedEnumerableSource.Return(source, Comparer<int>.Default);
+            Assert.AreEqual(comparer, result.Comparer, "Comparer should be remembered.");
+        }
+
+        [TestMethod]
+        public void SortedEnumerable_ReturnWithDelegate_EnumeratesSingleItem()
+        {
+            int source = 13;
+            ISortedEnumerable<int> result = SortedEnumerableSource.Return(source, (x, y) => Comparer<int>.Default.Compare(y, x));
+            Assert.IsTrue(result.SequenceEqual(new[] { 13 }), "Item should be enumerated.");
+        }
+
+        [TestMethod]
         public void SortedEnumerable_Repeat_EnumeratesRepeatedItem()
         {
             int source = 13;
             ISortedEnumerable<int> result = SortedEnumerableSource.Repeat(source, 3);
+            Assert.IsTrue(result.SequenceEqual(new[] { 13, 13, 13 }), "Item should be repeated.");
+        }
+
+        [TestMethod]
+        public void SortedEnumerable_RepeatWithComparer_EnumeratesRepeatedItem()
+        {
+            int source = 13;
+            ISortedEnumerable<int> result = SortedEnumerableSource.Repeat(source, Comparer<int>.Default, 3);
+            Assert.IsTrue(result.SequenceEqual(new[] { 13, 13, 13 }), "Item should be repeated.");
+        }
+
+        [TestMethod]
+        public void SortedEnumerable_RepeatWithComparer_RemembersComparer()
+        {
+            var comparer = Comparer<int>.Default;
+            int source = 13;
+            ISortedEnumerable<int> result = SortedEnumerableSource.Repeat(source, comparer, 3);
+            Assert.AreEqual(comparer, result.Comparer, "Comparer should be remembered.");
+        }
+
+        [TestMethod]
+        public void SortedEnumerable_RepeatWithDelegate_EnumeratesRepeatedItem()
+        {
+            int source = 13;
+            ISortedEnumerable<int> result = SortedEnumerableSource.Repeat(source, (x, y) => Comparer<int>.Default.Compare(y, x), 3);
             Assert.IsTrue(result.SequenceEqual(new[] { 13, 13, 13 }), "Item should be repeated.");
         }
 
@@ -128,6 +217,31 @@ namespace UnitTests
         {
             int source = 13;
             var result = SortedEnumerableSource.Repeat(source).Take(3);
+            Assert.IsTrue(result.SequenceEqual(new[] { 13, 13, 13 }), "Item should be repeated.");
+        }
+
+        [TestMethod]
+        public void SortedEnumerable_RepeatWithComparer_Infinitely_EnumeratesRepeatedItem()
+        {
+            int source = 13;
+            var result = SortedEnumerableSource.Repeat(source, Comparer<int>.Default).Take(3);
+            Assert.IsTrue(result.SequenceEqual(new[] { 13, 13, 13 }), "Item should be repeated.");
+        }
+
+        [TestMethod]
+        public void SortedEnumerable_RepeatWithComparer_Infinitely_RemembersComparer()
+        {
+            var comparer = Comparer<int>.Default;
+            int source = 13;
+            var result = SortedEnumerableSource.Repeat(source, Comparer<int>.Default).Take(3);
+            Assert.AreEqual(comparer, result.Comparer, "Comparer should be remembered.");
+        }
+
+        [TestMethod]
+        public void SortedEnumerable_RepeatWithDelegate_Infinitely_EnumeratesRepeatedItem()
+        {
+            int source = 13;
+            var result = SortedEnumerableSource.Repeat(source, (x, y) => Comparer<int>.Default.Compare(y, x)).Take(3);
             Assert.IsTrue(result.SequenceEqual(new[] { 13, 13, 13 }), "Item should be repeated.");
         }
 
