@@ -1196,7 +1196,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void List_GenerateWithIndex_WithNegativeCount_IsRejected()
+        public void List_GenerateWithIndex_WithNegativeCount_GeneratesEmptySequence()
         {
             IList<int> source = ListSource.Generate(i => i, -1);
             Assert.IsTrue(source.SequenceEqual(new int[] { }), "Generate should generate an empty sequence.");
@@ -1217,9 +1217,51 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void List_GenerateWithoutIndex_WithNegativeCount_IsRejected()
+        public void List_GenerateWithoutIndex_WithNegativeCount_GeneratesEmptySequence()
         {
             IList<int> source = ListSource.Generate(() => 13, -1);
+            Assert.IsTrue(source.SequenceEqual(new int[] { }), "Generate should generate an empty sequence.");
+        }
+
+        [TestMethod]
+        public void List_GenerateWithIndexWithDelegate_GeneratesItems()
+        {
+            IList<int> source = ListSource.Generate(i => i, () => 3);
+            Assert.IsTrue(source.SequenceEqual(new[] { 0, 1, 2 }), "Generate should generate a sequence.");
+        }
+
+        [TestMethod]
+        public void List_GenerateWithIndexWithDelegate_WithZeroCount_GeneratesEmptySequence()
+        {
+            IList<int> source = ListSource.Generate(i => i, () => 0);
+            Assert.IsTrue(source.SequenceEqual(new int[] { }), "Generate should generate an empty sequence.");
+        }
+
+        [TestMethod]
+        public void List_GenerateWithIndexWithDelegate_WithNegativeCount_GeneratesEmptySequence()
+        {
+            IList<int> source = ListSource.Generate(i => i, () => -1);
+            Assert.IsTrue(source.SequenceEqual(new int[] { }), "Generate should generate an empty sequence.");
+        }
+
+        [TestMethod]
+        public void List_GenerateWithoutIndexWithDelegate_GeneratesItems()
+        {
+            IList<int> source = ListSource.Generate(() => 13, () => 3);
+            Assert.IsTrue(source.SequenceEqual(new[] { 13, 13, 13 }), "Generate should generate a sequence.");
+        }
+
+        [TestMethod]
+        public void List_GenerateWithoutIndexWithDelegate_WithZeroCount_GeneratesEmptySequence()
+        {
+            IList<int> source = ListSource.Generate(() => 13, () => 0);
+            Assert.IsTrue(source.SequenceEqual(new int[] { }), "Generate should generate an empty sequence.");
+        }
+
+        [TestMethod]
+        public void List_GenerateWithoutIndexWithDelegate_WithNegativeCount_GeneratesEmptySequence()
+        {
+            IList<int> source = ListSource.Generate(() => 13, () => -1);
             Assert.IsTrue(source.SequenceEqual(new int[] { }), "Generate should generate an empty sequence.");
         }
 
