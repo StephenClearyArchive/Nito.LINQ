@@ -1,17 +1,23 @@
 . Consider: index overloads for Do and Run
 
 . Put function overloads in for all generic interfaces such as IComparer, etc. (required when working with anonymous types).
-. For efficiency, have Sort pass off to Array.Sort whenever the IList<T> is an array.
 
 . Finish unit tests.
 . Change all operations to be indirect, renaming existing ISwappable ops to *InPlace as necessary. (keep unit test names in sync)
   . Consider *copying* instead of *indirect*. Leave IndirectList in the dll, for the rare "large struct" situations.
 . Verify all comment restrictions, e.g., SortedListExtensions.Take.count, and also propogate all exception notes.
 . Document for every list/sorted list operator which resulting lists support insertion/sorted-insertion (sorted only)/removal/updating.
-. Consider: ArgumentNullException checks
+. Consider: ArgumentNullException checks, other Contracts
+. For documentation, create a chart of IEnumerable<T> extensions and IList<T> extensions and where they're defined (.NET 3.5 SP1 / .NET 4.0 / Rx / Nito.Linq).
+  . Alphabetical, grouped.
+. Determine whether operators should assume Count is constant (or whether they can assume Count is constant *during an enumeration*).
+  . Problem: there isn't an IEnumerator<T> equivalent for IList<T>. So it's not possible to have code to run "when an enumeration starts" or resources scoped to an enumeration.
+  . Problem: IList<T> is presumed mutable, while IEnumerable<T> is immutable.
+  . We may be saved by Defer: source.Defer(x => x.Skip(5)) - but what does Defer return? IList<T> (how)? ILister<T>? Func<IList<T>>? I'm thinking Func<IList<T>>.
 
 . Document compilation #defs:
   . SILVERLIGHT3 - for SL3
+  . SILVERLIGHT4 - for SL4
   . NET35 - for .NET 3.5 SP1
   . NET40 - for .NET 4.0
   . WITHRX - with Rx
@@ -20,5 +26,10 @@
 Conceptual documentation:
 . SequenceEqual/SequenceCompare vs IStructuralEquatable/IStructuralComparable
 
-Next phase:
-. Create an IBoundList<T> that implements each algorithm and also notifies of updates via INotifyCollectionChanged.
+Next phase (LINQ to Observables):
+. Create an IObservableList<T> that implements each algorithm and also notifies of updates via INotifyCollectionChanged.
+  . There may be a less-recursive way to implement these rather than each level binding to the source's event.
+  . What about lambda functions, e.g., Select'ing a "new { a = x.x, b = x.y }" - is there any way to propogate INotifyPropertyChanged? This may be a separate problem with its own solution. Or just use ExpandoObject.
+    . At least an extension method would be nice, so we can say:
+      Select(x => ExpandoObjectSource.Create(new { a = x.x, b = x.y })) - but INPC isn't propogated!!! We'd need to go into bindings for that... or do a lambda transform or something...
+    . Alternative: just re-evaluate the function whenever any of the input properties change.
