@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "35.Rx", "35.Rx\35.Rx.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SL3.NoRx", "SL3.NoRx\SL3.NoRx.csproj", "{F3E89C71-DD57-4C2C-BCFC-732E89C7F0F9}"
 EndProject
-Project("{00000000-0000-0000-0000-000000000000}") = "UnitTests.Sources", "UnitTests.Sources\UnitTests.Sources.csproj", "{10A84CDF-69D5-47BC-99D8-D961BBD9D1FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.Sources", "UnitTests.Sources\UnitTests.Sources.csproj", "{10A84CDF-69D5-47BC-99D8-D961BBD9D1FE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SL3.Rx", "SL3.Rx\SL3.Rx.csproj", "{E8ACB0BF-C30A-4562-9098-CF189F4DFBC6}"
 EndProject
@@ -32,6 +32,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.Rx", "UnitTests.Rx\UnitTests.Rx.csproj", "{42281CB7-6EB1-4F1C-89ED-2B83F957A05A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.NoRx", "UnitTests.NoRx\UnitTests.NoRx.csproj", "{ACD263B7-19EA-4021-9A93-B58A471EFF3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SL4.NoRx", "SL4.NoRx\SL4.NoRx.csproj", "{B6647516-AAE0-4BE2-8874-CD3705A0B073}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SL4.Rx", "SL4.Rx\SL4.Rx.csproj", "{2BAB211A-A60F-4A83-887C-1F54645D4B0B}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -86,6 +90,14 @@ Global
 		{ACD263B7-19EA-4021-9A93-B58A471EFF3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACD263B7-19EA-4021-9A93-B58A471EFF3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACD263B7-19EA-4021-9A93-B58A471EFF3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6647516-AAE0-4BE2-8874-CD3705A0B073}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6647516-AAE0-4BE2-8874-CD3705A0B073}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6647516-AAE0-4BE2-8874-CD3705A0B073}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6647516-AAE0-4BE2-8874-CD3705A0B073}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BAB211A-A60F-4A83-887C-1F54645D4B0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BAB211A-A60F-4A83-887C-1F54645D4B0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BAB211A-A60F-4A83-887C-1F54645D4B0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BAB211A-A60F-4A83-887C-1F54645D4B0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
