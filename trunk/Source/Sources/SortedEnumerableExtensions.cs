@@ -125,7 +125,7 @@ namespace Nito.Linq
             return new SortedEnumerableWrapper<T>(source, new AnonymousComparer<T> { Compare = comparer });
         }
 
-#if !SILVERLIGHT3 // SL3 does not have SortedList<TKey, TValue>
+#if !SILVERLIGHT3 && !SILVERLIGHT4 // SL3 and SL4 do not have SortedList<TKey, TValue>
         /// <summary>
         /// Treats a <see cref="SortedList{TKey,TValue}"/> as a sorted sequence, sorted by the comparison function of the <see cref="SortedList{TKey,TValue}"/>.
         /// </summary>
@@ -139,7 +139,7 @@ namespace Nito.Linq
         }
 #endif
 
-#if !SILVERLIGHT3 && !CF35 // SL3 and CF3.5 do not have SortedDictionary<TKey, TValue>
+#if !SILVERLIGHT3 && !SILVERLIGHT4 && !CF35 // SL3, SL4, and CF3.5 do not have SortedDictionary<TKey, TValue>
         /// <summary>
         /// Treats a <see cref="SortedDictionary{TKey,TValue}"/> as a sorted sequence, sorted by the comparison function of the <see cref="SortedDictionary{TKey,TValue}"/>.
         /// </summary>
