@@ -84,12 +84,12 @@ namespace Nito.Linq
         /// <param name="resultSelector">The generator delegate that generates a sequence from a state value.</param>
         /// <param name="iterate">The iterator delegate that moves the state from one value to the next.</param>
         /// <returns>An infinite sequence.</returns>
-        public static IEnumerable<TResult> Generate<TState, TResult>(TState initialState, Func<TState, IEnumerable<TResult>> resultSelector, Func<TState, TState> iterate)
+        public static IEnumerable<TResult> Generate<TState, TResult>(TState initialState, Func<TState, TState> iterate, Func<TState, IEnumerable<TResult>> resultSelector)
         {
 #if WITHRX
             return EnumerableEx.Generate(initialState, resultSelector, iterate);
 #else
-            return Generate<TState, IEnumerable<TResult>>(initialState, x => true, resultSelector, iterate).Flatten();
+            return Generate<TState, IEnumerable<TResult>>(initialState, x => true, iterate, resultSelector).Flatten();
 #endif
         }
 
@@ -103,12 +103,12 @@ namespace Nito.Linq
         /// <param name="resultSelector">The generator delegate that generates a sequence from a state value.</param>
         /// <param name="iterate">The iterator delegate that moves the state from one value to the next.</param>
         /// <returns>A generated sequence.</returns>
-        public static IEnumerable<TResult> Generate<TState, TResult>(TState initialState, Func<TState, bool> condition, Func<TState, IEnumerable<TResult>> resultSelector, Func<TState, TState> iterate)
+        public static IEnumerable<TResult> Generate<TState, TResult>(TState initialState, Func<TState, bool> condition, Func<TState, TState> iterate, Func<TState, IEnumerable<TResult>> resultSelector)
         {
 #if WITHRX
             return EnumerableEx.Generate(initialState, condition, resultSelector, iterate);
 #else
-            return Generate<TState, IEnumerable<TResult>>(initialState, condition, resultSelector, iterate).Flatten();
+            return Generate<TState, IEnumerable<TResult>>(initialState, condition, iterate, resultSelector).Flatten();
 #endif
         }
 
@@ -121,9 +121,9 @@ namespace Nito.Linq
         /// <param name="resultSelector">The generator delegate that generates a sequence value from a state value.</param>
         /// <param name="iterate">The iterator delegate that moves the state from one value to the next.</param>
         /// <returns>A generated sequence.</returns>
-        public static IEnumerable<TResult> Generate<TState, TResult>(TState initialState, Func<TState, TResult> resultSelector, Func<TState, TState> iterate)
+        public static IEnumerable<TResult> Generate<TState, TResult>(TState initialState, Func<TState, TState> iterate, Func<TState, TResult> resultSelector)
         {
-            return Generate<TState, TResult>(initialState, x => true, resultSelector, iterate);
+            return Generate<TState, TResult>(initialState, x => true, iterate, resultSelector);
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace Nito.Linq
         /// <param name="resultSelector">The generator delegate that generates a sequence value from a state value.</param>
         /// <param name="iterate">The iterator delegate that moves the state from one value to the next.</param>
         /// <returns>A generated sequence.</returns>
-        public static IEnumerable<TResult> Generate<TState, TResult>(TState initialState, Func<TState, bool> condition, Func<TState, TResult> resultSelector, Func<TState, TState> iterate)
+        public static IEnumerable<TResult> Generate<TState, TResult>(TState initialState, Func<TState, bool> condition, Func<TState, TState> iterate, Func<TState, TResult> resultSelector)
         {
 #if WITHRX
             return EnumerableEx.Generate(initialState, condition, resultSelector, iterate);

@@ -64,12 +64,8 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System.CoreEx, Version=1.0.2563.203, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Interactive, Version=1.0.2563.203, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>False</Private>
-    </Reference>
+    <Reference Include="System.CoreEx, Version=1.0.2617.203, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Interactive, Version=1.0.2617.203, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows" />
     <Reference Include="mscorlib" />
     <Reference Include="system" />
@@ -88,8 +84,8 @@
     <Compile Include="..\Sources\EnumerableSource.cs">
       <Link>EnumerableSource.cs</Link>
     </Compile>
-    <Compile Include="..\Sources\Implementation.AnonymousComparer.cs">
-      <Link>Implementation.AnonymousComparer.cs</Link>
+    <Compile Include="..\Sources\Implementation.A.cs">
+      <Link>Implementation.A.cs</Link>
     </Compile>
     <Compile Include="..\Sources\Implementation.AnonymousReadOnlyList.cs">
       <Link>Implementation.AnonymousReadOnlyList.cs</Link>

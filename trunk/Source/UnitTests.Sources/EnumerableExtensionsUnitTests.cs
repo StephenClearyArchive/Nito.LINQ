@@ -80,28 +80,28 @@ namespace UnitTests
         [TestMethod]
         public void Enumerable_Generate_WithInfiniteSingleValueDelegate_GeneratesSequence()
         {
-            IEnumerable<int> result = EnumerableSource.Generate(0, i => i * 2, i => i + 1).Take(4);
+            IEnumerable<int> result = EnumerableSource.Generate(0, i => i + 1, i => i * 2).Take(4);
             Assert.IsTrue(result.SequenceEqual(new[] { 0, 2, 4, 6 }), "Generate should return the requested sequence.");
         }
 
         [TestMethod]
         public void Enumerable_Generate_WithInfiniteMultiValueDelegate_GeneratesSequence()
         {
-            IEnumerable<int> result = EnumerableSource.Generate(1, i => Enumerable.Range(1, i), i => i + 1).Take(6);
+            IEnumerable<int> result = EnumerableSource.Generate(1, i => i + 1, i => Enumerable.Range(1, i)).Take(6);
             Assert.IsTrue(result.SequenceEqual(new[] { 1, 1, 2, 1, 2, 3 }), "Generate should return the requested sequence.");
         }
 
         [TestMethod]
         public void Enumerable_Generate_WithFiniteSingleValueDelegate_GeneratesSequence()
         {
-            IEnumerable<int> result = EnumerableSource.Generate(0, i => i < 4, i => i * 2, i => i + 1);
+            IEnumerable<int> result = EnumerableSource.Generate(0, i => i < 4, i => i + 1, i => i * 2);
             Assert.IsTrue(result.SequenceEqual(new[] { 0, 2, 4, 6 }), "Generate should return the requested sequence.");
         }
 
         [TestMethod]
         public void Enumerable_Generate_WithFiniteMultiValueDelegate_GeneratesSequence()
         {
-            IEnumerable<int> result = EnumerableSource.Generate(1, i => i <= 3, i => Enumerable.Range(1, i), i => i + 1);
+            IEnumerable<int> result = EnumerableSource.Generate(1, i => i <= 3, i => i + 1, i => Enumerable.Range(1, i));
             Assert.IsTrue(result.SequenceEqual(new[] { 1, 1, 2, 1, 2, 3 }), "Generate should return the requested sequence.");
         }
 

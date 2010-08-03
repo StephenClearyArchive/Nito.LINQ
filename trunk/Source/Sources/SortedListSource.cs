@@ -42,7 +42,7 @@ namespace Nito.Linq
         /// <returns>An empty sorted list.</returns>
         public static ISortedList<T> Empty<T>(Func<T, T, int> comparer)
         {
-            return new SortedListWrapper<T>(ListSource.Empty<T>(), new AnonymousComparer<T> { Compare = comparer });
+            return new SortedListWrapper<T>(ListSource.Empty<T>(), A.Comparer(comparer));
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace Nito.Linq
         /// <returns>A sorted list containing a single element, <paramref name="source"/>.</returns>
         public static ISortedList<T> Return<T>(T source, Func<T, T, int> comparer)
         {
-            return new SortedListWrapper<T>(ListSource.Return(source), new AnonymousComparer<T> { Compare = comparer });
+            return new SortedListWrapper<T>(ListSource.Return(source), A.Comparer(comparer));
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace Nito.Linq
         /// <returns>A sorted list containing <paramref name="count"/> elements, all equal to <paramref name="source"/>.</returns>
         public static ISortedList<T> Repeat<T>(T source, Func<T, T, int> comparer, int count)
         {
-            return new SortedListWrapper<T>(ListSource.Repeat(source, count), new AnonymousComparer<T> { Compare = comparer });
+            return new SortedListWrapper<T>(ListSource.Repeat(source, count), A.Comparer(comparer));
         }
     }
 }

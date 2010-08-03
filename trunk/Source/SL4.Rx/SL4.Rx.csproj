@@ -29,7 +29,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Bin\Debug</OutputPath>
-    <DefineConstants>TRACE;DEBUG;SILVERLIGHT SILVERLIGHT4</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;SILVERLIGHT SILVERLIGHT4 WITHRX</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
@@ -40,7 +40,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\Binaries\SL4.Rx\</OutputPath>
-    <DefineConstants>TRACE;SILVERLIGHT SILVERLIGHT4</DefineConstants>
+    <DefineConstants>TRACE;SILVERLIGHT SILVERLIGHT4 WITHRX</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
@@ -50,15 +50,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
-    <Reference Include="System.CoreEx, Version=1.0.2563.204, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Interactive, Version=1.0.2563.204, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Observable, Version=1.0.0.204, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>False</Private>
-    </Reference>
+    <Reference Include="System.CoreEx, Version=1.0.2617.204, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Interactive, Version=1.0.2617.204, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -76,8 +69,8 @@
     <Compile Include="..\Sources\EnumerableSource.cs">
       <Link>EnumerableSource.cs</Link>
     </Compile>
-    <Compile Include="..\Sources\Implementation.AnonymousComparer.cs">
-      <Link>Implementation.AnonymousComparer.cs</Link>
+    <Compile Include="..\Sources\Implementation.A.cs">
+      <Link>Implementation.A.cs</Link>
     </Compile>
     <Compile Include="..\Sources\Implementation.AnonymousReadOnlyList.cs">
       <Link>Implementation.AnonymousReadOnlyList.cs</Link>

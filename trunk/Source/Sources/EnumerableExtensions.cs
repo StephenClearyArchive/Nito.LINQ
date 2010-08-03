@@ -471,7 +471,7 @@ namespace Nito.Linq
         /// <returns>The index of the smallest item in the sequence, or -1 if the sequence is empty.</returns>
         public static int IndexOfMin<T>(this IEnumerable<T> source, Func<T, T, int> comparer)
         {
-            return IndexOfMin(source, new AnonymousComparer<T> { Compare = comparer });
+            return IndexOfMin(source, A.Comparer(comparer));
         }
 
         /// <summary>
@@ -483,7 +483,7 @@ namespace Nito.Linq
         /// <returns>The smallest item in the sequence, or the default value of <typeparamref name="T"/> if the sequence is empty.</returns>
         public static T Min<T>(this IEnumerable<T> source, Func<T, T, int> comparer)
         {
-            return source.Min(new AnonymousComparer<T> { Compare = comparer });
+            return source.Min(A.Comparer(comparer));
         }
 
         /// <summary>
@@ -495,7 +495,7 @@ namespace Nito.Linq
         /// <returns>The index of the largest item in the sequence, or -1 if the sequence is empty.</returns>
         public static int IndexOfMax<T>(this IEnumerable<T> source, IComparer<T> comparer)
         {
-            return IndexOfMin(source, new AnonymousComparer<T> { Compare = (x, y) => comparer.Compare(y, x) });
+            return IndexOfMin(source, A.Comparer<T>((x, y) => comparer.Compare(y, x)));
         }
 
         /// <summary>
@@ -507,7 +507,7 @@ namespace Nito.Linq
         public static int IndexOfMax<T>(this IEnumerable<T> source)
         {
             IComparer<T> comparer = Comparer<T>.Default;
-            return IndexOfMin(source, new AnonymousComparer<T> { Compare = (x, y) => comparer.Compare(y, x) });
+            return IndexOfMin(source, A.Comparer<T>((x, y) => comparer.Compare(y, x)));
         }
 
         /// <summary>
@@ -519,7 +519,7 @@ namespace Nito.Linq
         /// <returns>The index of the largest item in the sequence, or -1 if the sequence is empty.</returns>
         public static int IndexOfMax<T>(this IEnumerable<T> source, Func<T, T, int> comparer)
         {
-            return IndexOfMin(source, new AnonymousComparer<T> { Compare = (x, y) => comparer(y, x) });
+            return IndexOfMin(source, A.Comparer<T>((x, y) => comparer(y, x)));
         }
 
         /// <summary>
@@ -531,7 +531,7 @@ namespace Nito.Linq
         /// <returns>The largest item in the sequence, or the default value of <typeparamref name="T"/> if the sequence is empty.</returns>
         public static T Max<T>(this IEnumerable<T> source, Func<T, T, int> comparer)
         {
-            return source.Min(new AnonymousComparer<T> { Compare = (x, y) => comparer(y, x) });
+            return source.Min(A.Comparer<T>((x, y) => comparer(y, x)));
         }
 
         /// <summary>
@@ -569,7 +569,7 @@ namespace Nito.Linq
         /// <returns>A negative number if this sequence is less than the other sequence, 0 if the sequences are equal, or a positive number if this sequence is greater than the other sequence.</returns>
         public static int SequenceCompare<T>(this IEnumerable<T> source, IEnumerable<T> other, Func<T, T, int> comparer)
         {
-            return new SequenceComparer<T>(new AnonymousComparer<T> { Compare = comparer }).Compare(source, other);
+            return new SequenceComparer<T>(A.Comparer(comparer)).Compare(source, other);
         }
 
         /// <summary>
