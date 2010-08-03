@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="Implementation.A.cs" />
     <Compile Include="Implementation.AnonymousComparer.cs" />
     <Compile Include="Implementation.IndirectList.cs" />
     <Compile Include="Implementation.ListBase.cs" />

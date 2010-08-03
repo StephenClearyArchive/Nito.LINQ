@@ -65,7 +65,7 @@ namespace Nito.Linq.Implementation
         /// <returns>The indirect comparer.</returns>
         public IComparer<int> GetComparer(IComparer<T> comparer)
         {
-            return new AnonymousComparer<int> { Compare = (x, y) => comparer.Compare(this[x], this[y]) };
+            return A.Comparer<int>((x, y) => comparer.Compare(this[x], this[y]));
         }
 
         /// <summary>

@@ -66,8 +66,8 @@
     <Compile Include="..\Sources\EnumerableSource.cs">
       <Link>EnumerableSource.cs</Link>
     </Compile>
-    <Compile Include="..\Sources\Implementation.AnonymousComparer.cs">
-      <Link>Implementation.AnonymousComparer.cs</Link>
+    <Compile Include="..\Sources\Implementation.A.cs">
+      <Link>Implementation.A.cs</Link>
     </Compile>
     <Compile Include="..\Sources\Implementation.AnonymousReadOnlyList.cs">
       <Link>Implementation.AnonymousReadOnlyList.cs</Link>

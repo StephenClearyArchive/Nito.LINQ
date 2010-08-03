@@ -43,7 +43,7 @@ namespace Nito.Linq
         /// <returns>The sorted, empty sequence.</returns>
         public static ISortedEnumerable<T> Empty<T>(Func<T, T, int> comparer)
         {
-            return new SortedEnumerableWrapper<T>(Enumerable.Empty<T>(), new AnonymousComparer<T> { Compare = comparer });
+            return new SortedEnumerableWrapper<T>(Enumerable.Empty<T>(), A.Comparer(comparer));
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Nito.Linq
         /// <returns>A sorted sequence containing a single element, <paramref name="source"/>.</returns>
         public static ISortedEnumerable<T> Return<T>(T source, Func<T, T, int> comparer)
         {
-            return new SortedEnumerableWrapper<T>(EnumerableSource.Return(source), new AnonymousComparer<T> { Compare = comparer });
+            return new SortedEnumerableWrapper<T>(EnumerableSource.Return(source), A.Comparer(comparer));
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace Nito.Linq
         /// <returns>A sorted sequence containing <paramref name="count"/> elements, all equal to <paramref name="source"/>.</returns>
         public static ISortedEnumerable<T> Repeat<T>(T source, Func<T, T, int> comparer, int count)
         {
-            return new SortedEnumerableWrapper<T>(EnumerableSource.Repeat(source, count), new AnonymousComparer<T> { Compare = comparer });
+            return new SortedEnumerableWrapper<T>(EnumerableSource.Repeat(source, count), A.Comparer(comparer));
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace Nito.Linq
         /// <returns>A sorted sequence containing an infinite number of elements, all equal to <paramref name="source"/>.</returns>
         public static ISortedEnumerable<T> Repeat<T>(T source, Func<T, T, int> comparer)
         {
-            return new SortedEnumerableWrapper<T>(EnumerableSource.Repeat(source), new AnonymousComparer<T> { Compare = comparer });
+            return new SortedEnumerableWrapper<T>(EnumerableSource.Repeat(source), A.Comparer(comparer));
         }
     }
 }

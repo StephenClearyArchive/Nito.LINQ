@@ -76,7 +76,7 @@ namespace Nito.Linq
         /// <returns>Whether this sequence is sorted according to the given comparison delegate.</returns>
         public static bool IsSorted<T>(this IEnumerable<T> source, Func<T, T, int> comparer)
         {
-            return IsSorted(source, new AnonymousComparer<T> { Compare = comparer });
+            return IsSorted(source, A.Comparer(comparer));
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace Nito.Linq
         /// <returns>The sorted sequence.</returns>
         public static ISortedEnumerable<T> AsSorted<T>(this IEnumerable<T> source, Func<T, T, int> comparer)
         {
-            return new SortedEnumerableWrapper<T>(source, new AnonymousComparer<T> { Compare = comparer });
+            return new SortedEnumerableWrapper<T>(source, A.Comparer(comparer));
         }
 
 #if !SILVERLIGHT3 && !SILVERLIGHT4 // SL3 and SL4 do not have SortedList<TKey, TValue>
@@ -135,7 +135,7 @@ namespace Nito.Linq
         /// <returns>The <see cref="SortedList{TKey,TValue}"/> as a sorted sequence.</returns>
         public static ISortedEnumerable<KeyValuePair<TKey, TValue>> AsSorted<TKey, TValue>(this SortedList<TKey, TValue> source)
         {
-            return source.AsSorted(new AnonymousComparer<KeyValuePair<TKey, TValue>> { Compare = (x, y) => source.Comparer.Compare(x.Key, y.Key) });
+            return source.AsSorted(A.Comparer<KeyValuePair<TKey, TValue>>((x, y) => source.Comparer.Compare(x.Key, y.Key)));
         }
 #endif
 
@@ -149,7 +149,7 @@ namespace Nito.Linq
         /// <returns>The <see cref="SortedDictionary{TKey,TValue}"/> as a sorted sequence.</returns>
         public static ISortedEnumerable<KeyValuePair<TKey, TValue>> AsSorted<TKey, TValue>(this SortedDictionary<TKey, TValue> source)
         {
-            return source.AsSorted(new AnonymousComparer<KeyValuePair<TKey, TValue>> { Compare = (x, y) => source.Comparer.Compare(x.Key, y.Key) });
+            return source.AsSorted(A.Comparer<KeyValuePair<TKey, TValue>>((x, y) => source.Comparer.Compare(x.Key, y.Key)));
         }
 #endif
 

@@ -65,7 +65,7 @@ namespace Nito.Linq
         /// <returns>The sorted list.</returns>
         public static ISortedList<T> AsSorted<T>(this IList<T> list, Func<T, T, int> comparer)
         {
-            return new SortedListWrapper<T>(list, new AnonymousComparer<T> { Compare = comparer });
+            return new SortedListWrapper<T>(list, A.Comparer(comparer));
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace Nito.Linq
         public static ISortedList<T> Reverse<T>(this ISortedList<T> list)
         {
             // Reverse the list and its comparison object
-            return new SortedListWrapper<T>(ListExtensions.Reverse(list), new AnonymousComparer<T> { Compare = (x, y) => list.Comparer.Compare(y, x) });
+            return new SortedListWrapper<T>(ListExtensions.Reverse(list), A.Comparer<T>((x, y) => list.Comparer.Compare(y, x)));
         }
 
         /// <summary>
@@ -191,7 +191,7 @@ namespace Nito.Linq
         /// <returns>The sorted list.</returns>
         public static ISortedList<T> Sort<T>(this IList<T> list, Func<T, T, int> comparer, params ListExtensions.ISwappable[] others)
         {
-            return Sort(list, new AnonymousComparer<T> { Compare = comparer }, others);
+            return Sort(list, A.Comparer(comparer), others);
         }
 
         /// <summary>
@@ -231,7 +231,7 @@ namespace Nito.Linq
         /// <returns>The sorted view of the source list.</returns>
         public static ISortedList<T> SortIndirect<T>(this IList<T> list, Func<T, T, int> comparer, params ListExtensions.ISwappable[] others)
         {
-            return SortIndirect(list, new AnonymousComparer<T> { Compare = comparer }, others);
+            return SortIndirect(list, A.Comparer(comparer), others);
         }
 
         /// <summary>
