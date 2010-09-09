@@ -2074,6 +2074,19 @@
             Gets the number of elements contained in this list.
             </summary>
         </member>
+        <member name="T:Nito.Linq.Implementation.A">
+            <summary>
+            A type that constructs anonymous types from delegates.
+            </summary>
+        </member>
+        <member name="M:Nito.Linq.Implementation.A.Comparer``1(System.Func{``0,``0,System.Int32})">
+            <summary>
+            Constructs an object that implements <see cref="T:System.Collections.Generic.IComparer`1"/> using a delegate.
+            </summary>
+            <typeparam name="T">The type of items to compare.</typeparam>
+            <param name="compare">The Compare delegate, which compares two objects and returns a value less than 0 if its first argument is less than its second argument, 0 if its two arguments are equal, or greater than 0 if its first argument is greater than its second argument.</param>
+            <returns>An object that implements <see cref="T:System.Collections.Generic.IComparer`1"/> using a delegate.</returns>
+        </member>
         <member name="T:Nito.Linq.SortedEnumerableExtensions">
             <summary>
             Extension methods for <see cref="T:Nito.Linq.ISortedEnumerable`1"/>.
@@ -2989,19 +3002,6 @@
             <param name="source">The sequence to step through.</param>
             <param name="step">The step size. Must be greater than 0.</param>
             <returns>The stepped sequence.</returns>
-        </member>
-        <member name="T:Nito.Linq.Implementation.A">
-            <summary>
-            A type that constructs anonymous types from delegates.
-            </summary>
-        </member>
-        <member name="M:Nito.Linq.Implementation.A.Comparer``1(System.Func{``0,``0,System.Int32})">
-            <summary>
-            Constructs an object that implements <see cref="T:System.Collections.Generic.IComparer`1"/> using a delegate.
-            </summary>
-            <typeparam name="T">The type of items to compare.</typeparam>
-            <param name="compare">The Compare delegate, which compares two objects and returns a value less than 0 if its first argument is less than its second argument, 0 if its two arguments are equal, or greater than 0 if its first argument is greater than its second argument.</param>
-            <returns>An object that implements <see cref="T:System.Collections.Generic.IComparer`1"/> using a delegate.</returns>
         </member>
     </members>
 </doc>
