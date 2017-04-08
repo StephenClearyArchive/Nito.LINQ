@@ -31,7 +31,7 @@ There are several motivational forces behind the development of Nito.Linq, but t
 ## Current State
 Nito.Linq is currently in a pre-release state. See the note at the end of this page if you need to compile the source. The binaries are included in source control for ease of linking to other projects (using svn:externals).
 
-It will optionally use Rx ([http://msdn.microsoft.com/en-us/devlabs/ee794896.aspx]); however, if Rx is not used, then Rx-like operators are provided (e.g., `Zip`).
+It will optionally use [Rx](http://msdn.microsoft.com/en-us/devlabs/ee794896.aspx); however, if Rx is not used, then Rx-like operators are provided (e.g., `Zip`).
 
 ## Building the Sources
 
